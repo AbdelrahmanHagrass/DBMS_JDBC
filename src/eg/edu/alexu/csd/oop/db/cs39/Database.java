@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.db;
+package eg.edu.alexu.csd.oop.db.cs39;
 
 public interface Database {
 	/**

@@ -5,7 +5,7 @@ import java.io.File;
 
 import org.junit.*;
 
-import eg.edu.alexu.csd.oop.db.Database;
+import eg.edu.alexu.csd.oop.db.cs39.Database;
 import eg.edu.alexu.csd.oop.test.TestRunner;
 
 public class SanityTest {
