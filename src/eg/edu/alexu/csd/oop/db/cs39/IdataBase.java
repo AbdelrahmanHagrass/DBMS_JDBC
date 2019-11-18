@@ -7,7 +7,7 @@ import java.sql.SQLXML;
 
 import javax.sql.rowset.serial.SQLInputImpl;
 
-public class IdataBase implements Database {
+public class IDataBase implements Database {
 
 	@Override
 	public String createDatabase(String databaseName, boolean dropIfExists) {
