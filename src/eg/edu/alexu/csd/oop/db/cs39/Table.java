@@ -13,7 +13,7 @@ public class Table {
 	 Vector<String>types=new Vector<String>() ;
 	 Vector<String>names=new Vector<String>();
 	Map<String,String> col_type=new HashMap<String,String>();
-	static String Table_Name;
+	 String Table_Name;
 	ArrayList<Vector<Object>> items=new ArrayList<Vector<Object>>();
 	public Table(String Table_Name,Vector<String>names,Vector<String>types,String ParentDB)
 	{
