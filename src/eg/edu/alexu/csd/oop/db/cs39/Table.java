@@ -192,21 +192,5 @@ public class Table {
 	{
 		return items;
 	}
-	public static void save(Table a) throws FileNotFoundException
-	{
-		String x=ParentDB;
-		 FileOutputStream file2=new FileOutputStream(ParentDB+"\\"+Table_Name+".xml");
-		XMLEncoder as=new XMLEncoder(file2);
-		as.writeObject(a);
-		as.close();
-	}
-	public static Table load() throws FileNotFoundException
-	{
-		String x=ParentDB;
-		FileInputStream file3=new FileInputStream(ParentDB+"\\"+Table_Name+".xml");
-		XMLDecoder as2=new XMLDecoder(file3);
-		Table h=(Table) as2.readObject();
-		as2.close();
-		return h;
-	}
+
 }
