@@ -9,12 +9,14 @@ import java.util.*;
 
 import org.junit.runners.ParentRunner;
 public class Table {
-	 static String ParentDB;
-	 Vector<String>types=new Vector<String>() ;
-	 Vector<String>names=new Vector<String>();
+	
+	static String ParentDB;
+	Vector<String>types=new Vector<String>() ;
+	Vector<String>names=new Vector<String>();
 	Map<String,String> col_type=new HashMap<String,String>();
 	static String Table_Name;
 	ArrayList<Vector<Object>> items=new ArrayList<Vector<Object>>();
+	
 	public Table(String Table_Name,Vector<String>names,Vector<String>types,String ParentDB)
 	{
 		this.ParentDB=ParentDB;
@@ -26,6 +28,7 @@ public class Table {
 			col_type.put(this.names.get(i),this.types.get(i));
 		}
 	}
+	
 	public Table(String Table_Name,Vector<String>names,Vector<String>types)
 	{
 		this.Table_Name=Table_Name;
@@ -36,36 +39,47 @@ public class Table {
 			col_type.put(this.names.get(i),this.types.get(i));
 		}
 	}
+	
 	public String getParentDB() {
 		return ParentDB;
 	}
 	public void setParentDB(String parentDB) {
 		ParentDB = parentDB;
 	}
+	
+	
 	public Vector<String> getTypes() {
 		return types;
 	}
 	public void setTypes(Vector<String> types) {
 		this.types = types;
 	}
+	
+	
 	public Vector<String> getNames() {
 		return names;
 	}
 	public void setNames(Vector<String> names) {
 		this.names = names;
 	}
+	
+	
 	public Map<String, String> getCol_type() {
 		return col_type;
 	}
 	public void setCol_type(Map<String, String> col_type) {
 		this.col_type = col_type;
 	}
+	
+	
 	public String getTable_Name() {
 		return Table_Name;
 	}
 	public void setTable_Name(String table_Name) {
 		Table_Name = table_Name;
 	}
+	
+	
 	public void setItems(ArrayList<Vector<Object>> items) {
 		this.items = items;
 	}
@@ -137,12 +151,15 @@ public class Table {
 	 */
 	public Table SelectFromTable(Vector<String>col) throws Exception 
 	{
-			Table New =new Table(this.ParentDB);
+		Table New =new Table(this.ParentDB);
+		
 		Vector<Integer>index=new Vector<Integer>();
+		
 		for(int i=0;i<col.size();i++)
 		{
 			String a=col.get(i);
 			String b=col_type.get(a);
+			
 			New.names.add(a);
 			New.types.add(b);
 			index.add(names.indexOf(a));

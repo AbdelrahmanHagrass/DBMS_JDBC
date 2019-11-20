@@ -5,14 +5,14 @@ import java.io.IOException;
 
 public class CreateDB {
 	
-	static int c = 0 ;
+	File file;
 	
-	public CreateDB() {
+	public CreateDB(String databaseName) {
 		
-		c++;	
+		
 		String fileSeparator = System.getProperty("file.separator");
-		String relativePath = "MainDirectory"+fileSeparator+"db"+String.valueOf(c);
-        File file = new File(relativePath);
+		String relativePath = "MainDirectory"+fileSeparator+databaseName;
+        file = new File(relativePath);
         if(file.mkdir())
         {
 		    System.out.println(relativePath+" File Created in Project root directory");
@@ -29,6 +29,11 @@ public class CreateDB {
 //			e.printStackTrace();
 //		}
         	
+	}
+	
+	public String getDbPath()
+	{
+		return this.file.getAbsolutePath();
 	}
 
 }

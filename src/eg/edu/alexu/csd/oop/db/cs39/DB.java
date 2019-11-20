@@ -7,6 +7,11 @@ import java.io.OutputStream;
 import java.lang.*;
 import java.util.*;
 public class DB {
+	
+	String DatabaseName;
+	
+	ArrayList<Table>Tables=new ArrayList<Table>();
+	
 	public String getDatabaseName() {
 		return DatabaseName;
 	}
@@ -19,9 +24,9 @@ public class DB {
 	public void setTables(ArrayList<Table> tables) {
 		Tables = tables;
 	}
-	String DatabaseName;
 	
-	ArrayList<Table>Tables=new ArrayList<Table>();
+
+	
 	public DB(String DatabaseName) throws FileNotFoundException
 	{
 		this.DatabaseName=DatabaseName;
@@ -31,6 +36,7 @@ public class DB {
 			 File.mkdir();
 		 }
 	}
+	
 	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws FileNotFoundException
 	{
 		Table New=new Table(tablename,names,types,DatabaseName);

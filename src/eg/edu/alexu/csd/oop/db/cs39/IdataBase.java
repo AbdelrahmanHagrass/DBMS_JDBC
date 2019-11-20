@@ -12,8 +12,17 @@ public class IDataBase implements Database {
 	@Override
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 		// TODO Auto-generated method stub
+		
+		if(dropIfExists)
+		{
+			
+		}
+
+		CreateDB db = new CreateDB(databaseName);
+		
+		
 	
-		return null;
+		return db.getDbPath();
 	}
 
 	@Override
