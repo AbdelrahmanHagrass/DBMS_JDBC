@@ -9,7 +9,7 @@ import java.util.*;
 
 import org.junit.runners.ParentRunner;
 public class Table {
-	 static String ParentDB;
+	  String ParentDB;
 	 Vector<String>types=new Vector<String>() ;
 	 Vector<String>names=new Vector<String>();
 	Map<String,String> col_type=new HashMap<String,String>();
