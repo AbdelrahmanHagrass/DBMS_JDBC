@@ -6,54 +6,54 @@ import java.util.regex.Pattern;
 public class Parser {
 	
 	Partitions object =new Partitions();
-	public boolean checkInput(String s)  {
+	public int checkInput(String s)  {
 		if(s.matches("(?i)SELECT\\s+[*]\\s+FROM\\s+\\w+(\\s+)?")) {
 			
 			object.SelectTable(s);
 			
-			return true ;
+			return 1 ;
 		}
 		else if (s.matches("(?i)CREATE\\s+DATABASE\\s+\\w+(\\s+)?")) {
 			object.CreateDatabase(s);
 	
-			return true ;
+			return 2 ;
 		}
 		else if (s.matches("(?i)DROP\\s+DATABASE\\s+\\w+(\\s+)?")) {
 		     object.DropDatabase(s);
 			
-			return true ;
+			return 3 ;
 		}
 		else if (s.matches("(?i)DROP\\s+TABLE\\s+\\w+(\\s+)?")) {
 			object.DropTable(s);
 			
-			return true ;
+			return 4 ;
 		}
 		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))")) {
 			object.Delete(s);
 			 
-			return true ;
+			return 5 ;
 		}
 		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+\\s+WHERE\\s+\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))")) {
 			object.Update(s);
 			
-			return true ;
+			return 6 ;
 		}
 		else if(s.matches("(?i)INSERT\\s+INTO\\s+\\w+(\\s+)?[(]((\\s+)?\\w+(\\s+)?(,)?)+[)]\\s+VALUES\\s+[(]((\\s+)?(('\\w+')|(\\d+))(\\s+)?(,)?)+[)]")) {
 			
 			object.Insert(s);
 			
-			return true ;
+			return 7 ;
 		}
 		else if(s.matches("(?i)CREATE\\s+TABLE\\s+\\w+(\\s+)?[(]((\\s+)?\\w+\\s+((varchar)|(int))(\\s+)?(,)?)+[)]")) {
 			object.CreateTable(s);
 		
-			return true ;
+			return 8 ;
 		}
-		else if(s.matches("(?i)SELECT\\s+[*]\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?\\d+(\\s+)?")) {
+		else if(s.matches("(?i)SELECT\\s+[*]\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))(\\s+)?")) {
 			object.Select(s);
-			return true ;
+			return 9 ;
 		}
-		return false ;
+		return 0 ;
 		
 	}
 

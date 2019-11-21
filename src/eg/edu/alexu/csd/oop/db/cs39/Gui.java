@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,13 +13,31 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.desktop.ScreenSleepEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
+
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.JComboBox;
 
 public class Gui {
 
 	private JFrame frame;
 	private JTextField input;
+	private JScrollPane scrollPane;
+	private JTable table;
+	Partitions partitions = new Partitions();
+//	Vector<Vector<Vector>> tables ;
+	JTable[] arr ;
+	private JComboBox comboBox;
+	public DefaultTableModel model ;
+	int counter=1 ;
 
 	/**
 	 * Launch the application.
@@ -48,47 +67,116 @@ public class Gui {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setBounds(0, 0, screen.width, screen.height - 35);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
-		
-		input = new JTextField();
-		GridBagConstraints gbc_input = new GridBagConstraints();
-		gbc_input.gridwidth = 4;
-		gbc_input.insets = new Insets(0, 0, 0, 5);
-		gbc_input.fill = GridBagConstraints.HORIZONTAL;
-		gbc_input.gridx = 2;
-		gbc_input.gridy = 3;
-		frame.getContentPane().add(input, gbc_input);
-		input.setColumns(10);
-		
+		Parser parser = new Parser();
+
 		JButton process = new JButton("process");
-		Parser parser = new Parser () ;
+		
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==comboBox) {
+					System.out.println(comboBox.getSelectedIndex());
+				}
+			}
+		});
+//		comboBox.addActionListener((ActionListener) this);
+//		public void actionPerformed(ActionEvent e) {
+//			if(e.getSource()==comboBox) {
+//				System.out.println("asadas");
+//			}
+//		}
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 0;
+		gbc_comboBox.gridy = 2;
+		frame.getContentPane().add(comboBox, gbc_comboBox);
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 8;
+		gbc_scrollPane.gridwidth = 12;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 2;
+		frame.getContentPane().add(scrollPane, gbc_scrollPane);
+
+		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
+		scrollPane.setViewportView(table);
+		DefaultTableModel tableModel = new DefaultTableModel() {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+ 		table.setModel(tableModel);
+		 model = (DefaultTableModel) table.getModel();
+		
 		process.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(parser.checkInput( input.getText())) {
-				input.setText("right yasta");	
-				}else {
-					input.setText("danta 5wl shbh bta3 el mon");
+				if (parser.checkInput(input.getText()) == 8) {
+					Vector<String> columns= partitions.CreateTable(input.getText());
+					table = new JTable();
+					scrollPane.setViewportView(table);
+					model = (DefaultTableModel) table.getModel();
+					comboBox.addItem("table"+counter);
+					comboBox.setSelectedIndex(counter-1);
+					counter++;
+					for(int i=0;i<columns.size();i++) {
+						model.addColumn(columns.elementAt(i));
+						
+					}
+					arr[0]=table;
+				System.out.println(	table.getColumnModel().getColumnCount());
+//					System.out.println(tables.size());
 				}
-				
+				else if (parser.checkInput(input.getText())==7) {
+					Vector<String> values =	partitions.Insert(input.getText());
+					model.addRow(values);
+
+				}
+				else if (parser.checkInput(input.getText()) != 0) {
+					input.setText("success :)");
+				} else {
+					input.setText("wrong input");
+				}
+
 			}
 		});
 		process.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+
+		input = new JTextField();
+		GridBagConstraints gbc_input = new GridBagConstraints();
+		gbc_input.gridwidth = 8;
+		gbc_input.insets = new Insets(0, 0, 5, 5);
+		gbc_input.fill = GridBagConstraints.HORIZONTAL;
+		gbc_input.gridx = 0;
+		gbc_input.gridy = 0;
+		frame.getContentPane().add(input, gbc_input);
+		input.setColumns(10);
 		GridBagConstraints gbc_process = new GridBagConstraints();
-		gbc_process.insets = new Insets(0, 0, 0, 5);
-		gbc_process.gridx = 8;
-		gbc_process.gridy = 3;
+		gbc_process.insets = new Insets(0, 0, 5, 5);
+		gbc_process.gridx = 10;
+		gbc_process.gridy = 0;
 		frame.getContentPane().add(process, gbc_process);
+
+		
 	}
 
 }

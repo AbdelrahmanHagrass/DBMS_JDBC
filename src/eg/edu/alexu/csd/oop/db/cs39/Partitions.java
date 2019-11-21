@@ -2,7 +2,7 @@ package eg.edu.alexu.csd.oop.db.cs39;
 import java.util.*;
 public class Partitions {
 public static String databasename;
-public void Insert(String s) {
+public Vector<String> Insert(String s) {
 		String table_name=(s.substring(s.indexOf("INTO")+5,s.indexOf('('))).trim();
 		String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
 		Vector<String> columns=new Vector();
@@ -14,6 +14,7 @@ public void Insert(String s) {
 		temp=((s.substring(s.lastIndexOf('(')+1, s.lastIndexOf(')')).trim())).split(",");
 		for(String t : temp) {t=t.trim();
 		values.add(t);}
+		return values ;
 	}
 public void Delete(String s) {
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
@@ -28,9 +29,11 @@ public void Update(String s) {
 	String value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
 	String value2=(s.substring(s.lastIndexOf('=')+1)).trim();
  }
-public void CreateTable(String s) {
+public Vector<String> CreateTable(String s) {
+	
 	String table_name=(s.substring(s.indexOf("TABLE")+6, s.indexOf('('))).trim();
 	String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
+	
 	Vector<String> types=new Vector();
 	Vector<String> columns=new Vector();
 	for(String t : temp) {
@@ -41,7 +44,13 @@ public void CreateTable(String s) {
 	try{DB Database_object=new DB(databasename);
     Database_object.createTable(table_name, columns, types); 
 }
-catch(Exception e) {e.printStackTrace();}
+catch(Exception e) {
+
+	e.printStackTrace();
+	return null;}
+
+	return columns ;
+	
 }
 public void CreateDatabase(String s) {
 	String Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();	
