@@ -191,20 +191,23 @@ public class Table {
 			items.get(Row-1).setElementAt(New, X);
 		}
 	}
-	public int UpdateWithCondition(String Condition,String ID,String field,String NewValue)
-	{
+
+	public int UpdateWithCondition(int type,String Condition,String ID,String field,String NewValue)
+	{//type=0 means equal type =1 means bigger type =-1 means smaller
+		
 		int X=names.indexOf(ID);
 		int count=0;
 		for(int i=0;i<items.size();i++)
 		{
 			String j=items.get(i).get(X).toString();
-			if(j.compareTo(Condition)==0)
+			if(j.compareTo(Condition)==type)
 			{
 				Update(i+1,field,NewValue);
 				count++;
 			}
 		}
 		return count;
+	
 	}
 	
 	public ArrayList<Vector<Object>> getItems()
