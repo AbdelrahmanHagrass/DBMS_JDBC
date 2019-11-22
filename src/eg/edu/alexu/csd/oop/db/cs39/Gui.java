@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class Gui {
 
@@ -38,6 +39,7 @@ public class Gui {
 	private JComboBox comboBox;
 	public DefaultTableModel model ;
 	int counter=1 ;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -89,6 +91,13 @@ public class Gui {
 				}
 			}
 		});
+		
+		label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 0;
+		gbc_label.gridy = 1;
+		frame.getContentPane().add(label, gbc_label);
 //		comboBox.addActionListener((ActionListener) this);
 //		public void actionPerformed(ActionEvent e) {
 //			if(e.getSource()==comboBox) {
@@ -132,16 +141,24 @@ public class Gui {
 					table = new JTable();
 					scrollPane.setViewportView(table);
 					model = (DefaultTableModel) table.getModel();
-					comboBox.addItem("table"+counter);
+					comboBox.addItem(columns.lastElement());
 					comboBox.setSelectedIndex(counter-1);
 					counter++;
-					for(int i=0;i<columns.size();i++) {
+					for(int i=0;i<columns.size()-1;i++) {
 						model.addColumn(columns.elementAt(i));
 						
 					}
-					arr[0]=table;
-				System.out.println(	table.getColumnModel().getColumnCount());
+//					arr[0]=table;
+//				System.out.println(	table.getColumnModel().getColumnCount());
 //					System.out.println(tables.size());
+				}
+				else if(parser.checkInput(input.getText())==2) {
+					comboBox.removeAllItems();
+					table = new JTable();
+					scrollPane.setViewportView(table);
+					String name = partitions.CreateDatabase(input.getText()) ;
+					label.setText(name);
+					input.setText("success :)");
 				}
 				else if (parser.checkInput(input.getText())==7) {
 					Vector<String> values =	partitions.Insert(input.getText());

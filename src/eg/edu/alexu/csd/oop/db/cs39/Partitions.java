@@ -31,16 +31,19 @@ public void Update(String s) {
  }
 public Vector<String> CreateTable(String s) {
 	
-	String table_name=(s.substring(s.indexOf("TABLE")+6, s.indexOf('('))).trim();
+	String table_name=(s.substring(s.indexOf("TABLE")+7, s.indexOf('('))).trim();
 	String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
 	
 	Vector<String> types=new Vector();
 	Vector<String> columns=new Vector();
+	Vector<String> columnsGui=new Vector();
 	for(String t : temp) {
 		t=t.trim();
 		columns.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
+		columnsGui.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
 		types.add(t.substring(t.lastIndexOf(' ')+1));
 	}
+	columnsGui.add(table_name);
 	try{DB Database_object=new DB(databasename);
     Database_object.createTable(table_name, columns, types); 
 }
@@ -49,14 +52,15 @@ catch(Exception e) {
 	e.printStackTrace();
 	return null;}
 
-	return columns ;
+	return columnsGui ;
 	
 }
-public void CreateDatabase(String s) {
-	String Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();	
+public String CreateDatabase(String s) {
+	String Database_name=(s.substring(s.indexOf("DATABASE")+8)).trim();	
 	try{DB Database_object=new DB(Database_name);}
 	catch(Exception e) {e.printStackTrace();}
 	databasename=Database_name;
+	return Database_name ;
 }
 public void SelectTable(String s) {
 	String table_name=(s.substring(s.indexOf("FROM")+5)).trim();	
