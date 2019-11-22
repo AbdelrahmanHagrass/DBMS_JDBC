@@ -1,32 +1,41 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public class DropDB implements Command {
+	
+	String databaseName;
+	Map<String, DB> m ;
 
-	public DropDB() {
+	public DropDB(String databaseName,Map<String, DB> m) {
+		
+		this.databaseName= databaseName;
+		this.m = m ;
+		
+		
 
 	}
 
 	@Override
 	public DB getDB() {
-		return null;
+		return m.get(databaseName);
 	}
 
 	@Override
 	public String getnameofDB() {
-		return null;
+		return m.get(databaseName).getDatabaseName();
 	}
 	
 	@Override
 	public String getpathofDB() {
 
-		return null;
+		return  m.get(databaseName).getAbsolutePath();
 	}
 	@Override
 	public void execute() throws SQLException {
 
-		
+		m.get(databaseName).DropDatabase();
 	}
 	
 

@@ -1,8 +1,8 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
-import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.sql.SQLException;
 
 public class CreateDB implements Command{
@@ -26,7 +26,7 @@ public class CreateDB implements Command{
 	
 	public String getpathofDB()
 	{
-		return null;
+		return newDB.getAbsolutePath();
 	}
 	
 	@Override
