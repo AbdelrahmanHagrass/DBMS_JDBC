@@ -10,6 +10,8 @@ public class IDataBase implements Database {
 	Map<String,DB> m = new HashMap<String, DB >();
 	Command DBcommandCreate ;
 	Command DBcommandDrop ;
+	Command DropTable;
+	Command CreateTable;
 	
 
 	@Override

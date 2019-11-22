@@ -1,6 +1,7 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -121,11 +122,11 @@ public class Table {
 		int X=names.indexOf(field);
 		for(int i=0;i<items.size();i++)
 		{
-			String j=items.get(i).get(X).toString();
-			System.out.println(j);
+			String j=items.get(i).get(X).toString();	
 			if(j.compareTo(ID)==0)
 			{
 				DeleteFromTable(i+1);
+				i--;
 			}
 		}
 	}
@@ -159,20 +160,31 @@ public class Table {
 		}
 		return New;
 	}
+	public Object[][] SelectFromTable2DArray(Vector<String>col) throws Exception
+	{
+		Table a=SelectFromTable(col);
+		Object [][] out=new Object[a.items.size()][a.items.get(0).size()];
+		for(int i=0;i<a.items.size();i++)
+		{
+			for(int j=0;j<a.items.get(0).size();j++)
+			{
+				out[i][j]=a.items.get(i).get(j);
+			}
+		}
+		return out;
+	}
 	public void Update(int Row,String field,String NewValue)//Rows starts with 1
 	{
 		int X=names.indexOf(field);
-		
 		if(types.get(X)=="varchar")
 		{
 			items.get(Row-1).setElementAt(NewValue, X);
 		}
 		else 
 		{
-			int New=Integer.parseInt(NewValue);
+			int New=Integer.parseInt(NewValue);		
 			items.get(Row-1).setElementAt(New, X);
 		}
-		
 	}
 	public void UpdateWithCondition(String field,String ID,String NewValue)
 	{
@@ -183,7 +195,6 @@ public class Table {
 		
 			if(j.compareTo(ID)==0)
 			{
-				
 				Update(i+1,field,NewValue);
 			}
 		}
@@ -192,5 +203,27 @@ public class Table {
 	{
 		return items;
 	}
-
+	public void SaveTable() throws Exception//assumed that you have created a database that will contian the table
+	{
+		FileOutputStream file=new FileOutputStream(ParentDB+"\\"+Table_Name+".xml");
+		XMLEncoder a=new XMLEncoder(file);
+		Table s=new Table(Table_Name,names,types,ParentDB);
+		 s=SelectFromTable(names);
+		a.writeObject(s);
+		a.close();
+	}
+	public Table LoadTable(String path) throws FileNotFoundException//example of how it works 
+	//Table h=new Table(); h=h.load(path);
+	{
+		FileInputStream file=new FileInputStream(path);
+		XMLDecoder a=new XMLDecoder(file);
+		Table s=(Table) a.readObject();
+		return s;
+	}
+	public void DropTable()//delete the table file and the table it self
+	{
+		File file=new File(ParentDB+"\\"+Table_Name+".xml");
+		DeleteFromTable(0);//delete all elements 
+		file.delete();
+	}	
 }
