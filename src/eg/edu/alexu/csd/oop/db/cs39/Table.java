@@ -78,11 +78,11 @@ public class Table {
 	{
 		
 	}
-	public void InsertIntoTable(Vector<Object>input) throws Exception
+	public int InsertIntoTable(Vector<Object>input) throws Exception
 	{
 		if(input==null||input.size()!=names.size())
 		{
-			return;
+			return 0;
 		}
 		for(int i=0;i<types.size();i++)
 		{
@@ -92,21 +92,23 @@ public class Table {
 				if(a.compareTo("String")!=0)
 				{
 					System.out.println("Invalid Input");
-					throw new Exception("Invalid Input");
+					return 0;
+					
+					
 				}
 			}
 			else 
 			{
 				if(a.compareTo("Integer")!=0)
 				{
-				
 					System.out.println("Invalid Input");
-					throw new Exception("Invalid Input");
+					return 0;
 					
 				}
 			}
 		}
 		items.add((Vector<Object>) input.clone());
+		return 1;
 	}
 	public void DeleteFromTable(int Row)//Delete from table Where col=value and rows suppose to start from 1
 	{	
@@ -117,9 +119,10 @@ public class Table {
 		}
 		items.remove(Row-1);
 	}
-	public void DeleteFromTableWithCondition(String field,String ID)//example Delete From Table WHERE employeID=3
+	public int DeleteFromTableWithCondition(String field,String ID)//example Delete From Table WHERE employeID=3
 	{
 		int X=names.indexOf(field);
+		int counter=0;
 		for(int i=0;i<items.size();i++)
 		{
 			String j=items.get(i).get(X).toString();	
@@ -127,8 +130,10 @@ public class Table {
 			{
 				DeleteFromTable(i+1);
 				i--;
+				counter++;
 			}
 		}
+		return counter;
 	}
 	/**
 	 * 
@@ -186,19 +191,22 @@ public class Table {
 			items.get(Row-1).setElementAt(New, X);
 		}
 	}
-	public void UpdateWithCondition(String field,String ID,String NewValue)
+	public int UpdateWithCondition(String Condition,String ID,String field,String NewValue)
 	{
-		int X=names.indexOf(field);
+		int X=names.indexOf(ID);
+		int count=0;
 		for(int i=0;i<items.size();i++)
 		{
 			String j=items.get(i).get(X).toString();
-		
-			if(j.compareTo(ID)==0)
+			if(j.compareTo(Condition)==0)
 			{
 				Update(i+1,field,NewValue);
+				count++;
 			}
 		}
+		return count;
 	}
+	
 	public ArrayList<Vector<Object>> getItems()
 	{
 		return items;
