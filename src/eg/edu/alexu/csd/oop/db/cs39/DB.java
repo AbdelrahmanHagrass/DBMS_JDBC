@@ -20,7 +20,6 @@ public class DB {
 		Tables = tables;
 	}
 	String DatabaseName;
-	
 	ArrayList<Table>Tables=new ArrayList<Table>();
 	public DB(String DatabaseName) throws FileNotFoundException
 	{
@@ -38,6 +37,35 @@ public class DB {
 		Tables.add(New);
 		return New;
 	}
-	
-
+	public void DropDatabase()
+	{
+		File file=new File(DatabaseName);
+		file.delete();
+	}
+	public String getAbsolutePath()
+	{
+		File file=new File(DatabaseName);
+		return file.getAbsolutePath();
+	}
+	public void addTable(Table NEW) throws FileNotFoundException
+	{
+		FileOutputStream file2=new FileOutputStream(DatabaseName+"\\"+NEW.Table_Name+".xml");
+		Tables.add(NEW);
+	}
+	public void SaveDataBase() throws Exception
+	{
+		for(int i=0;i<Tables.size();i++)
+		{
+			Tables.get(i).SaveTable();
+		}
+	}
+	/*
+	public DB LoadDataBase(String name) throws FileNotFoundException //
+	{
+		DB temp=new DB("name");
+		File file=new File("name");
+		
+		return null;
+	}
+	*/
 }
