@@ -18,16 +18,20 @@ public class MainTest {
 //		idb.QueryManagement("DROP DATABASE data1"); // error ...create new database and delete it ?!
 		
 		//create table
-		idb.QueryManagement("create table table1(id int,name varchar)");
-		idb.QueryManagement("create table table2(id int,name varchar)");
+//		idb.QueryManagement("create table table1(id int,name varchar)");
+//		idb.QueryManagement("create table table2(id int,name varchar)");
+		idb.QueryManagement("CREATE TABLE table1(id int,name varchar)");
+		idb.QueryManagement("CREATE TABLE table2(id int,name varchar)");
 		idb.QueryManagement("CREATE TABLE table3(id int,name varchar)"); //error in name ! "able3"
 		
 		//drop table
 //		idb.QueryManagement("drop table table1"); //error ..table must be added to the db arraylist in class table
 		
 		//insert 			//error ...insert in the parser is not selected
-		idb.QueryManagement("insert into table1 values (1,'ziad')");
-		idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
+		//idb.QueryManagement("insert into table1 values (1,'ziad')");
+		//idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
+		idb.QueryManagement("INSERT INTO able3 (id,name) VALUES (19,'ayman')");
+		
 		
 		//select
 		

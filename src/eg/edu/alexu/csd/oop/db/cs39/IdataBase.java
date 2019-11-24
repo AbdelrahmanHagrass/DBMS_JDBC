@@ -41,7 +41,7 @@ public class IDataBase implements Database {
 			this.executeStructureQuery(query);
 		}
 		//update method
-		else if( parser.checkInput(query) == 4 || parser.checkInput(query) == 5 || parser.checkInput(query) == 6)
+		else if( parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7)
 		{
 			System.out.println("ha?");
 			this.executeUpdateQuery(query);
@@ -118,7 +118,8 @@ public class IDataBase implements Database {
 		{
 			// i will call class partitions with string query ..to get table name,names , types ,parent DB..
 			p.CreateTable(query);
-			CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName());
+			//System.out.println("n!!!!" + p.getTablename());
+			CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),lastDB);
 			CreateTable.execute();
 			
 			return true;
@@ -161,7 +162,6 @@ public class IDataBase implements Database {
 		querySmall = query.toLowerCase();
 		if(querySmall.contains("insert"))
 		{
-			System.out.println("ha?");
 			insertTable = new Insert(p.getTablename() , lastDB, p.Insert(query) );
 			try {
 				System.out.println("hey i am inserted");
@@ -178,9 +178,14 @@ public class IDataBase implements Database {
 		else if(querySmall.contains("update"))
 		{
 			p.Update(query);
-			//updateTable = new Update(p.getTablename(), lastDB, type, p.getUpdatevalue2(), p.getUpdatecolumn2(),p.getUpdatecolumn1(), p.getUpdatevalue1());
-			//return updateTable.execute();
-			return 0;
+			updateTable = new Update(p.getTablename(), lastDB,p.getOperator(), p.getUpdatevalue2(), p.getUpdatecolumn2(),p.getUpdatecolumn1(), p.getUpdatevalue1());
+			try {
+				return updateTable.execute();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				return 0;	
+			}
+			
 		}
 		else if(querySmall.contains("delete"))
 		{

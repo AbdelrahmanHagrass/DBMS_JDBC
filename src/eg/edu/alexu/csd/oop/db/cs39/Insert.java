@@ -11,13 +11,19 @@ public class Insert {
 	
 	public Insert(String TableName , DB ParentDB , Vector<Object> inputs) {
 		
+		//System.out.println("size of db tables "+ParentDB.getTables().size());
 		this.TableName = TableName;
 		this.ParentDB = ParentDB;
 		this.inputs = inputs;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
-			if(ParentDB.Tables.get(i).getTable_Name() == TableName)
+			//System.out.println(i+" "+ParentDB.getDatabaseName()+" "+ParentDB.Tables.get(i).getTable_Name() + "  is equal " + TableName);
+//			System.out.println(ParentDB.Tables.get(i).getTable_Name()+" "+TableName);
+//			System.out.println();
+			//if(ParentDB.Tables.get(i).getTable_Name() == TableName)
+			if(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) == 0 )
 			{
+				//System.out.println("da5al");
 				toBeInsertedIn =  ParentDB.Tables.get(i) ;
 			}
 		}
@@ -25,6 +31,7 @@ public class Insert {
 	
 	public int execute () throws Exception
 	{
+	
 		return toBeInsertedIn.InsertIntoTable(inputs);
 	}
 

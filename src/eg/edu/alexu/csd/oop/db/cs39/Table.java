@@ -14,7 +14,7 @@ public class Table {
 	 Vector<String>types=new Vector<String>() ;
 	 Vector<String>names=new Vector<String>();
 	Map<String,String> col_type=new HashMap<String,String>();
-	static String Table_Name;
+	String Table_Name;
 	ArrayList<Vector<Object>> items=new ArrayList<Vector<Object>>();
 	public Table(String Table_Name,Vector<String>names,Vector<String>types,String ParentDB)
 	{
@@ -87,12 +87,13 @@ public class Table {
 		}
 		for(int i=0;i<types.size();i++)
 		{
+			System.out.println(i);
 			String a=input.get(i).getClass().getSimpleName();
 			if(types.get(i)=="varchar")
 			{
 				if(a.compareTo("String")!=0)
 				{
-					System.out.println("Invalid Input");
+					System.out.println("Invalid Input for string");
 					return 0;
 					
 					
@@ -100,9 +101,10 @@ public class Table {
 			}
 			else 
 			{
+				System.out.println(a);
 				if(a.compareTo("Integer")!=0)
 				{
-					System.out.println("Invalid Input");
+					System.out.println("Invalid Input for integer");
 					return 0;
 					
 				}

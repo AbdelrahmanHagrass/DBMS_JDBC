@@ -4,6 +4,7 @@ public class Partitions {
 public static String databasename,tablename,Column1,Column2,Value1,Value2,Column,Value;
 Vector<String> Columns,Types;
 Vector<Object> Values;
+int Operator;
 public void Partitions(String query) {
 	Parser Par =new Parser();
 	Par.checkInput(query);
@@ -27,21 +28,34 @@ public Vector<Object> Insert(String s) {
 public void Delete(String s) {
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
 	tablename=table_name;
-	String column=(s.substring(s.indexOf("WHERE")+6, s.indexOf('='))).trim();
-	String value=(s.substring(s.indexOf('=')+1)).trim();
+	int index;
+	if (s.contains("=")){index=s.indexOf('=');Operator=0;}
+	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
+	else{index=s.indexOf('<');Operator=-1;}
+	String column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
+	String value=(s.substring(index+1)).trim();
+	System.out.println(Operator);
+	
 	
 	}
 public void Update(String s) {
 	String table_name=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim();
 	tablename=table_name;
+	int index;
+	if (s.contains("<")){index=s.indexOf('<');Operator=-1;}
+	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
+	else{index=s.lastIndexOf('=');Operator=0;}
 	String column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
-	String column2=(s.substring(s.indexOf("WHERE")+6,s.lastIndexOf('='))).trim();
+	String column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
 	String value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
-	String value2=(s.substring(s.lastIndexOf('=')+1)).trim();
+	String value2=(s.substring(index+1)).trim();
 	Column1=column1;
 	Column2=column2;
 	Value1=value1;
 	Value2=value2;
+	System.out.println(Operator);
+	
+	
  }
 public Vector<String> CreateTable(String s) {
 	
@@ -59,21 +73,12 @@ public Vector<String> CreateTable(String s) {
 		types.add(t.substring(t.lastIndexOf(' ')+1));
 	}
 	columnsGui.add(table_name);
-	try{DB Database_object=new DB(databasename);
-    Database_object.createTable(table_name, columns, types); 
-}
-catch(Exception e) {
-
-	e.printStackTrace();
-	return null;}
 	Columns=columns;Types=types;
 	return columnsGui ;
 	
 }
 public String CreateDatabase(String s) {
-	String Database_name=(s.substring(s.indexOf("DATABASE")+8)).trim();	
-	try{DB Database_object=new DB(Database_name);}
-	catch(Exception e) {e.printStackTrace();}
+	String Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();	
 	databasename=Database_name;
 	return Database_name ;
 }
@@ -91,10 +96,15 @@ public void DropDatabase(String s) {
 public void Select(String s) {
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
 	tablename=table_name;
-	String column=(s.substring(s.indexOf("WHERE")+6, s.indexOf('='))).trim();
-	String value=(s.substring(s.indexOf('=')+1)).trim();	
+	int index;
+	if (s.contains("=")){index=s.indexOf('=');Operator=0;}
+	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
+	else{index=s.indexOf('<');Operator=-1;}
+	String column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
+	String value=(s.substring(index+1)).trim();	
 	Column=column;
 	Value=value;
+	System.out.println(Operator);
 }
 public String getTablename() {return tablename;}
 public String getDatabasename() {return databasename;}
@@ -107,5 +117,5 @@ public String getUpdatevalue2() {return Value2;}
 public Vector<Object> getvalues(){return Values;}
 public Vector<String> getcolumns(){return Columns;}
 public Vector<String> gettypes(){return Types;}
-
+public int getOperator(){return Operator;}
 }
