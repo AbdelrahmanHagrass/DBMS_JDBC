@@ -7,15 +7,53 @@ import java.util.Map;
 
 public class IDataBase implements Database {
 	
+	
+	
+	Parser parser = new Parser();
 	Partitions p = new Partitions();
+	//Map of all created databases
 	Map<String,DB> m = new HashMap<String, DB >();
 	DB lastDB;
 	private Command DBcommandCreate ;
 	private Command DBcommandDrop ;
-	private Command DropTable;
-	private Command CreateTable;
+    Command DropTable;
+	Command CreateTable;
 	Select selecTable;
 	Insert insertTable;
+	Update updateTable;
+	String querySmall;
+	Delete deleteTable;
+	String LastDBpath;
+	
+	public void QueryManagement (String query) throws SQLException
+	{
+		//create db
+		if(parser.checkInput(query) == 2 || parser.checkInput(query) == 3)
+		{
+			//drop-if-exist should be handled
+			LastDBpath = this.createDatabase(parser.object.getDatabasename(), false) ;
+		}
+		//create table,drop table,called internally when create db , drop db
+		else if (  parser.checkInput(query) == 4 || parser.checkInput(query) == 8  )
+		{
+			this.executeStructureQuery(query);
+		}
+		//update method
+		else if( parser.checkInput(query) == 4 || parser.checkInput(query) == 5 || parser.checkInput(query) == 6)
+		{
+			this.executeUpdateQuery(query);
+		}
+		//select
+		else if(parser.checkInput(query) == 9 )
+		{
+			this.executeQuery(query);
+		}
+		else
+		{
+			
+		}
+		
+	}
 	
 
 	@Override
@@ -58,12 +96,13 @@ public class IDataBase implements Database {
 	@Override
 	public boolean executeStructureQuery(String query) throws SQLException {
 		
-		query = query.toLowerCase();
+		querySmall = query.toLowerCase();
 		
 		if(query == "createdatabase")
 		{
 			DBcommandCreate.execute();
 			m.put(DBcommandCreate.getnameofDB(), DBcommandCreate.getDB() );
+			lastDB = DBcommandCreate.getDB();
 			return true;
 		}
 		else if (query == "dropdatabase")
@@ -72,14 +111,20 @@ public class IDataBase implements Database {
 			m.remove(DBcommandDrop.getnameofDB());
 			return true;
 		}
-		else if (query.contains("create") && query.contains("table"))
+		else if (querySmall.contains("create") && querySmall.contains("table"))
 		{
 			// i will call class partitions with string query ..to get table name,names , types ,parent DB..
+			p.CreateTable(query);
+			CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName());
+			CreateTable.execute();
 			return true;
 		}
-		else if( query.contains("drop") && query.contains("table") )
+		else if( querySmall.contains("drop") && querySmall.contains("table") )
 		{
 			// i will call class partitions with string query ..to get table name.
+			p.DropTable(query);
+			DropTable = new DropTable(p.getTablename(), lastDB);
+			DropTable.execute();
 			return true;
 		}
 		else
@@ -106,21 +151,35 @@ public class IDataBase implements Database {
 	public int executeUpdateQuery(String query) throws SQLException {
 		
 		//insert //update //delete
-		query = query.toLowerCase();
-		if(query.contains("insert"))
+		querySmall = query.toLowerCase();
+		if(querySmall.contains("insert"))
 		{
-			//el p.insert de of type Objects
-			//insertTable = new Insert(TableName, lastDB, p.Insert(query) );
-			//return insertTable.execute();
+			insertTable = new Insert(p.getTablename() , lastDB, p.Insert(query) );
+			try {
+				return insertTable.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
+			
+		}
+		else if(querySmall.contains("update"))
+		{
+			p.Update(query);
+			//updateTable = new Update(p.getTablename(), lastDB, type, p.getUpdatevalue2(), p.getUpdatecolumn2(),p.getUpdatecolumn1(), p.getUpdatevalue1());
+			//return updateTable.execute();
 			return 0;
 		}
-		else if(query.contains("update"))
+		else if(querySmall.contains("delete"))
 		{
-			return 0;
-		}
-		else if(query.contains("delete"))
-		{
-			return 0;
+			p.Delete(query);
+			deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletecolumn(), p.getDeletevalue());
+			try {
+				return deleteTable.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 		}
 		else
 		{		

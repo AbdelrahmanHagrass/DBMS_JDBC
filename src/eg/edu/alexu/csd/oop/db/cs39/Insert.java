@@ -7,9 +7,9 @@ public class Insert {
 	Table toBeInsertedIn;
 	String TableName;
 	DB ParentDB;
-	Vector<String> inputs;
+	Vector<Object> inputs;
 	
-	public Insert(String TableName , DB ParentDB , Vector<String> inputs) {
+	public Insert(String TableName , DB ParentDB , Vector<Object> inputs) {
 		
 		this.TableName = TableName;
 		this.ParentDB = ParentDB;
@@ -25,8 +25,7 @@ public class Insert {
 	
 	public int execute () throws Exception
 	{
-		//return toBeInsertedIn.InsertIntoTable(inputs);
-		return 0;
+		return toBeInsertedIn.InsertIntoTable(inputs);
 	}
 
 }
