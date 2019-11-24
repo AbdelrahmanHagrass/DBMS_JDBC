@@ -26,6 +26,7 @@ public class Table {
 		{
 			col_type.put(this.names.get(i),this.types.get(i));
 		}
+		
 	}
 	public Table(String Table_Name,Vector<String>names,Vector<String>types)
 	{
@@ -108,6 +109,7 @@ public class Table {
 			}
 		}
 		items.add((Vector<Object>) input.clone());
+		System.out.println("Insert is done");
 		return 1;
 	}
 	public void DeleteFromTable(int Row)//Delete from table Where col=value and rows suppose to start from 1

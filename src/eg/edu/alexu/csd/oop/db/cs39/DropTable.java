@@ -10,12 +10,16 @@ public class DropTable implements Command {
 
 	public DropTable( String TableName, DB parentDB ) {
 		
+		System.out.println("a7ooooooo");
+		System.out.println(parentDB.Tables.size());
 		this.TableName = TableName;
 		this.parentDB = parentDB;
 		for (int i = 0 ; i < parentDB.Tables.size() ; i++)
 		{
+			System.out.println("a7a");
 			if(TableName == parentDB.Tables.get(i).getTable_Name())
 			{
+				System.out.println("a7a");
 				tobeDropped = parentDB.Tables.get(i);
 			}
 		}

@@ -32,6 +32,8 @@ public class IDataBase implements Database {
 		{
 			//drop-if-exist should be handled
 			LastDBpath = this.createDatabase(parser.object.getDatabasename(), false) ;
+			System.out.println("Database is Created / Deleted");
+			
 		}
 		//create table,drop table,called internally when create db , drop db
 		else if (  parser.checkInput(query) == 4 || parser.checkInput(query) == 8  )
@@ -41,6 +43,7 @@ public class IDataBase implements Database {
 		//update method
 		else if( parser.checkInput(query) == 4 || parser.checkInput(query) == 5 || parser.checkInput(query) == 6)
 		{
+			System.out.println("ha?");
 			this.executeUpdateQuery(query);
 		}
 		//select
@@ -50,7 +53,7 @@ public class IDataBase implements Database {
 		}
 		else
 		{
-			
+			System.out.println("no query is selected");
 		}
 		
 	}
@@ -117,6 +120,7 @@ public class IDataBase implements Database {
 			p.CreateTable(query);
 			CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName());
 			CreateTable.execute();
+			
 			return true;
 		}
 		else if( querySmall.contains("drop") && querySmall.contains("table") )
@@ -124,7 +128,10 @@ public class IDataBase implements Database {
 			// i will call class partitions with string query ..to get table name.
 			p.DropTable(query);
 			DropTable = new DropTable(p.getTablename(), lastDB);
+			System.out.println("a7a gowa");
+			System.out.println(lastDB.getAbsolutePath());
 			DropTable.execute();
+			
 			return true;
 		}
 		else
@@ -154,13 +161,18 @@ public class IDataBase implements Database {
 		querySmall = query.toLowerCase();
 		if(querySmall.contains("insert"))
 		{
+			System.out.println("ha?");
 			insertTable = new Insert(p.getTablename() , lastDB, p.Insert(query) );
 			try {
+				System.out.println("hey i am inserted");
 				return insertTable.execute();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println("hey i am not  inserted");
 				return 0;
 			}
+			
 			
 		}
 		else if(querySmall.contains("update"))
