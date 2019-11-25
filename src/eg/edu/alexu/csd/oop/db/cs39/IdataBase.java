@@ -146,7 +146,8 @@ public class IDataBase implements Database {
 	@Override
 	public Object[][] executeQuery(String query) throws SQLException {
 		
-		//selecTable = new Select(TableName, ParentDB, cols);
+		p.SelectTable(query);
+		//selecTable = new Select(p.getTablename(), lastDB, cols);
 		try {
 			return selecTable.execute();
 		} catch (Exception e) {

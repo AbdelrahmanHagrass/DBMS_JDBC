@@ -30,7 +30,7 @@ public class MainTest {
 		//insert 			//error ...insert in the parser is not selected
 		//idb.QueryManagement("insert into table1 values (1,'ziad')");
 		//idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
-		idb.QueryManagement("INSERT INTO able3 (id,name) VALUES (19,'ayman')");
+		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (19,'ayman')");
 		
 		
 		//select

@@ -1,7 +1,7 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 import java.util.*;
 public class Partitions {
-public static String databasename,tablename,Column1,Column2,Value1,Value2,Column,Value;
+public static String databasename,tablename,Column1,Column2,Value1,Value2,Column,Value,Column3,Value3;
 Vector<String> Columns,Types;
 Vector<Object> Values;
 int Operator;
@@ -21,8 +21,12 @@ public Vector<Object> Insert(String s) {
 		Vector<Object> values=new Vector();
 		temp=((s.substring(s.lastIndexOf('(')+1, s.lastIndexOf(')')).trim())).split(",");
 		for(String t : temp) {t=t.trim();
-		values.add(t);}
+		if(t.chars().allMatch(Character::isDigit)) {values.add(Integer.parseInt(t));}
+		else {values.add(t);}
+		}
 		Columns=columns;Values=values;
+		
+		
 		return values ;
 	}
 public void Delete(String s) {
@@ -32,11 +36,8 @@ public void Delete(String s) {
 	if (s.contains("=")){index=s.indexOf('=');Operator=0;}
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.indexOf('<');Operator=-1;}
-	String column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
-	String value=(s.substring(index+1)).trim();
-	System.out.println(Operator);
-	
-	
+	Column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
+	Value=(s.substring(index+1)).trim();
 	}
 public void Update(String s) {
 	String table_name=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim();
@@ -45,21 +46,14 @@ public void Update(String s) {
 	if (s.contains("<")){index=s.indexOf('<');Operator=-1;}
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.lastIndexOf('=');Operator=0;}
-	String column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
-	String column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
-	String value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
-	String value2=(s.substring(index+1)).trim();
-	Column1=column1;
-	Column2=column2;
-	Value1=value1;
-	Value2=value2;
-	System.out.println(Operator);
-	
-	
+	Column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
+	Column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
+	Value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
+	Value2=(s.substring(index+1)).trim();
  }
 public Vector<String> CreateTable(String s) {
 	
-	String table_name=(s.substring(s.indexOf("TABLE")+7, s.indexOf('('))).trim();
+	String table_name=(s.substring(s.indexOf("TABLE")+6, s.indexOf('('))).trim();
 	tablename=table_name;
 	String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
 	
@@ -100,11 +94,8 @@ public void Select(String s) {
 	if (s.contains("=")){index=s.indexOf('=');Operator=0;}
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.indexOf('<');Operator=-1;}
-	String column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
-	String value=(s.substring(index+1)).trim();	
-	Column=column;
-	Value=value;
-	System.out.println(Operator);
+	Column3=(s.substring(s.indexOf("WHERE")+6, index)).trim();
+	Value3=(s.substring(index+1)).trim();	
 }
 public String getTablename() {return tablename;}
 public String getDatabasename() {return databasename;}
@@ -114,6 +105,8 @@ public String getUpdatecolumn1() {return Column1;}
 public String getUpdatecolumn2() {return Column2;}
 public String getUpdatevalue1() {return Value1;}
 public String getUpdatevalue2() {return Value2;}
+public String getSelectcolumn() {return Column3;}
+public String getSelectvalue() {return Value3;}
 public Vector<Object> getvalues(){return Values;}
 public Vector<String> getcolumns(){return Columns;}
 public Vector<String> gettypes(){return Types;}

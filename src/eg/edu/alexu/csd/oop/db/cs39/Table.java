@@ -89,7 +89,7 @@ public class Table {
 		{
 			System.out.println(i);
 			String a=input.get(i).getClass().getSimpleName();
-			if(types.get(i)=="varchar")
+			if(types.get(i).compareTo("varchar")==0)
 			{
 				if(a.compareTo("String")!=0)
 				{
