@@ -82,10 +82,14 @@ public class DB {
 	}
 	
 	public DB LoadDataBase(String Databasename) throws 
-IOException
+IOException ,  FileNotFoundException
 	{
 		DB temp=new DB(Databasename);
 		File file=new File(Databasename);
+		if(!file.exists())
+		{
+			return null;
+		}
 		File []tables=file.listFiles();
 		for(File contents:tables)
 		{
