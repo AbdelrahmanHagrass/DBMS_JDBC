@@ -35,7 +35,12 @@ public class DropDB implements Command {
 	@Override
 	public void execute() throws SQLException {
 
-		m.get(databaseName).DropDatabase();
+		try {
+			m.get(databaseName).DropDatabase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

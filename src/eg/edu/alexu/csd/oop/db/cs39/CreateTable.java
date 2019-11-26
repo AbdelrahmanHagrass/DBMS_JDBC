@@ -1,6 +1,7 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -49,6 +50,9 @@ public class CreateTable implements Command {
 		try {
 			ParentDBc.createTable(this.Table_Name,this.names,this.types);
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

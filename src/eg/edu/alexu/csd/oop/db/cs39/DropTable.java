@@ -46,7 +46,12 @@ public class DropTable implements Command {
 	@Override
 	public void execute() throws SQLException {
 
-		tobeDropped.DropTable();
+		try {
+			tobeDropped.DropTable();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

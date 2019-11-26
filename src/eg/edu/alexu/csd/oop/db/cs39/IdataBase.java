@@ -147,7 +147,7 @@ public class IDataBase implements Database {
 	public Object[][] executeQuery(String query) throws SQLException {
 		
 		p.SelectTable(query);
-		//selecTable = new Select(p.getTablename(), lastDB, cols);
+		selecTable = new Select(p.getTablename(), lastDB,p.getOperator(),p.getSelectcolumn(),p.getSelectvalue() );
 		try {
 			return selecTable.execute();
 		} catch (Exception e) {
