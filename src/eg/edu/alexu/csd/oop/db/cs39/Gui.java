@@ -89,8 +89,40 @@ public class Gui {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==comboBox) {
-					System.out.println(comboBox.getSelectedIndex());
-				}
+					
+					 try {
+		                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
+		                    counter=comboBox.getSelectedIndex()+1;
+								Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
+								table = new JTable();
+								scrollPane.setViewportView(table);
+								DefaultTableModel tableModel = new DefaultTableModel() {
+
+								    @Override
+								    public boolean isCellEditable(int row, int column) {
+								       //all cells false
+								       return false;
+								    }
+								};
+						 		table.setModel(tableModel);
+								 model = (DefaultTableModel) table.getModel();
+					
+								for(int j=0;j<names1.size();j++) {
+									model.addColumn(names1.get(j));
+									
+								}
+								for(int i=0;i<table1.length;i++) {
+									
+										model.addRow(table1[i]);
+									
+								}
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					
+					
+                				}
 			}
 		});
 		
@@ -151,8 +183,9 @@ public class Gui {
 					scrollPane.setViewportView(table);
 					model = (DefaultTableModel) table.getModel();
 					comboBox.addItem(columns.lastElement());
+					counter = comboBox.getItemCount();
 					comboBox.setSelectedIndex(counter-1);
-					counter++;
+					
 					for(int i=0;i<columns.size()-1;i++) {
 						model.addColumn(columns.elementAt(i));
 						
@@ -171,7 +204,7 @@ public class Gui {
 					label.setText(name);
 					input.setText("success :)");
 				}
-				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==1) {
+				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6) {
                        try {
                     Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
 						Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
@@ -203,6 +236,43 @@ public class Gui {
 					}
 					   input.setText("success :)");
 				}
+				else if (parser.checkInput(input.getText())==1) {
+                    try {
+                    	Partitions p = new Partitions();
+                    	p.SelectTable(input.getText());
+                 Vector<String>	 names1=  db.getNames(p.getTablename());
+						Object[][] table1 =  db.executeQuery("SELECT * FROM "+p.getTablename());
+						comboBox.setSelectedItem(p.getTablename());
+						counter = comboBox.getSelectedIndex()+1;
+						table = new JTable();
+						scrollPane.setViewportView(table);
+						DefaultTableModel tableModel = new DefaultTableModel() {
+
+						    @Override
+						    public boolean isCellEditable(int row, int column) {
+						       //all cells false
+						       return false;
+						    }
+						};
+				 		table.setModel(tableModel);
+						 model = (DefaultTableModel) table.getModel();
+			
+						for(int j=0;j<names1.size();j++) {
+							model.addColumn(names1.get(j));
+							
+						}
+						for(int i=0;i<table1.length;i++) {
+							
+								model.addRow(table1[i]);
+							
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					   input.setText("success :)");
+				}
+
 				else if (parser.checkInput(input.getText()) != 0) {
 					input.setText("success :)");
 				} else {

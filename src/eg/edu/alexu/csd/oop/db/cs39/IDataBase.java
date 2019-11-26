@@ -44,7 +44,7 @@ public class IDataBase implements Database {
 			this.executeUpdateQuery(query);
 		}
 		// select
-		else if (parser.checkInput(query) == 9) {
+		else if (parser.checkInput(query) == 9||parser.checkInput(query) == 1) {
 			this.executeQuery(query);
 		} else {
 			System.out.println("no query is selected");
