@@ -13,9 +13,9 @@ public class MainTest {
 		
 		//idb.lastDB.
 		//create database
-		idb.QueryManagement("CREATE DATABASE data1");
+		idb.QueryManagement("CREATE DATABASE data1"); // De httms7
 		idb.QueryManagement("CREATE DATABASE data2");
-		idb.QueryManagement("CREATE DATABASE test");
+		idb.QueryManagement("CREATE DATABASE test"); // de htt7at feeha el tables kolaha
 		
 		//drop database 
 //		idb.QueryManagement("DROP DATABASE data1"); // error ...create new database and delete it ?!
@@ -35,6 +35,7 @@ public class MainTest {
 		//idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
 		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (19,'ayman')");
 		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (39,'body')");
+		//idb.QueryManagement("DELETE FROM table1 WHERE id = 19");
 		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (99,'hagrosy el 3agrosy')"); //error
 		try {
 			idb.lastDB.SaveDataBase();

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.2" class="java.beans.XMLDecoder">
+ <object class="eg.edu.alexu.csd.oop.db.cs39.Table" id="Table0">
+  <void property="names">
+   <void method="add">
+    <string>id</string>
+   </void>
+   <void method="add">
+    <string>name</string>
+   </void>
+  </void>
+  <void property="parentDB">
+   <string>test</string>
+  </void>
+  <void property="types">
+   <void method="add">
+    <string>int</string>
+   </void>
+   <void method="add">
+    <string>varchar</string>
+   </void>
+  </void>
+ </object>
+</java>

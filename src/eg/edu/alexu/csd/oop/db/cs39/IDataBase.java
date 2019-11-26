@@ -197,7 +197,7 @@ public class IDataBase implements Database {
 
 		} else if (querySmall.contains("delete")) {
 			p.Delete(query);
-			deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletecolumn(), p.getDeletevalue());
+			deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletevalue(),  p.getDeletecolumn());
 			try {
 				return deleteTable.execute();
 			} catch (Exception e) {
