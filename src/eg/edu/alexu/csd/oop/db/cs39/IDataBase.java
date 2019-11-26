@@ -3,12 +3,9 @@ package eg.edu.alexu.csd.oop.db.cs39;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +34,6 @@ public class IDataBase implements Database {
 		if (parser.checkInput(query) == 2) {
 			// drop-if-exist should be handled
 			LastDBpath = this.createDatabase(parser.object.getDatabasename(), false);
-			System.out.println("Database is Created / Deleted");
 
 		} else if (parser.checkInput(query) == 3) {
 			this.executeStructureQuery(query);
@@ -48,14 +44,13 @@ public class IDataBase implements Database {
 		}
 		// update method
 		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7) {
-			System.out.println("ha?");
 			this.executeUpdateQuery(query);
 		}
 		// select
 		else if (parser.checkInput(query) == 9||parser.checkInput(query) == 1) {
 			this.executeQuery(query);
 		} else {
-			System.out.println("no query is selected");
+
 		}
 
 	}
@@ -64,7 +59,7 @@ public class IDataBase implements Database {
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 
 		if (m.containsKey(databaseName) == false) {
-			System.out.println("kkkkkkkkkkk mfeesh database bel esm da");
+
 			DBcommandCreate = new CreateDB(databaseName);
 			try {
 				executeStructureQuery("createdatabase");
@@ -106,13 +101,17 @@ public class IDataBase implements Database {
 		} else if (query == "dropdatabase") {
 			DBcommandDrop.execute();
 			m.remove(DBcommandDrop.getnameofDB());
-			System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk");
+
 			return true;
 		} else if (querySmall.contains("drop") && querySmall.contains("database")) {
 			p.DropDatabase(query);
+			System.out.println(p.getDropDataBaseName()+"   zx");
 			DBcommandDrop = new DropDB(p.getDropDataBaseName(), m);
 			DBcommandDrop.execute();
-			m.remove(p.getDatabasename());
+			m.remove(p.getDropDataBaseName());
+
+
+			
 			return true;
 		} else if (querySmall.contains("create") && querySmall.contains("table")) {
 			// i will call class partitions with string query ..to get table name,names ,
@@ -128,8 +127,6 @@ public class IDataBase implements Database {
 			// i will call class partitions with string query ..to get table name.
 			p.DropTable(query);
 			DropTable = new DropTable(p.getTablename(), lastDB);
-			System.out.println("a7a gowa");
-			System.out.println(lastDB.getAbsolutePath());
 			DropTable.execute();
 
 			return true;
@@ -155,7 +152,6 @@ public class IDataBase implements Database {
 	public Object[][] executeQuery(String query) throws SQLException {
 		if (parser.checkInput(query) == 1) {
 			p.SelectTable(query);
-			System.out.println(p.getTablename() + "lma nshof");
 			selecTable = new Select(p.getTablename(), lastDB, 0, null, query);
 			try {
 				return selecTable.execute();
@@ -183,12 +179,12 @@ public class IDataBase implements Database {
 		if (querySmall.contains("insert")) {
 			insertTable = new Insert(p.getTablename(), lastDB, p.Insert(query));
 			try {
-				System.out.println("hey i am inserted");
+
 				return insertTable.execute();
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("hey i am not  inserted");
+
 				return 0;
 			}
 
@@ -199,10 +195,8 @@ public class IDataBase implements Database {
 			try {
 				return updateTable.execute();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				return 0;
 			}
-
 		} else if (querySmall.contains("delete")) {
 			p.Delete(query);
 			deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletevalue(),  p.getDeletecolumn());
@@ -215,42 +209,32 @@ public class IDataBase implements Database {
 		} else {
 			return 0;
 		}
-
 	}
-	
 	public void save() throws Exception
 	{
 		savedatabasenames();
 		for (Map.Entry<String, DB> entry : m.entrySet()) {
-		    //System.out.println(entry.getKey() + " = " + entry.getValue().getDatabaseName());
 			entry.getValue().SaveDataBase();
 		}
 	}
-
 	public void savedatabasenames() throws Exception
 	{
 		BufferedWriter bw = new BufferedWriter(new FileWriter(".\\DatabaseNames.txt"));
 		for (Map.Entry<String, DB> entry : m.entrySet()) {
-			
-			System.out.println(entry.getValue().getDatabaseName());
 			bw.write(entry.getValue().getDatabaseName());
 			bw.newLine();
 		}
 		bw.close();	
-	}
-	
+	}	
 	public void load() throws IOException
 	{
 		BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
 		String databaseaname;
 		while ( (databaseaname = br.readLine()) !=null)
 		{
-			System.out.println(databaseaname);
 			DB loaded = new DB().LoadDataBase(databaseaname);
-			System.out.println(loaded.getTables().size());
 			m.put(databaseaname, loaded);
 		}
-
+		br.close();
 	}
-
 }

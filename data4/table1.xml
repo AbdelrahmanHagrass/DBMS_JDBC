@@ -15,40 +15,10 @@
    <void method="add">
     <object class="java.util.Vector">
      <void method="add">
-      <int>19</int>
-     </void>
-     <void method="add">
-      <string>&apos;ayman&apos;</string>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="java.util.Vector">
-     <void method="add">
       <int>39</int>
      </void>
      <void method="add">
       <string>&apos;body&apos;</string>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="java.util.Vector">
-     <void method="add">
-      <int>99</int>
-     </void>
-     <void method="add">
-      <string>&apos;ahmed&apos;</string>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="java.util.Vector">
-     <void method="add">
-      <int>1001010</int>
-     </void>
-     <void method="add">
-      <string>&apos;ahaaaaaaa&apos;</string>
      </void>
     </object>
    </void>
@@ -62,7 +32,7 @@
    </void>
   </void>
   <void property="parentDB">
-   <string>test</string>
+   <string>data4</string>
   </void>
   <void property="table_Name">
    <string>table1</string>

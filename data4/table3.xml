@@ -20,10 +20,10 @@
    </void>
   </void>
   <void property="parentDB">
-   <string>test</string>
+   <string>data4</string>
   </void>
   <void property="table_Name">
-   <string>table2</string>
+   <string>table3</string>
   </void>
   <void property="types">
    <void method="add">

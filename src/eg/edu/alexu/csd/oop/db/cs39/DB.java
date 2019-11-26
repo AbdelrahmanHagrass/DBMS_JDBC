@@ -3,12 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.*;
 import java.util.*;
 
-import javax.xml.crypto.Data;
+
 public class DB {
 	
 	public String getDatabaseName() {
@@ -35,7 +32,7 @@ public class DB {
 			 File.mkdir();
 		 }
 		 this.file=File;
-		 String s;
+
 		 for(int i=DatabaseName.length()-1;i>=0;i--)
 		 {
 		 }
@@ -59,6 +56,7 @@ public class DB {
 		{
 			this.Tables.get(i).DropTable();
 		}
+		System.out.println(this.file.getAbsoluteFile());
 		this.file.delete();
 		
 	}

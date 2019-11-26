@@ -1,14 +1,17 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
+
 
 public class MainTest {
 	
 	public static void main(String[] args) throws SQLException {
 		
 		IDataBase idb = new IDataBase();
+		
 		//Test load
 		try {
 			idb.load();
@@ -20,7 +23,6 @@ public class MainTest {
 			
 			System.out.println(entry.getValue().getDatabaseName());
 			System.out.println(entry.getValue().Tables.size());
-
 		}
 		
 		//idb.QueryManagement("CREATE DATABASE second");
@@ -31,10 +33,37 @@ public class MainTest {
 		
 //		idb.QueryManagement("CREATE DATABASE data1"); // De httms7
 //		idb.QueryManagement("CREATE DATABASE data2");
-//		idb.QueryManagement("CREATE DATABASE test"); // de htt7at feeha el tables kolaha
+//		idb.QueryManagement("CREATE DATABASE data3");
+//		idb.QueryManagement("CREATE DATABASE data4");
 		
+//		System.out.println();
+//		System.out.println(idb.m.size() + "eh b2a ");
+//		for (Map.Entry<String, DB> entry : idb.m.entrySet()) {
+//			
+//		System.out.println(entry.getValue().getDatabaseName());
+//
+//		}
+//		System.out.println();
+//		
+//		System.out.println(idb.lastDB.getDatabaseName());
+//		System.out.println();
+		
+//		idb.QueryManagement("CREATE DATABASE test"); // de htt7at feeha el tables kolaha
+//		
 		//drop database 
 //		idb.QueryManagement("DROP DATABASE data1"); // error ...create new database and delete it ?!
+		
+//		System.out.println();
+//		System.out.println(idb.m.size() + "eh b2a ");
+//		for (Map.Entry<String, DB> entry : idb.m.entrySet()) {
+//			
+//		System.out.println(entry.getValue().getDatabaseName());
+//
+//		}
+//		System.out.println();
+//		
+//		System.out.println(idb.lastDB.getDatabaseName());
+//		System.out.println();
 		
 		//create table
 //		idb.QueryManagement("create table table1(id int,name varchar)");
@@ -51,9 +80,9 @@ public class MainTest {
 		//idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
 //		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (19,'ayman')");
 //		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (39,'body')");
-		//idb.QueryManagement("DELETE FROM table1 WHERE id = 19");
+//		idb.QueryManagement("DELETE FROM table1 WHERE id = 19");
 //		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (99,'hagrosy el 3agrosy')"); //error
-//		try {
+//		try { 
 //			//idb.lastDB.SaveDataBase();
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block

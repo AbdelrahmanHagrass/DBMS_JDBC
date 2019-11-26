@@ -1,7 +1,6 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Map;
+
 
 public interface Command  {
 	

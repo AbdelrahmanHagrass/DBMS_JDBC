@@ -1,7 +1,5 @@
 package eg.edu.alexu.csd.oop.db.cs39;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Parser {
 	

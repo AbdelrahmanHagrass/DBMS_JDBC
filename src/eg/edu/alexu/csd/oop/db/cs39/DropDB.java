@@ -9,12 +9,8 @@ public class DropDB implements Command {
 	Map<String, DB> m ;
 
 	public DropDB(String databaseName,Map<String, DB> m) {
-		
 		this.databaseName= databaseName;
 		this.m = m ;
-		
-		
-
 	}
 
 	@Override
@@ -36,8 +32,9 @@ public class DropDB implements Command {
 	public void execute() throws SQLException {
 
 		try {
-			System.out.println(databaseName);
+			System.out.println(databaseName + "gowa el execute bta3 el dropdb");
 			m.get(databaseName).DropDatabase();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
