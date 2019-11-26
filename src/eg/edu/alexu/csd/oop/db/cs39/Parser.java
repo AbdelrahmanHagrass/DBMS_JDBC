@@ -28,7 +28,7 @@ public class Parser {
 			
 			return 4 ;
 		}
-		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))")) {
+		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+(\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+)))?")) {
 			object.Delete(s);
 			 
 			return 5 ;
@@ -49,9 +49,14 @@ public class Parser {
 		
 			return 8 ;
 		}
+//		SELECT column_name1 FROM table_name13 WHERE coluMN_NAME2 < 5
 		else if(s.matches("(?i)SELECT\\s+[*]\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))(\\s+)?")) {
-			object.Select(s);
+//			object.Select(s);
 			return 9 ;
+		}
+		else if(s.matches("(?i)SELECT\\s+\\w+\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))(\\s+)?")) {
+//			object.Select(s);
+			return 10 ;
 		}
 		return 0 ;
 		
