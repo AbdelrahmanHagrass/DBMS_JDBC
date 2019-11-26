@@ -2,11 +2,13 @@ package eg.edu.alexu.csd.oop.db.cs39;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.*;
 import java.util.*;
 public class DB {
+	
 	public String getDatabaseName() {
 		return DatabaseName;
 	}
@@ -21,6 +23,7 @@ public class DB {
 	}
 	String DatabaseName;
 	ArrayList<Table>Tables=new ArrayList<Table>();
+	File file;
 	public DB(String DatabaseName) throws FileNotFoundException
 	{
 		this.DatabaseName=DatabaseName;
@@ -29,34 +32,40 @@ public class DB {
 		 {
 			 File.mkdir();
 		 }
+		 this.file=File;
 	}
-	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws FileNotFoundException
+	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws IOException
 	{
 		Table New=new Table(tablename,names,types,DatabaseName);
 		FileOutputStream file2=new FileOutputStream(DatabaseName+"\\"+tablename+".xml");
-		Tables.add(New);
+		file2.close();
+		this.Tables.add(New);
 		return New;
 	}
-	public void DropDatabase()
+	public void DropDatabase() throws Exception
 	{
-		File file=new File(DatabaseName);
-		file.delete();
+		for(int i=0;i<Tables.size();i++)
+		{
+			this.Tables.get(i).DropTable();
+		}
+		this.file.delete();
+		
 	}
 	public String getAbsolutePath()
 	{
-		File file=new File(DatabaseName);
-		return file.getAbsolutePath();
+		return this.file.getAbsolutePath();
 	}
-	public void addTable(Table NEW) throws FileNotFoundException
+	public void addTable(Table NEW) throws IOException
 	{
 		FileOutputStream file2=new FileOutputStream(DatabaseName+"\\"+NEW.Table_Name+".xml");
-		Tables.add(NEW);
+		file2.close();
+		this.Tables.add(NEW);
 	}
 	public void SaveDataBase() throws Exception
 	{
 		for(int i=0;i<Tables.size();i++)
 		{
-			Tables.get(i).SaveTable();
+			this.Tables.get(i).SaveTable();
 		}
 	}
 	/*
