@@ -100,7 +100,7 @@ public class Table {
 		}
 		for (int i = 0; i < types.size(); i++) {
 			String a = input.get(i).getClass().getSimpleName();
-			if (types.get(i) == "varchar") {
+			if (types.get(i).compareTo("varchar")==0) {
 				if (a.compareTo("String") != 0) {
 					System.out.println("Invalid Input");
 					return 0;
