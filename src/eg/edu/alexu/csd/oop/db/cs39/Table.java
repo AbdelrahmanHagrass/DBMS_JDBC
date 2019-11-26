@@ -109,7 +109,6 @@ public class Table {
 				if (a.compareTo("Integer") != 0) {
 					System.out.println("Invalid Input");
 					return 0;
-
 				}
 			}
 		}
@@ -146,7 +145,7 @@ public class Table {
 	 * 
 	 * @param col == to the names of columns(equal to the names when the * in the
 	 *            command line
-	 * @return new table with the desired colomns
+	 * @return new table with the desired colomns 
 	 * @throws Exception
 	 */
 	public Table SelectFromTable(Vector<String> col) throws Exception {
@@ -336,6 +335,7 @@ public class Table {
 			}
 			}
 		}
+		
 		return count;
 
 	}
@@ -348,8 +348,9 @@ public class Table {
 	{
 		FileOutputStream file = new FileOutputStream(ParentDB + "\\" + Table_Name + ".xml");
 		XMLEncoder a = new XMLEncoder(file);
-		Table s = new Table(Table_Name, names, types, ParentDB);
-		s = SelectFromTable(names);
+		Table s = new Table(this.Table_Name, this.names, this.types, this.ParentDB);
+		s.items=(ArrayList<Vector<Object>>) SelectFromTable(this.names).getItems().clone();
+		
 		a.writeObject(s);
 		a.close();
 		file.close();
