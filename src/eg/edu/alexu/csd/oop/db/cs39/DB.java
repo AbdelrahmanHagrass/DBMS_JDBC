@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.*;
 import java.util.*;
+
+import javax.xml.crypto.Data;
 public class DB {
 	
 	public String getDatabaseName() {
@@ -26,13 +28,22 @@ public class DB {
 	File file;
 	public DB(String DatabaseName) throws FileNotFoundException
 	{
-		this.DatabaseName=DatabaseName;
+		
 		File File =new File(DatabaseName);
 		 if(!File.exists())
 		 {
 			 File.mkdir();
 		 }
 		 this.file=File;
+		 String s;
+		 for(int i=DatabaseName.length()-1;i>=0;i--)
+		 {
+		 }
+		 this.DatabaseName=DatabaseName;
+	}
+	public DB()
+	{
+		
 	}
 	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws IOException
 	{
@@ -66,15 +77,29 @@ public class DB {
 		for(int i=0;i<Tables.size();i++)
 		{
 			this.Tables.get(i).SaveTable();
+		
 		}
 	}
-	/*
-	public DB LoadDataBase(String name) throws FileNotFoundException //
+	
+	public DB LoadDataBase(String Databasename) throws 
+IOException
 	{
-		DB temp=new DB("name");
-		File file=new File("name");
-		
-		return null;
+		DB temp=new DB(Databasename);
+		File file=new File(Databasename);
+		File []tables=file.listFiles();
+		for(File contents:tables)
+		{
+			String path=contents.getAbsolutePath();
+			String extension=path.substring(path.length()-4);
+			if(extension.compareTo(".xml")!=0)
+			{
+				continue;
+			}
+			Table a=new Table(Databasename);
+			a=a.LoadTable(path);
+			temp.Tables.add(a);
+		}
+		return temp;
 	}
-	*/
+	
 }
