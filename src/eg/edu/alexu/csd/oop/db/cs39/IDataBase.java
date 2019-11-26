@@ -164,7 +164,7 @@ public class IDataBase implements Database {
 				return null; // should be handled
 			}
 		} else {
-			p.SelectTable(query);
+			p.Select(query);
 			selecTable = new Select(p.getTablename(), lastDB, p.getOperator(), p.getSelectcolumn(), p.getSelectvalue());
 			try {
 				return selecTable.execute();
