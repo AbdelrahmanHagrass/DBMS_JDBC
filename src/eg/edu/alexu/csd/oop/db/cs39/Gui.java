@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-//import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -14,17 +14,17 @@ import javax.swing.JTextField;
 
 import java.awt.Insets;
 import java.awt.Toolkit;
-//import java.awt.desktop.ScreenSleepEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-//import java.util.Vector;
+import java.util.Vector;
 
-//import javax.swing.JList;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-//import javax.swing.table.TableColumnModel;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -138,47 +138,76 @@ public class Gui {
 		process.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("a7a");
+//				System.out.println("a7123123a");
 				try {
 					db.QueryManagement(input.getText());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-//				if (parser.checkInput(input.getText()) == 8) {
-//					Vector<String> columns= partitions.CreateTable(input.getText());
-//					table = new JTable();
-//					scrollPane.setViewportView(table);
-//					model = (DefaultTableModel) table.getModel();
-//					comboBox.addItem(columns.lastElement());
-//					comboBox.setSelectedIndex(counter-1);
-//					counter++;
-//					for(int i=0;i<columns.size()-1;i++) {
-//						model.addColumn(columns.elementAt(i));
-//						
-//					}
-////					arr[0]=table;
-////				System.out.println(	table.getColumnModel().getColumnCount());
-////					System.out.println(tables.size());
-//				}
-//				else if(parser.checkInput(input.getText())==2) {
-//					comboBox.removeAllItems();
-//					table = new JTable();
-//					scrollPane.setViewportView(table);
-////					string name1 = partitions.
-//					String name = partitions.CreateDatabase(input.getText()) ;
-//					label.setText(name);
-//					input.setText("success :)");
-//				}
-//				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==1) {
-//                       //Object[][] table =  db.executeQuery(input.getText());
-//					   input.setText("success :)");
-//				}
-//				else if (parser.checkInput(input.getText()) != 0) {
-//					input.setText("success :)");
-//				} else {
-//					input.setText("wrong input");
-//				}
+				if (parser.checkInput(input.getText()) == 8) {
+					Vector<String> columns= partitions.CreateTable(input.getText());
+					table = new JTable();
+					scrollPane.setViewportView(table);
+					model = (DefaultTableModel) table.getModel();
+					comboBox.addItem(columns.lastElement());
+					comboBox.setSelectedIndex(counter-1);
+					counter++;
+					for(int i=0;i<columns.size()-1;i++) {
+						model.addColumn(columns.elementAt(i));
+						
+					}
+//					arr[0]=table;
+//				System.out.println(	table.getColumnModel().getColumnCount());
+//					System.out.println(tables.size());
+				}
+				else if(parser.checkInput(input.getText())==2) {
+					comboBox.removeAllItems();
+					counter=1;
+					table = new JTable();
+					scrollPane.setViewportView(table);
+	
+					String name = partitions.CreateDatabase(input.getText()) ;
+					label.setText(name);
+					input.setText("success :)");
+				}
+				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==1) {
+                       try {
+                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
+						Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
+						table = new JTable();
+						scrollPane.setViewportView(table);
+						DefaultTableModel tableModel = new DefaultTableModel() {
+
+						    @Override
+						    public boolean isCellEditable(int row, int column) {
+						       //all cells false
+						       return false;
+						    }
+						};
+				 		table.setModel(tableModel);
+						 model = (DefaultTableModel) table.getModel();
+			
+						for(int j=0;j<names1.size();j++) {
+							model.addColumn(names1.get(j));
+							
+						}
+						for(int i=0;i<table1.length;i++) {
+							
+								model.addRow(table1[i]);
+							
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					   input.setText("success :)");
+				}
+				else if (parser.checkInput(input.getText()) != 0) {
+					input.setText("success :)");
+				} else {
+					input.setText("wrong input");
+				}
 
 			}
 		});

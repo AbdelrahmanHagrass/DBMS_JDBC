@@ -1,3 +1,4 @@
+
 package eg.edu.alexu.csd.oop.db.cs39;
 
 import java.util.Vector;
@@ -23,15 +24,21 @@ public class Select {
 		this.Condition = Condition;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
-			if(ParentDB.Tables.get(i).getTable_Name() == TableName)
+			if(ParentDB.Tables.get(i).getTable_Name().matches(TableName) )
 			{
 				toBeSelected =  ParentDB.Tables.get(i) ;
 			}
 		}
 	}
+	public Vector<String> getNames () throws Exception
+	{
+		return toBeSelected.getNames();
+	}
 	
 	public Object[][] execute () throws Exception
-	{
+	{      if(field==null) {
+		return toBeSelected.SelectTable();
+	}
 		//return toBeSelected.SelectFromTable2DArray(cols);
 		return toBeSelected.SelectFromTableCondition(type, field, Condition);
 	}

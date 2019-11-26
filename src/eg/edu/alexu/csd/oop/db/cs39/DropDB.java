@@ -36,6 +36,7 @@ public class DropDB implements Command {
 	public void execute() throws SQLException {
 
 		try {
+			System.out.println(databaseName);
 			m.get(databaseName).DropDatabase();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

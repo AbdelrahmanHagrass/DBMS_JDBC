@@ -5,6 +5,7 @@ public static String databasename,tablename,Column1,Column2,Value1,Value2,Column
 Vector<String> Columns,Types;
 Vector<Object> Values;
 int Operator;
+String Database_name;
 public void Partitions(String query) {
 	Parser Par =new Parser();
 	Par.checkInput(query);
@@ -85,7 +86,7 @@ public void DropTable(String s) {
 	tablename=table_name;
 }
 public void DropDatabase(String s) {
-	String Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();
+	 Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();
 }
 public void Select(String s) {
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
@@ -98,6 +99,7 @@ public void Select(String s) {
 	Value3=(s.substring(index+1)).trim();	
 }
 public String getTablename() {return tablename;}
+public String getDropDataBaseName() {return Database_name;}
 public String getDatabasename() {return databasename;}
 public String getDeletecolumn() {return Column;}
 public String getDeletevalue() {return Value;}

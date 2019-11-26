@@ -14,6 +14,8 @@ public class MainTest {
 		//idb.lastDB.
 		//create database
 		idb.QueryManagement("CREATE DATABASE data1");
+		idb.QueryManagement("CREATE DATABASE data2");
+		idb.QueryManagement("CREATE DATABASE test");
 		
 		//drop database 
 //		idb.QueryManagement("DROP DATABASE data1"); // error ...create new database and delete it ?!
