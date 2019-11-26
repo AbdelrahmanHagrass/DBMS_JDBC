@@ -15,7 +15,7 @@ public class Delete {
 	
 	public Delete(String TableName , DB ParentDB , String ID , String field ) {
 		
-
+		System.out.println("size of db tables "+ParentDB.getTables().size());
 		this.ID=ID;
 		this.TableName = TableName;
 		this.ParentDB = ParentDB;
@@ -24,8 +24,13 @@ public class Delete {
 		this.ParentDB = ParentDB;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
+			System.out.println(i+" "+ParentDB.getDatabaseName()+" "+ParentDB.Tables.get(i).getTable_Name() + "  is equal " + TableName);
+			System.out.println(ParentDB.Tables.get(i).getTable_Name()+" "+TableName);
+			System.out.println();
+			System.out.println(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) + " shoooooo");
 			if(ParentDB.Tables.get(i).getTable_Name() == TableName)
 			{
+				System.out.println("da5al");
 				toBeDeleted =  ParentDB.Tables.get(i) ;
 			}
 		}

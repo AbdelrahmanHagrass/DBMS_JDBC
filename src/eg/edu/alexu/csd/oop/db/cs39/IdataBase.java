@@ -14,8 +14,8 @@ public class IDataBase implements Database {
 	//Map of all created databases
 	Map<String,DB> m = new HashMap<String, DB >();
 	DB lastDB;
-	private Command DBcommandCreate ;
-	private Command DBcommandDrop ;
+    Command DBcommandCreate ;
+    Command DBcommandDrop ;
     Command DropTable;
 	Command CreateTable;
 	Select selecTable;
@@ -28,12 +28,16 @@ public class IDataBase implements Database {
 	public void QueryManagement (String query) throws SQLException
 	{
 		//create db
-		if(parser.checkInput(query) == 2 || parser.checkInput(query) == 3)
+		if(parser.checkInput(query) == 2 )
 		{
 			//drop-if-exist should be handled
 			LastDBpath = this.createDatabase(parser.object.getDatabasename(), false) ;
 			System.out.println("Database is Created / Deleted");
 			
+		}
+		else if (parser.checkInput(query) == 3)
+		{
+			this.executeStructureQuery(query);
 		}
 		//create table,drop table,called internally when create db , drop db
 		else if (  parser.checkInput(query) == 4 || parser.checkInput(query) == 8  )
@@ -65,6 +69,7 @@ public class IDataBase implements Database {
 		
 		if(m.containsKey(databaseName) == false)
 		{
+			System.out.println("kkkkkkkkkkk mfeesh database bel esm da");
 			DBcommandCreate = new CreateDB(databaseName);
 			try {
 				executeStructureQuery("createdatabase");
@@ -112,6 +117,15 @@ public class IDataBase implements Database {
 		{
 			DBcommandDrop.execute();
 			m.remove(DBcommandDrop.getnameofDB());
+			System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk");
+			return true;
+		}
+		else if(querySmall.contains("drop") && querySmall.contains("database"))
+		{
+			p.DropDatabase(query);
+			DBcommandDrop = new DropDB(p.getDatabasename(),m);
+			DBcommandDrop.execute();
+			m.remove(p.getDatabasename());
 			return true;
 		}
 		else if (querySmall.contains("create") && querySmall.contains("table"))

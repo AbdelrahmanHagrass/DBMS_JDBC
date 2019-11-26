@@ -11,6 +11,7 @@ public class MainTest {
 		//idb.QueryManagement("CREATE DATABASE second");
 		//idb.QueryManagement("DROP DATABASE second");
 		
+		//idb.lastDB.
 		//create database
 		idb.QueryManagement("CREATE DATABASE data1");
 		
@@ -31,6 +32,33 @@ public class MainTest {
 		//idb.QueryManagement("insert into table1 values (1,'ziad')");
 		//idb.QueryManagement("INSERT INTO table1 VALUES (1,'ziad')");
 		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (19,'ayman')");
+		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (39,'body')");
+		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (99,'hagrosy el 3agrosy')"); //error
+		try {
+			idb.lastDB.SaveDataBase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (99,'ahmed')");
+		try {
+			idb.lastDB.SaveDataBase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (1001010,'ahaaaaaaa')");
+		
+		try {
+			idb.lastDB.SaveDataBase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//idb.QueryManagement("DELETE From table1  WHERE name='ayman'");
+		
+		idb.QueryManagement("DROP DATABASE data1"); //tmam
 		
 		
 		//select
