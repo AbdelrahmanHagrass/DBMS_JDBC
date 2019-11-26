@@ -1,6 +1,14 @@
 
 package eg.edu.alexu.csd.oop.db.cs39;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -206,6 +214,41 @@ public class IDataBase implements Database {
 			}
 		} else {
 			return 0;
+		}
+
+	}
+	
+	public void save() throws Exception
+	{
+		savedatabasenames();
+		for (Map.Entry<String, DB> entry : m.entrySet()) {
+		    //System.out.println(entry.getKey() + " = " + entry.getValue().getDatabaseName());
+			entry.getValue().SaveDataBase();
+		}
+	}
+
+	public void savedatabasenames() throws Exception
+	{
+		BufferedWriter bw = new BufferedWriter(new FileWriter(".\\DatabaseNames.txt"));
+		for (Map.Entry<String, DB> entry : m.entrySet()) {
+			
+			System.out.println(entry.getValue().getDatabaseName());
+			bw.write(entry.getValue().getDatabaseName());
+			bw.newLine();
+		}
+		bw.close();	
+	}
+	
+	public void load() throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
+		String databaseaname;
+		while ( (databaseaname = br.readLine()) !=null)
+		{
+			System.out.println(databaseaname);
+			DB loaded = new DB().LoadDataBase(databaseaname);
+			System.out.println(loaded.getTables().size());
+			m.put(databaseaname, loaded);
 		}
 
 	}

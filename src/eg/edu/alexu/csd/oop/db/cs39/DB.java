@@ -84,11 +84,13 @@ public class DB {
 	public DB LoadDataBase(String Databasename) throws 
 IOException
 	{
+		System.out.println("a7aa");
 		DB temp=new DB(Databasename);
 		File file=new File(Databasename);
 		File []tables=file.listFiles();
 		for(File contents:tables)
 		{
+			System.out.println("leeh msh byd5ol");
 			String path=contents.getAbsolutePath();
 			String extension=path.substring(path.length()-4);
 			if(extension.compareTo(".xml")!=0)
@@ -97,6 +99,7 @@ IOException
 			}
 			Table a=new Table(Databasename);
 			a=a.LoadTable(path);
+			System.out.println("table is loaded");
 			temp.Tables.add(a);
 		}
 		return temp;

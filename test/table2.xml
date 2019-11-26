@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="11.0.2" class="java.beans.XMLDecoder">
  <object class="eg.edu.alexu.csd.oop.db.cs39.Table" id="Table0">
+  <void property="col_type">
+   <void method="put">
+    <string>name</string>
+    <string>varchar</string>
+   </void>
+   <void method="put">
+    <string>id</string>
+    <string>int</string>
+   </void>
+  </void>
   <void property="names">
    <void method="add">
     <string>id</string>
@@ -11,6 +21,9 @@
   </void>
   <void property="parentDB">
    <string>test</string>
+  </void>
+  <void property="table_Name">
+   <string>table2</string>
   </void>
   <void property="types">
    <void method="add">
