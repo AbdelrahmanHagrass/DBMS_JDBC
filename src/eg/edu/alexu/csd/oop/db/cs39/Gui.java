@@ -272,7 +272,42 @@ public class Gui {
 					}
 					   input.setText("success :)");
 				}
+				else if (parser.checkInput(input.getText())==9) {
+                    try {
+                    	Partitions p = new Partitions();
+                    	p.Select(input.getText());
+                 Vector<String>	 names1=  db.getNames(p.getTablename());
+						Object[][] table1 =  db.executeQuery(input.getText());
+						comboBox.setSelectedItem(p.getTablename());
+						counter = comboBox.getSelectedIndex()+1;
+						table = new JTable();
+						scrollPane.setViewportView(table);
+						DefaultTableModel tableModel = new DefaultTableModel() {
 
+						    @Override
+						    public boolean isCellEditable(int row, int column) {
+						       //all cells false
+						       return false;
+						    }
+						};
+				 		table.setModel(tableModel);
+						 model = (DefaultTableModel) table.getModel();
+			
+						for(int j=0;j<names1.size();j++) {
+							model.addColumn(names1.get(j));
+							
+						}
+						for(int i=0;i<table1.length;i++) {
+							
+								model.addRow(table1[i]);
+							
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					   input.setText("success :)");
+				}
 				else if (parser.checkInput(input.getText()) != 0) {
 					input.setText("success :)");
 				} else {
