@@ -277,6 +277,31 @@ public class Table {
 			
 		
 	}
+	/**
+	 * 
+	 * @param field the column which will be selected
+	 * @param Condition the condition field
+	 * @param ID the condition field=ID
+	 */
+	public Object[][] SelectCell(String field,String Condition,String ID)
+	{
+		if(items.size()==0)
+		{
+			return null;
+		}
+		int X=names.indexOf(Condition);
+		int Y=names.indexOf(field);
+		Object [][]out=new Object[items.size()][items.get(0).size()];
+		for(int i=0;i<items.size();i++)
+		{
+			String j=items.get(i).get(X).toString();
+			if(j.compareTo(ID)==0)
+			{
+				out[i][Y]=items.get(i).get(Y);
+			}
+		}
+		return out;
+	}
 	public void Update(int Row, String field, String NewValue)// Rows starts with 1
 	{
 		int X = names.indexOf(field);
