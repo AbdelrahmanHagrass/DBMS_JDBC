@@ -17,7 +17,9 @@ public class Table {
 	String ParentDB;
 	Vector<String> types = new Vector<String>();
 	Vector<String> names = new Vector<String>();
+	Vector<String> names2 = new Vector<String>();
 	Map<String, String> col_type = new HashMap<String, String>();
+	Map<String, String> col_type2 = new HashMap<String, String>();
 	String Table_Name;
 	File file;
 	ArrayList<Vector<Object>> items = new ArrayList<Vector<Object>>();
@@ -28,10 +30,11 @@ public class Table {
 		this.Table_Name = Table_Name;
 		this.types = (Vector<String>) types.clone();
 		this.names = (Vector<String>) names.clone();
+		for(String temp : names) {this.names2.add(temp.toUpperCase());}
 		this.file = new File(this.ParentDB + "\\" + this.Table_Name + ".xml");
 		for (int i = 0; i < types.size(); i++) {
 			col_type.put(this.names.get(i), this.types.get(i));
-
+			col_type2.put(this.names.get(i).toUpperCase(), this.types.get(i));
 		}
 		
 	}
@@ -40,8 +43,10 @@ public class Table {
 		this.Table_Name = Table_Name;
 		this.types = (Vector<String>) types.clone();
 		this.names = (Vector<String>) names.clone();
+		for(String temp : names) {this.names2.add(temp.toUpperCase());}
 		for (int i = 0; i < types.size(); i++) {
 			col_type.put(this.names.get(i), this.types.get(i));
+			col_type2.put(this.names.get(i).toUpperCase(), this.types.get(i));
 		}
 	}
 
@@ -63,6 +68,9 @@ public class Table {
 
 	public Vector<String> getNames() {
 		return names;
+	}
+	public Vector<String> getNames2() {
+		return names2;
 	}
 
 	public void setNames(Vector<String> names) {
@@ -98,13 +106,14 @@ public class Table {
 	}
 
 	public int InsertIntoTable(Vector<Object> input) throws Exception {
+		
 		if (input == null || input.size() != names.size()) {
 			return 0;
 		}
 
 		for (int i = 0; i < types.size(); i++) {
 			String a = input.get(i).getClass().getSimpleName();
-			if (types.get(i).compareTo("varchar")==0) {
+			if (types.get(i).compareTo("VARCHAR")==0) {
 				if (a.compareTo("String") != 0) {
 					System.out.println("Invalid Input");
 					return 0;
@@ -132,12 +141,11 @@ public class Table {
 	}
 
 	public int DeleteFromTableWithCondition(String field, String ID)// example Delete From Table WHERE employeID=3
-	{
-		int X = names.indexOf(field);
+	{  int X=names2.indexOf(field);
 		int counter = 0;
 		for (int i = 0; i < items.size(); i++) {
 			String j = items.get(i).get(X).toString();
-			if (j.compareTo(ID) == 0) {
+			if (j.compareToIgnoreCase(ID) == 0) {
 				DeleteFromTable(i + 1);
 				i--;
 				counter++;
@@ -154,11 +162,12 @@ public class Table {
 	 * @throws Exception
 	 */
 	public Table SelectFromTable(Vector<String> col) throws Exception {
+		System.out.println(col);
 		Table New = new Table(this.ParentDB);
 		Vector<Integer> index = new Vector<Integer>();
 		for (int i = 0; i < col.size(); i++) {
 			String a = col.get(i);
-			String b = col_type.get(a);
+			String b = col_type2.get(a.toUpperCase());
 			New.names.add(a);
 			New.types.add(b);
 			index.add(names.indexOf(a));
@@ -206,7 +215,7 @@ public class Table {
 		for (int i = 0; i < items.size(); i++) {
 
 			String j = items.get(i).get(X).toString();
-			if (this.col_type.get(field).compareTo("int") == 0) {
+			if (this.col_type.get(field).compareTo("INT") == 0) {
 				int x = Integer.parseInt(j);
 				int y = Integer.parseInt(Condition);
 				if (type == 0 && x == y) {
@@ -249,7 +258,7 @@ public class Table {
 			return null;
 		}
 		ArrayList<Vector<Object>> a = new ArrayList<Vector<Object>>();
-		int X = names.indexOf(field);
+		int X = names2.indexOf(field);
 
 		for (int i = 0; i < items.size(); i++) {
 
@@ -257,7 +266,7 @@ public class Table {
 			
 			for(int k=0;k<Condition.size();k++)
 			{
-			if (this.col_type.get(field).compareTo("int") == 0) {
+			if (this.col_type2.get(field).compareTo("INT") == 0) {
 				int x = Integer.parseInt(j);
 				int y = Integer.parseInt(Condition.get(k));
 				if (x == y) {
@@ -265,7 +274,7 @@ public class Table {
 					break;
 				} 
 			} else {
-					if (j.compareTo(Condition.get(k)) == 0) {
+					if (j.compareToIgnoreCase(Condition.get(k)) == 0) {
 						a.add((Vector<Object>) items.get(i).clone());
 						break;
 				} 
@@ -309,8 +318,8 @@ public class Table {
 	}
 	public void Update(int Row, String field, String NewValue)// Rows starts with 1
 	{
-		int X = names.indexOf(field);
-		if (types.get(X).compareTo("varchar") == 0) {
+		int X = names2.indexOf(field);
+		if (types.get(X).compareTo("VARCHAR") == 0) {
 			items.get(Row - 1).setElementAt(NewValue, X);
 		} else {
 			int New = Integer.parseInt(NewValue);
@@ -326,11 +335,11 @@ public class Table {
 																											// type =-1
 																											// means
 																											// smaller
-		int X = names.indexOf(ID);
+	int X=names2.indexOf(ID);
 		int count = 0;
 		for (int i = 0; i < items.size(); i++) {
-			String j = items.get(i).get(X).toString();
-			if (this.col_type.get(ID).compareTo("int") == 0) {
+			String j = items.get(i).get(X).toString().toUpperCase();
+			if (this.col_type2.get(ID).compareTo("INT") == 0) {
 				int x = Integer.parseInt(j);
 				int y = Integer.parseInt(Condition);
 				System.out.println("asdasdsa");

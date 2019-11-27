@@ -18,7 +18,7 @@ public class DropTable implements Command {
 		{
 			System.out.println("a7a");
 			//if(TableName == parentDB.Tables.get(i).getTable_Name())
-			if( parentDB.Tables.get(i).getTable_Name().compareTo(TableName) ==0 )
+			if( parentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{
 				System.out.println("a7a");
 				tobeDropped = parentDB.Tables.get(i);

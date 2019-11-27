@@ -33,17 +33,20 @@ public class IDataBase implements Database {
 		// create db
 		if (parser.checkInput(query) == 2) {
 			// drop-if-exist should be handled
-			LastDBpath = this.createDatabase(parser.object.getDatabasename(), false);
+			p.CreateDatabase(query);
+			LastDBpath = this.createDatabase(p.getDatabasename(), false);
 
 		} else if (parser.checkInput(query) == 3) {
 			this.executeStructureQuery(query);
 		}
 		// create table,drop table,called internally when create db , drop db
 		else if (parser.checkInput(query) == 4 || parser.checkInput(query) == 8) {
+			
 			this.executeStructureQuery(query);
 		}
 		// update method
 		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7) {
+			
 			this.executeUpdateQuery(query);
 		}
 		// select
@@ -95,7 +98,7 @@ public class IDataBase implements Database {
 
 		if (query == "createdatabase") {
 			DBcommandCreate.execute();
-			m.put(DBcommandCreate.getnameofDB(), DBcommandCreate.getDB());
+			m.put(DBcommandCreate.getnameofDB().toUpperCase(), DBcommandCreate.getDB());
 			lastDB = DBcommandCreate.getDB();
 			return true;
 		} else if (query == "dropdatabase") {
@@ -173,11 +176,13 @@ public class IDataBase implements Database {
 
 	@Override
 	public int executeUpdateQuery(String query) throws SQLException {
-
+		
 		// insert //update //delete
 		querySmall = query.toLowerCase();
 		if (querySmall.contains("insert")) {
-			insertTable = new Insert(p.getTablename(), lastDB, p.Insert(query));
+			 p.parent=lastDB;
+		     p.Insert(query);
+			insertTable = new Insert(p.getTablename() , lastDB, p.getvalues());
 			try {
 
 				return insertTable.execute();

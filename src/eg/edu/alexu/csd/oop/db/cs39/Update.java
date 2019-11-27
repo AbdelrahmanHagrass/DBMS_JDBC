@@ -26,7 +26,7 @@ public class Update {
 		this.ParentDB = ParentDB;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
-			if(ParentDB.Tables.get(i).getTable_Name() == TableName)
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0)
 			{
 				toBeUpdated =  ParentDB.Tables.get(i) ;
 			}

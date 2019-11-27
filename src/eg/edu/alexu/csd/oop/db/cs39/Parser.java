@@ -7,43 +7,43 @@ public class Parser {
 	public int checkInput(String s)  {
 		if(s.matches("(?i)SELECT\\s+[*]\\s+FROM\\s+\\w+(\\s+)?")) {
 			
-			object.SelectTable(s);
+			//object.SelectTable(s);
 			
 			return 1 ;
 		}
 		else if (s.matches("(?i)CREATE\\s+DATABASE\\s+\\w+(\\s+)?")) {
-			object.CreateDatabase(s);
+			//object.CreateDatabase(s);
 	
 			return 2 ;
 		}
 		else if (s.matches("(?i)DROP\\s+DATABASE\\s+\\w+(\\s+)?")) {
-		     object.DropDatabase(s);
+		    // object.DropDatabase(s);
 			
 			return 3 ;
 		}
 		else if (s.matches("(?i)DROP\\s+TABLE\\s+\\w+(\\s+)?")) {
-			object.DropTable(s);
+			//object.DropTable(s);
 			
 			return 4 ;
 		}
 		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+(\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+)))?")) {
-			object.Delete(s);
+			//object.Delete(s);
 			 
 			return 5 ;
 		}
 		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+\\s+WHERE\\s+\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))")) {
-			object.Update(s);
+			//object.Update(s);
 			
 			return 6 ;
 		}
 		else if(s.matches("(?i)INSERT\\s+INTO\\s+\\w+(\\s+)?[(]((\\s+)?\\w+(\\s+)?(,)?)+[)]\\s+VALUES\\s+[(]((\\s+)?(('\\w+')|(\\d+))(\\s+)?(,)?)+[)]")) {
 			
-			object.Insert(s);
+			//object.Insert(s);
 			
 			return 7 ;
 		}
 		else if(s.matches("(?i)CREATE\\s+TABLE\\s+\\w+(\\s+)?[(]((\\s+)?\\w+\\s+((varchar)|(int))(\\s+)?(,)?)+[)]")) {
-			object.CreateTable(s);
+			//object.CreateTable(s);
 		
 			return 8 ;
 		}

@@ -28,7 +28,7 @@ public class Delete {
 			System.out.println(ParentDB.Tables.get(i).getTable_Name()+" "+TableName);
 			System.out.println();
 			System.out.println(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) + " shoooooo");
-			if(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) == 0 )
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{
 				System.out.println("da5al");
 				toBeDeleted =  ParentDB.Tables.get(i) ;

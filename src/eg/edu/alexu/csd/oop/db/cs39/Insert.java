@@ -22,7 +22,7 @@ public class Insert {
 			System.out.println();
 			System.out.println(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) + " shoooooo");
 			//if(ParentDB.Tables.get(i).getTable_Name() == TableName)
-			if(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) == 0 )
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{
 				System.out.println("da5al");
 				toBeInsertedIn =  ParentDB.Tables.get(i) ;

@@ -24,7 +24,7 @@ public class Select {
 		this.Condition = Condition;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
-			if(ParentDB.Tables.get(i).getTable_Name().matches(TableName) )
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{
 				toBeSelected =  ParentDB.Tables.get(i) ;
 			}
