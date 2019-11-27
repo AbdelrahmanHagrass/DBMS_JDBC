@@ -94,6 +94,7 @@ public class Gui {
 				if(e.getSource()==comboBox) {
 					
 					 try {
+						 System.out.println("1");
 		                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
 		                    counter=comboBox.getSelectedIndex()+1;
 								Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
@@ -252,7 +253,13 @@ public class Gui {
                     	p.SelectTable(input.getText());
                  Vector<String>	 names1=  db.getNames(p.getTablename());
 						Object[][] table1 =  db.executeQuery("SELECT * FROM "+p.getTablename());
-						comboBox.setSelectedItem(p.getTablename());
+						System.out.println("gui"+p.getTablename());
+						for(int i=0;i<comboBox.getItemCount();i++) {
+							if(((String) (comboBox.getItemAt(i))).compareToIgnoreCase(p.getTablename())==0) {
+								comboBox.setSelectedItem(comboBox.getItemAt(i));
+							}
+						}
+//						comboBox.setSelectedItem(p.getTablename());
 						counter = comboBox.getSelectedIndex()+1;
 						table = new JTable();
 						scrollPane.setViewportView(table);
@@ -288,7 +295,12 @@ public class Gui {
                     	p.Select(input.getText());
                  Vector<String>	 names1=  db.getNames(p.getTablename());
 						Object[][] table1 =  db.executeQuery(input.getText());
-						comboBox.setSelectedItem(p.getTablename());
+						for(int i=0;i<comboBox.getItemCount();i++) {
+							if(((String) (comboBox.getItemAt(i))).compareToIgnoreCase(p.getTablename())==0) {
+								comboBox.setSelectedItem(comboBox.getItemAt(i));
+							}
+						}
+//						comboBox.setSelectedItem(p.getTablename());
 						counter = comboBox.getSelectedIndex()+1;
 						table = new JTable();
 						scrollPane.setViewportView(table);
