@@ -26,7 +26,7 @@ public class Parser {
 			
 			return 4 ;
 		}
-		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+(\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+)))?")) {
+		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))")) {
 			//object.Delete(s);
 			 
 			return 5 ;
@@ -55,6 +55,11 @@ public class Parser {
 		else if(s.matches("(?i)SELECT\\s+\\w+\\s+FROM\\s+\\w+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?(('\\w+')|(\\d+))(\\s+)?")) {
 //			object.Select(s);
 			return 10 ;
+		}
+		else if (s.matches("(?i)DELETE\\s+FROM\\s+\\w+")) {
+			//object.Delete(s);
+			 
+			return 11 ;
 		}
 		return 0 ;
 		

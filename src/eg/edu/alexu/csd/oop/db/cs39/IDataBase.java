@@ -45,12 +45,12 @@ public class IDataBase implements Database {
 			this.executeStructureQuery(query);
 		}
 		// update method
-		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7) {
+		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7|| parser.checkInput(query) == 11) {
 			
 			this.executeUpdateQuery(query);
 		}
 		// select
-		else if (parser.checkInput(query) == 9||parser.checkInput(query) == 1) {
+		else if (parser.checkInput(query) == 9||parser.checkInput(query) == 1||parser.checkInput(query)==10) {
 			this.executeQuery(query);
 		} else {
 
@@ -215,7 +215,10 @@ public class IDataBase implements Database {
 				return 0;
 			}
 		} else if (querySmall.contains("delete")) {
-			p.Delete(query);
+			System.out.println("a7a delete");
+			if(parser.checkInput(query)==5) {
+				p.Delete(query);
+			System.out.println(p.getDeletevalue()+p.getDeletecolumn());
 			deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletevalue(),  p.getDeletecolumn());
 			try {
 				return deleteTable.execute();
@@ -223,9 +226,27 @@ public class IDataBase implements Database {
 				e.printStackTrace();
 				return 0;
 			}
+		}else if (parser.checkInput(query)==11) {
+			p.DeleteAll(query);
+//			System.out.println(p.getDeletevalue()+p.getDeletecolumn());
+			deleteTable = new Delete(p.getTablename(), lastDB,null,null);
+			System.out.println(p.getTablename()+"deleteall");
+			try {
+				return deleteTable.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
+		}
+			
+		
+		
+		
+		
 		} else {
 			return 0;
 		}
+		return 0;
 	}
 	public void save() throws Exception
 	{

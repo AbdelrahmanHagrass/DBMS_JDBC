@@ -35,7 +35,7 @@ public Vector<Object> Insert(String s) {
 	}
 public void Delete(String s) {
 	String temp=s.replaceAll("\\s+","");
-	Value=temp.substring(temp.lastIndexOf('='));
+	Value=temp.substring(temp.lastIndexOf('=')+1);
 	s=s.toUpperCase();
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
 	tablename=table_name;
@@ -44,7 +44,7 @@ public void Delete(String s) {
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.indexOf('<');Operator=-1;}
 	Column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
-	//Value=(s.substring(index+1)).trim();
+	
 	}
 public void Update(String s) {
     String temp=s.replaceAll("\\s+","");
@@ -57,7 +57,7 @@ public void Update(String s) {
     else{index=s.lastIndexOf('=');Operator=0;Value2=temp.substring(temp.lastIndexOf('=')+1);}
     Column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
     Column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
-    Value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
+    Value1=(temp.substring(temp.indexOf('=')+1, temp.toUpperCase().indexOf("WHERE")));
     //Value2=(s.substring(index+1)).trim();
  }
 public Vector<String> CreateTable(String s) {
@@ -102,8 +102,6 @@ public void DropDatabase(String s) {
 	 Database_name=(s.substring(s.indexOf("DATABASE")+9)).trim();
 }
 public void Select(String s) {
-	String temp=s.replaceAll("\\s+","");
-	Value3=temp.substring(temp.lastIndexOf('='));
 	s=s.toUpperCase();
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
 	tablename=table_name;
@@ -112,7 +110,7 @@ public void Select(String s) {
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.indexOf('<');Operator=-1;}
 	Column3=(s.substring(s.indexOf("WHERE")+6, index)).trim();
-	//Value3=(s.substring(index+1)).trim();	
+	Value3=(s.substring(index+1)).trim();	
 }
 public Vector<Object> sort(Vector<Object> values,Vector<String> columns){
 	ArrayList<Table>Tables=parent.getTables();

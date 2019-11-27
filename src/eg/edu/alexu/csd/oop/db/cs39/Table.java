@@ -185,6 +185,7 @@ public class Table {
 
 	public Object[][] SelectFromTable2DArray(Vector<String> col) throws Exception {
 		Table a = SelectFromTable(col);
+		if(a.items.size()>0) {
 		Object[][] out = new Object[a.items.size()][a.items.get(0).size()];
 		for (int i = 0; i < a.items.size(); i++) {
 			for (int j = 0; j < a.items.get(0).size(); j++) {
@@ -193,6 +194,12 @@ public class Table {
 		}
 		return out;
 	}
+		else{
+
+			Object[][] out1 = new Object[0][0];
+		return out1 ;	
+		}
+		}
 	
 	public Object[][] SelectTable() throws Exception {
 		return SelectFromTable2DArray(this.names);

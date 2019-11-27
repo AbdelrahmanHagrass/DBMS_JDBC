@@ -30,7 +30,7 @@ public class Delete {
 			System.out.println(ParentDB.Tables.get(i).getTable_Name().compareTo(TableName) + " shoooooo");
 			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{
-				System.out.println("da5al");
+				System.out.println("da5al el delete");
 				toBeDeleted =  ParentDB.Tables.get(i) ;
 			}
 		}
@@ -39,7 +39,9 @@ public class Delete {
 	}
 	
 	public int execute () throws Exception
-	{
+	{  if(ID==null) {
+		toBeDeleted.DeleteFromTable(0);
+	}
 		return toBeDeleted.DeleteFromTableWithCondition(field, ID);
 	}
 

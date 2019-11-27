@@ -40,7 +40,10 @@ public class Gui {
 	JTable[] arr ;
 	private JComboBox comboBox;
 	public DefaultTableModel model ;
+
+	public DefaultTableModel model2 ;
 	int counter=1 ;
+	int flag=0;
 	private JLabel label;
 
 	/**
@@ -94,6 +97,7 @@ public class Gui {
 		                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
 		                    counter=comboBox.getSelectedIndex()+1;
 								Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
+								
 								table = new JTable();
 								scrollPane.setViewportView(table);
 								DefaultTableModel tableModel = new DefaultTableModel() {
@@ -105,25 +109,29 @@ public class Gui {
 								    }
 								};
 						 		table.setModel(tableModel);
-								 model = (DefaultTableModel) table.getModel();
+								 model2 = (DefaultTableModel) table.getModel();
 					
 								for(int j=0;j<names1.size();j++) {
-									model.addColumn(names1.get(j));
+									model2.addColumn(names1.get(j));
 									
 								}
+							
 								for(int i=0;i<table1.length;i++) {
 									
-										model.addRow(table1[i]);
+										model2.addRow(table1[i]);
 									
 								}
+						
+					 
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+					 
 					
 					
-                				}
-			}
+                				
+			}}
 		});
 		
 		label = new JLabel("");
@@ -180,6 +188,7 @@ public class Gui {
 				if (parser.checkInput(input.getText()) == 8) {
 					Vector<String> columns= partitions.CreateTable(input.getText());
 					table = new JTable();
+					flag=1;
 					scrollPane.setViewportView(table);
 					model = (DefaultTableModel) table.getModel();
 					comboBox.addItem(columns.lastElement());
@@ -204,8 +213,9 @@ public class Gui {
 					label.setText(name);
 					input.setText("success :)");
 				}
-				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6) {
+				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==11) {
                        try {
+                    	   System.out.println("sh215o");
                     Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
 						Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
 						table = new JTable();
