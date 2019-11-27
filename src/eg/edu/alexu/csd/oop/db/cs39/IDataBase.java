@@ -162,7 +162,19 @@ public class IDataBase implements Database {
 				e.printStackTrace();
 				return null; // should be handled
 			}
-		} else {
+		}
+		
+		else if (parser.checkInput(query) == 10) {
+			p.selecttwocolumnscondition(query);
+			selecTable = new Select(p.getTablename(),lastDB,p.getOperator(),p.getselectconditioncloumn1(),p.getselectconditioncloumn2(),p.getselectconditionvalue());
+			try {
+				return selecTable.executeColumn();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null; // should be handled
+			}
+		}
+		else {
 			p.Select(query);
 			selecTable = new Select(p.getTablename(), lastDB, p.getOperator(), p.getSelectcolumn(), p.getSelectvalue());
 			try {

@@ -47,19 +47,18 @@ public void Delete(String s) {
 	//Value=(s.substring(index+1)).trim();
 	}
 public void Update(String s) {
-	String temp=s.replaceAll("\\s+","");
-	Value2=temp.substring(temp.lastIndexOf('='));
-	s=s.toUpperCase();
-	String table_name=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim();
-	tablename=table_name;
-	int index;
-	if (s.contains("<")){index=s.indexOf('<');Operator=-1;}
-	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
-	else{index=s.lastIndexOf('=');Operator=0;}
-	Column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
-	Column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
-	Value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
-	//Value2=(s.substring(index+1)).trim();
+    String temp=s.replaceAll("\\s+","");
+    s=s.toUpperCase();
+    String table_name=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim();
+    tablename=table_name;
+    int index;
+    if (s.contains("<")){index=s.indexOf('<');Operator=-1;Value2=temp.substring(temp.lastIndexOf('<')+1);}
+    else if (s.contains(">")){index=s.indexOf('>');Operator=1;Value2=temp.substring(temp.lastIndexOf('>')+1);}
+    else{index=s.lastIndexOf('=');Operator=0;Value2=temp.substring(temp.lastIndexOf('=')+1);}
+    Column1=(s.substring(s.indexOf("SET")+4, s.indexOf('='))).trim();
+    Column2=(s.substring(s.indexOf("WHERE")+6,index)).trim();
+    Value1=(s.substring(s.indexOf('=')+1, s.indexOf("WHERE"))).trim();
+    //Value2=(s.substring(index+1)).trim();
  }
 public Vector<String> CreateTable(String s) {
 	
@@ -138,6 +137,7 @@ public void selecttwocolumnscondition(String s) {
 	String temp=s.replaceAll("\\s+","");
 	s=s.toUpperCase();
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
+	tablename=table_name;
 	Column1=(s.substring(s.indexOf("SELECT")+7, s.indexOf("FROM"))).trim();
 	int index;
 	if (s.contains("=")){index=s.indexOf('=');Operator=0;}
@@ -147,7 +147,11 @@ public void selecttwocolumnscondition(String s) {
 	//Value=s.substring(index+1).trim();
 	Value=temp.substring(temp.indexOf(s.charAt(index))+1);
 }
-
+public void DeleteAll (String s) {
+	s=s.toUpperCase();
+	String table_name=(s.substring(s.indexOf("FROM")+5)).trim();
+	tablename=table_name;
+}
 
 
 public String getTablename() {return tablename;}

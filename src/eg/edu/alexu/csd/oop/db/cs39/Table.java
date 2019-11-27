@@ -297,24 +297,41 @@ public class Table {
 	 * @param Condition the condition field
 	 * @param ID the condition field=ID
 	 */
-	public Object[][] SelectCell(String field,String Condition,String ID)
+	public Object[][] SelectCell(int type,String field,String Condition,String ID)
 	{
 		if(items.size()==0)
 		{
 			return null;
 		}
-		int X=names.indexOf(Condition);
-		int Y=names.indexOf(field);
-		Object [][]out=new Object[items.size()][items.get(0).size()];
+		System.out.println(field);
+		System.out.println(Condition);
+		System.out.println(ID);
+		int X=0;
+		int Y=0;
+		X=names2.indexOf(Condition);
+		Y=names2.indexOf(field);
+		Object [][]out=new Object[items.size()][1];
+		int k =0;
 		for(int i=0;i<items.size();i++)
 		{
 			String j=items.get(i).get(X).toString();
-			if(j.compareTo(ID)==0)
-			{
-				out[i][Y]=items.get(i).get(Y);
+			if (type == 0 && j.compareTo(ID)==0) {
+				out[k][0]=items.get(i).get(Y);
+				k++;
+			} else if (type == 1 && j.compareTo(ID)>0) {
+				out[k][0]=items.get(i).get(Y);
+				k++;
+			} else if (type == -1 && j.compareTo(ID)<0) {
+				out[k][0]=items.get(i).get(Y);
+				k++;
 			}
 		}
-		return out;
+		Object [][]out1=new Object[k][1];
+		for(int i=0;i<k;i++) {
+			out1[i][0]=out[i][0];
+		}
+		return out1 ;
+
 	}
 	public void Update(int Row, String field, String NewValue)// Rows starts with 1
 	{

@@ -6,12 +6,14 @@ import java.util.Vector;
 public class Select {
 	
 	Table toBeSelected;
+	Table toBeSelected2;
 	String TableName;
 	DB ParentDB;
 	//Vector<String> cols;
 	
 	int type;
 	String field; 
+	String field2; 
 	String Condition;
 	
 	public Select(String TableName , DB ParentDB , int type , String field , String Condition) {
@@ -30,6 +32,25 @@ public class Select {
 			}
 		}
 	}
+//	String field,String Condition,String ID
+	
+public Select(String TableName , DB ParentDB,int type , String field2 , String field , String Condition) {
+		
+		this.TableName = TableName;
+		this.ParentDB = ParentDB;
+		//this.cols = cols;
+		this.type = type;
+		this.field2 = field2;
+		this.field=field;
+		this.Condition = Condition;
+		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
+		{  System.out.println(ParentDB.Tables.get(i).getTable_Name()+" compare " + TableName);
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
+			{  System.out.println("conditional d5alllll");
+				toBeSelected2 =  ParentDB.Tables.get(i) ;
+			}
+		}
+	}
 	public Vector<String> getNames () throws Exception
 	{
 		return toBeSelected.getNames();
@@ -41,6 +62,10 @@ public class Select {
 	}
 		//return toBeSelected.SelectFromTable2DArray(cols);
 		return toBeSelected.SelectFromTableCondition(type, field, Condition);
+	}
+	public Object[][] executeColumn () throws Exception
+	{
+		return toBeSelected2.SelectCell(type,field2, field, Condition);
 	}
 
 }

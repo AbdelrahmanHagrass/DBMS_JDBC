@@ -308,6 +308,38 @@ public class Gui {
 					}
 					   input.setText("success :)");
 				}
+				else if (parser.checkInput(input.getText())==10) {
+                    try {
+                    	Partitions p = new Partitions();
+                    	p.selecttwocolumnscondition(input.getText());
+						Object[][] table1 =  db.executeQuery(input.getText());
+						comboBox.setSelectedItem(p.getTablename());
+						counter = comboBox.getSelectedIndex()+1;
+						table = new JTable();
+						scrollPane.setViewportView(table);
+						DefaultTableModel tableModel = new DefaultTableModel() {
+
+						    @Override
+						    public boolean isCellEditable(int row, int column) {
+						       //all cells false
+						       return false;
+						    }
+						};
+				 		table.setModel(tableModel);
+						 model = (DefaultTableModel) table.getModel();
+			
+						model.addColumn(p.getselectconditioncloumn1());
+						for(int i=0;i<table1.length;i++) {
+							
+								model.addRow(table1[i]);
+							
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					   input.setText("success :)");
+				}
 				else if (parser.checkInput(input.getText()) != 0) {
 					input.setText("success :)");
 				} else {
