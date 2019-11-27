@@ -33,9 +33,9 @@ public Vector<Object> Insert(String s) {
 		
 		return Values=sort(values,Columns) ;
 	}
+
 public void Delete(String s) {
 	String temp=s.replaceAll("\\s+","");
-	Value=temp.substring(temp.lastIndexOf('=')+1);
 	s=s.toUpperCase();
 	String table_name=(s.substring(s.indexOf("FROM")+5, s.indexOf("WHERE"))).trim();
 	tablename=table_name;
@@ -44,7 +44,8 @@ public void Delete(String s) {
 	else if (s.contains(">")){index=s.indexOf('>');Operator=1;}
 	else{index=s.indexOf('<');Operator=-1;}
 	Column=(s.substring(s.indexOf("WHERE")+6, index)).trim();
-	
+	Value=s.substring(index+1).trim();
+	//Value=(s.substring(index+1)).trim();
 	}
 public void Update(String s) {
     String temp=s.replaceAll("\\s+","");
