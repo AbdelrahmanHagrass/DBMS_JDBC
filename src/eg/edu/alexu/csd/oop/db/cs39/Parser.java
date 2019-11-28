@@ -62,7 +62,7 @@ public class Parser {
 			return 11 ;
 		}
 		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+")) {
-	
+			
 			return 12;
 		}
 		

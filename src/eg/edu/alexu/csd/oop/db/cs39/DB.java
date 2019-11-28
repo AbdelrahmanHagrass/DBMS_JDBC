@@ -41,6 +41,21 @@ public class DB {
 	{
 		
 	}
+	
+	public void DropDatabase() throws Exception
+	{
+		for(int i=0;i<Tables.size();i++)
+		{
+			this.Tables.get(i).DropTable();
+		}
+		System.out.println(this.file.getAbsoluteFile());
+		final File[] files = this.file.listFiles();
+		for(int i = 0 ; i < files.length ; i++)
+		{
+			files[i].delete();
+		}
+		System.out.println(files.length);	
+	}
 	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws IOException
 	{
 		Table New=new Table(tablename,names,types,DatabaseName);
@@ -49,16 +64,7 @@ public class DB {
 		this.Tables.add(New);
 		return New;
 	}
-	public void DropDatabase() throws Exception
-	{
-		for(int i=0;i<Tables.size();i++)
-		{
-			this.Tables.get(i).DropTable();
-		}
-		System.out.println(this.file.getAbsoluteFile());
-		this.file.delete();
-		
-	}
+	
 	public String getAbsolutePath()
 	{ 
 		return this.file.getAbsolutePath();
