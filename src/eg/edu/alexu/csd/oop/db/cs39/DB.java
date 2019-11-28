@@ -29,10 +29,9 @@ public class DB {
 		File File =new File(DatabaseName);
 		 if(!File.exists())
 		 {
-			 File.mkdir();
+			 File.mkdirs();
 		 }
 		 this.file=File;
-
 		 for(int i=DatabaseName.length()-1;i>=0;i--)
 		 {
 		 }
@@ -61,7 +60,7 @@ public class DB {
 		
 	}
 	public String getAbsolutePath()
-	{
+	{ 
 		return this.file.getAbsolutePath();
 	}
 	public void addTable(Table NEW) throws IOException

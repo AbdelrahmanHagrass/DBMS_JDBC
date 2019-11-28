@@ -40,7 +40,7 @@ public class Delete {
 	
 	public int execute () throws Exception
 	{  if(ID==null) {
-		toBeDeleted.DeleteFromTable(0);
+		return toBeDeleted.DeleteFromTable(0);
 	}
 		return toBeDeleted.DeleteFromTableWithCondition(field, ID);
 	}

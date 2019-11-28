@@ -12,15 +12,25 @@ public void Partitions(String query) {
 	Par.checkInput(query);
 }
 public Vector<Object> Insert(String s) {
-	
 		String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
 		Vector<String> columns=new Vector();
+		Vector<Object> values=new Vector();
+		if(s.indexOf('(')==s.lastIndexOf('(')) {
+			for(String t : temp) {
+				t=t.trim();
+				if(t.chars().allMatch(Character::isDigit)) {values.add(Integer.parseInt(t));}
+				else {values.add(t);}
+				
+			}
+			return Values=values;
+	    }
 		for(String t : temp) {
 			t=t.trim();
 			columns.add(t.toUpperCase());
 			
 		}
-		Vector<Object> values=new Vector();
+		  
+		
 		temp=((s.substring(s.lastIndexOf('(')+1, s.lastIndexOf(')')).trim())).split(",");
 		for(String t : temp) {t=t.trim();
 		if(t.chars().allMatch(Character::isDigit)) {values.add(Integer.parseInt(t));}
@@ -62,7 +72,12 @@ public void Update(String s) {
     //Value2=(s.substring(index+1)).trim();
  }
 public Vector<String> CreateTable(String s) {
-	
+	if(!s.contains("(")) {
+    	Columns=new Vector();
+    	Values=new Vector();
+    	Types=new Vector();
+    	return Columns;
+    }
 	String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
 	Vector<String> types=new Vector();
 	Vector<String> columns=new Vector();
@@ -119,7 +134,7 @@ public Vector<Object> sort(Vector<Object> values,Vector<String> columns){
 	for(Table t : Tables) {
 		if(t.getTable_Name().compareToIgnoreCase(tablename)==0) {T=t;break;}
 	}
-   
+    if(T==null) {return null;}
 	 int i=0;
 	 Vector<String> sortedcolumns=T.getNames2();
      Vector<Object> sortedvalues=new Vector();
@@ -152,6 +167,20 @@ public void DeleteAll (String s) {
 	tablename=table_name;
 }
 
+public  void Updatecolumns (String s) {
+	Vector <String> columns=new Vector();
+	Vector <Object> values=new Vector();
+	String temp[]=s.substring(s.toUpperCase().indexOf("SET")+4).trim().split(",");
+	for(String t : temp) {
+		t=t.trim();
+		columns.add(t.substring(0, t.indexOf('=')).toUpperCase());
+		values.add(t.substring(t.indexOf('=')+1));
+	}
+	s=s.toUpperCase();
+	tablename=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim(); 
+	Columns=columns;Values=values;
+	
+	}
 
 public String getTablename() {return tablename;}
 public String getDropDataBaseName() {return Database_name;}
