@@ -31,7 +31,7 @@ public class Parser {
 			 
 			return 5 ;
 		}
-		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+\\s+WHERE\\s+\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))")) {
+		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+\\s+WHERE\\s+\\w+(\\s+)?[=><](\\s+)?((\\d+)|('\\w+'))")) {
 			//object.Update(s);
 			
 			return 6 ;
@@ -42,7 +42,7 @@ public class Parser {
 			
 			return 7 ;
 		}
-		else if(s.matches("(?i)CREATE\\s+TABLE\\s+\\w+(\\s+)?[(]((\\s+)?\\w+\\s+((varchar)|(int))(\\s+)?(,)?)+[)]")) {
+		else if(s.matches("(?i)CREATE\\s+TABLE\\s+\\w+(\\s+)?[(]((\\s+)?\\w+\\s+((varchar)|(int))(\\s+)?(,)?)+[)](\\s+)?")) {
 			//object.CreateTable(s);
 		
 			return 8 ;
@@ -61,6 +61,12 @@ public class Parser {
 			 
 			return 11 ;
 		}
+		else if(s.matches("(?i)UPDATE\\s+\\w+\\s+SET\\s+((\\s+)?\\w+(\\s+)?=(\\s+)?((\\d+)|('\\w+'))(,)?)+")) {
+	
+			return 12;
+		}
+		
+		
 		return 0 ;
 		
 	}

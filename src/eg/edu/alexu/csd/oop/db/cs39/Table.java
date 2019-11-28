@@ -130,14 +130,15 @@ public class Table {
 		return 1;
 	}
 
-	public void DeleteFromTable(int Row)// Delete from table Where col=value and rows suppose to start from 1
+	public int DeleteFromTable(int Row)// Delete from table Where col=value and rows suppose to start from 1
 	{
 		if (Row == 0)// if WHERE isn't there then delete all items in the table
-		{
+		{ int x = items.size() ;
 			items.clear();
-			return;
+			return x;
 		}
 		items.remove(Row - 1);
+		return 0;
 	}
 
 	public int DeleteFromTableWithCondition(String field, String ID)// example Delete From Table WHERE employeID=3
@@ -217,12 +218,12 @@ public class Table {
 			return null;
 		}
 		ArrayList<Vector<Object>> a = new ArrayList<Vector<Object>>();
-		int X = names.indexOf(field);
-
+		int X = names2.indexOf(field);
+           
 		for (int i = 0; i < items.size(); i++) {
 
 			String j = items.get(i).get(X).toString();
-			if (this.col_type.get(field).compareTo("INT") == 0) {
+			if (this.col_type.get(names.get(X)).compareTo("INT") == 0) {
 				int x = Integer.parseInt(j);
 				int y = Integer.parseInt(Condition);
 				if (type == 0 && x == y) {
@@ -402,6 +403,25 @@ public class Table {
 		return count;
 
 	}
+	
+	public int Updatecolumns (Vector<String> col,Vector<Object> values) {
+		int count=0;
+		System.out.println("el size"+items.size());
+		for(int i=0;i<items.size();i++) {
+			count++;
+			for(int j=0;j<items.get(0).size();j++) {
+				Update(i + 1,col.get(j), (String) values.get(j));
+//				items.get(i).setElementAt(values.get(j),j);
+			}
+		}
+		System.out.println("el count"+count);
+		return count;
+	}
+	
+	
+	
+	
+	
 
 	public ArrayList<Vector<Object>> getItems() {
 		return items;

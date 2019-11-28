@@ -45,7 +45,7 @@ public class IDataBase implements Database {
 			this.executeStructureQuery(query);
 		}
 		// update method
-		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7|| parser.checkInput(query) == 11) {
+		else if (parser.checkInput(query) == 5 || parser.checkInput(query) == 6 || parser.checkInput(query) == 7|| parser.checkInput(query) == 11||parser.checkInput(query)==12) {
 			
 			this.executeUpdateQuery(query);
 		}
@@ -65,7 +65,7 @@ public class IDataBase implements Database {
 			
 			System.out.println("test msh mwgood 5ales");
 
-			DBcommandCreate = new CreateDB(databaseName);
+			DBcommandCreate = new CreateDB(databaseName.toUpperCase());
 			try {
 				executeStructureQuery("createdatabase");
 			} catch (SQLException e) {
@@ -73,25 +73,30 @@ public class IDataBase implements Database {
 			}
 			return DBcommandCreate.getpathofDB();
 		} else if (m.containsKey(databaseName.toUpperCase()) == true && dropIfExists) {
+
 			
 			System.out.println("Test mwgood w drop if exisits");
 			
 			DBcommandDrop = new DropDB(databaseName, m);
+
 			try {
 				executeStructureQuery("dropdatabase");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			DBcommandCreate = new CreateDB(databaseName);
+			DBcommandCreate = new CreateDB(databaseName.toUpperCase());
 			try {
 				executeStructureQuery("createdatabase");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			System.out.println(DBcommandCreate.getpathofDB());
 			return DBcommandCreate.getpathofDB();
 		} else // It exists and it is not required to drop it
 		{
+
 			System.out.println("test mwgood bs seebo");
+
 			return m.get(databaseName.toUpperCase()).getAbsolutePath();
 		}
 
@@ -101,7 +106,16 @@ public class IDataBase implements Database {
 	public boolean executeStructureQuery(String query) throws SQLException {
 
 		querySmall = query.toLowerCase();
-
+           if(query.matches("CREATE DATABASE\\s+\\w+")) {
+   			p.CreateDatabase(query);
+   			
+   			LastDBpath = this.createDatabase(p.getDatabasename(), false);
+        	   DBcommandCreate = new CreateDB(p.getDatabasename().toUpperCase());
+        	   DBcommandCreate.execute();
+   			m.put(DBcommandCreate.getnameofDB().toUpperCase(), DBcommandCreate.getDB());
+   			lastDB = DBcommandCreate.getDB();
+   			return true;
+           }
 		if (query == "createdatabase") {
 			DBcommandCreate.execute();
 			m.put(DBcommandCreate.getnameofDB().toUpperCase(), DBcommandCreate.getDB());
@@ -109,42 +123,45 @@ public class IDataBase implements Database {
 			return true;
 		} else if (query == "dropdatabase") {
 			DBcommandDrop.execute();
-			m.remove(DBcommandDrop.getnameofDB());
+			m.remove(DBcommandDrop.getnameofDB().toUpperCase());
 
 			return true;
 		} else if (querySmall.contains("drop") && querySmall.contains("database")) {
 			p.DropDatabase(query);
 			System.out.println(p.getDropDataBaseName()+"   zx");
-			DBcommandDrop = new DropDB(p.getDropDataBaseName(), m);
+			DBcommandDrop = new DropDB(p.getDropDataBaseName().toUpperCase(), m);
 			DBcommandDrop.execute();
-			m.remove(p.getDropDataBaseName());
+			m.remove(p.getDropDataBaseName().toUpperCase());
 
 
 			
 			return true;
 		} else if (querySmall.contains("create") && querySmall.contains("table")) {
 
-			Boolean tableExist = false ;
-			p.CreateTable(query);
-			for(int i = 0 ; i < lastDB.Tables.size() ; i++)
-			{
-				if( p.getTablename().compareTo(lastDB.Tables.get(i).getTable_Name()) == 0 )
-				{
-					tableExist = true;
-				}
-			}
-			if(tableExist)
-			{
-				return false;
-			}
-			else
-			{
-				CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),lastDB);		
-				CreateTable.execute();
-				return true;
-			}
+			System.out.println("d5l hna");
+			 Boolean tableExist = false ;
+	            p.CreateTable(query);
+	            if(parser.checkInput(query)==0) {
+	             throw new SQLException("sdfsdf");
+	            }
+	            for(int i = 0 ; i < lastDB.Tables.size() ; i++)
+	            {
+	                if( p.getTablename().compareTo(lastDB.Tables.get(i).getTable_Name()) == 0 )
+	                {
+	                    tableExist = true;
+	                }
+	            }
+	            if(tableExist)
+	            {
+	                return false;
+	            }
+	            else
+	            {System.out.println("a7a");
+	                CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),lastDB);    
+	                CreateTable.execute();
+	                return true;
+	            }
 
-			
 		} else if (querySmall.contains("drop") && querySmall.contains("table")) {
 			// i will call class partitions with string query ..to get table name.
 			p.DropTable(query);
@@ -174,6 +191,7 @@ public class IDataBase implements Database {
 	public Object[][] executeQuery(String query) throws SQLException {
 		if (parser.checkInput(query) == 1) {
 			p.SelectTable(query);
+			System.out.println(lastDB);
 			selecTable = new Select(p.getTablename(), lastDB, 0, null, query);
 			try {
 				return selecTable.execute();
@@ -206,8 +224,7 @@ public class IDataBase implements Database {
 	}
 
 	@Override
-	public int executeUpdateQuery(String query) throws SQLException {
-		
+	public int executeUpdateQuery(String query) throws java.sql.SQLException {
 		// insert //update //delete
 		querySmall = query.toLowerCase();
 		if (querySmall.contains("insert")) {
@@ -224,17 +241,33 @@ public class IDataBase implements Database {
 				return 0;
 			}
 
-		} else if (querySmall.contains("update")) {
+		} else if (querySmall.contains("update")&&querySmall.contains("where")) {
 			p.Update(query);
 			updateTable = new Update(p.getTablename(), lastDB, p.getOperator(), p.getUpdatevalue2(),
 					p.getUpdatecolumn2(), p.getUpdatecolumn1(), p.getUpdatevalue1());
+			System.out.println(p.getOperator());
+			System.out.println(""+p.getUpdatevalue2()+"a7a"+p.getUpdatecolumn2()+"a7a"+ p.getUpdatecolumn1()+ "a7a"+p.getUpdatevalue1());
 			try {
 				return updateTable.execute();
 			} catch (Exception e) {
 				return 0;
 			}
-		} else if (querySmall.contains("delete")) {
-			System.out.println("a7a delete");
+		} else if(querySmall.contains("update")) {
+			p.Updatecolumns(query);
+			System.out.println("d5al hna fel update");
+			updateTable = new Update(p.getTablename(),lastDB,p.getcolumns(),p.getvalues());
+			try {
+				
+					return updateTable.execute();
+				
+			} catch (java.sql.SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("asdasdasd");
+				e.printStackTrace();
+			}
+		}
+
+		else if (querySmall.contains("delete")) {
 			if(parser.checkInput(query)==5) {
 				p.Delete(query);
 			System.out.println(p.getDeletevalue()+p.getDeletecolumn());
@@ -277,6 +310,7 @@ public class IDataBase implements Database {
 	public void savedatabasenames() throws Exception
 	{
 		BufferedWriter bw = new BufferedWriter(new FileWriter(".\\DatabaseNames.txt"));
+		bw.write(lastDB.getDatabaseName());
 		for (Map.Entry<String, DB> entry : m.entrySet()) {
 			bw.write(entry.getValue().getDatabaseName());
 			bw.newLine();
@@ -285,9 +319,11 @@ public class IDataBase implements Database {
 	}	
 	public void load() throws IOException
 	{
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
 			String databaseaname;
+			lastDB.LoadDataBase(br.readLine());
 			while ( (databaseaname = br.readLine()) !=null)
 			{
 				DB loaded = new DB().LoadDataBase(databaseaname);
@@ -296,6 +332,7 @@ public class IDataBase implements Database {
 			br.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+
 		}
 
 	}

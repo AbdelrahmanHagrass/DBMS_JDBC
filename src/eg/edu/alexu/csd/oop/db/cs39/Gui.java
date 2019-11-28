@@ -21,6 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -30,6 +31,11 @@ import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class Gui {
 
@@ -89,6 +95,28 @@ public class Gui {
 		}
 		
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				System.out.println("2flna");
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.out.println("bn2fel");
+				try {
+					db.save();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		frame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("22fel");
+			}
+		});
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setBounds(0, 0, screen.width, screen.height - 35);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,14 +130,29 @@ public class Gui {
 		Parser parser = new Parser();
 
 		JButton process = new JButton("process");
-		
+//		try {
+//			db.load();
+//		} catch (IOException e2) {
+//			// TODO Auto-generated catch block
+//			e2.printStackTrace();
+//		}
+		try {
+			db.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (Map.Entry<String, DB> entry : db.m.entrySet()) {
+			
+			System.out.println(entry.getValue().getDatabaseName());
+			System.out.println(entry.getValue().Tables.size());
+		}
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==comboBox) {
 					
 					 try {
-						 System.out.println("1");
 		                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
 		                    counter=comboBox.getSelectedIndex()+1;
 								Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
@@ -218,6 +261,28 @@ public class Gui {
 //					arr[0]=table;
 //				System.out.println(	table.getColumnModel().getColumnCount());
 //					System.out.println(tables.size());
+				}else if (parser.checkInput(input.getText())==3) {
+					partitions.DropDatabase(input.getText());
+					if(label.getText().compareToIgnoreCase(partitions.getDropDataBaseName())==0) {
+						label.setText("");
+						
+						counter=1;
+					JTable	table2 = new JTable();
+					scrollPane.setViewportView(null);
+//						scrollPane.setViewportView(table2);
+						model = (DefaultTableModel) table2.getModel();
+						input.setText("success :)");
+						comboBox.removeAllItems();
+					}
+				}
+				else if (parser.checkInput(input.getText())==4) {
+					partitions.DropTable(input.getText());
+			for(int i=0;i<comboBox.getItemCount();i++){
+				if(partitions.getTablename().compareToIgnoreCase((String) comboBox.getItemAt(i))==0) {
+//					comboBox.remove(i);
+					comboBox.removeItemAt(i);
+				}
+			}
 				}
 				else if(parser.checkInput(input.getText())==2) {
 					comboBox.removeAllItems();
@@ -229,7 +294,7 @@ public class Gui {
 					label.setText(name);
 					input.setText("success :)");
 				}
-				else if (parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==11) {
+				else if (parser.checkInput(input.getText())==12||parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==11) {
                        try {
                     	   System.out.println("sh215o");
                     Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
@@ -268,13 +333,7 @@ public class Gui {
                     	p.SelectTable(input.getText());
                  Vector<String>	 names1=  db.getNames(p.getTablename());
 						Object[][] table1 =  db.executeQuery("SELECT * FROM "+p.getTablename());
-						System.out.println("gui"+p.getTablename());
-						for(int i=0;i<comboBox.getItemCount();i++) {
-							if(((String) (comboBox.getItemAt(i))).compareToIgnoreCase(p.getTablename())==0) {
-								comboBox.setSelectedItem(comboBox.getItemAt(i));
-							}
-						}
-//						comboBox.setSelectedItem(p.getTablename());
+						comboBox.setSelectedItem(p.getTablename());
 						counter = comboBox.getSelectedIndex()+1;
 						table = new JTable();
 						scrollPane.setViewportView(table);
@@ -310,12 +369,7 @@ public class Gui {
                     	p.Select(input.getText());
                  Vector<String>	 names1=  db.getNames(p.getTablename());
 						Object[][] table1 =  db.executeQuery(input.getText());
-						for(int i=0;i<comboBox.getItemCount();i++) {
-							if(((String) (comboBox.getItemAt(i))).compareToIgnoreCase(p.getTablename())==0) {
-								comboBox.setSelectedItem(comboBox.getItemAt(i));
-							}
-						}
-//						comboBox.setSelectedItem(p.getTablename());
+						comboBox.setSelectedItem(p.getTablename());
 						counter = comboBox.getSelectedIndex()+1;
 						table = new JTable();
 						scrollPane.setViewportView(table);
@@ -406,7 +460,19 @@ public class Gui {
 		frame.getContentPane().add(process, gbc_process);
 		
 
-		
+//		addWindowListener(new WindowAdapter() {
+//			  public void windowClosing(WindowEvent e) {
+//			    int confirmed = JOptionPane.showConfirmDialog(null, 
+//			        "Are you sure you want to exit the program?", "Exit Program Message Box",
+//			        JOptionPane.YES_NO_OPTION);
+//
+//			    if (confirmed == JOptionPane.YES_OPTION) {
+//			      dispose();
+//			    }
+//			  }
+//			});
 	}
+
+
 
 }

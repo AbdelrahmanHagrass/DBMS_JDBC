@@ -27,7 +27,7 @@
    </void>
   </void>
   <void property="parentDB">
-   <string>sample\TestDB</string>
+   <string>SAMPLE\TESTDB</string>
   </void>
   <void property="table_Name">
    <string>table_name1</string>

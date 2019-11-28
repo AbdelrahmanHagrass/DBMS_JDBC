@@ -13,7 +13,7 @@ public class MainTest {
 		IDataBase idb = new IDataBase();
 		
 		//Test load
-		try {
+		/*try {
 			idb.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -23,7 +23,11 @@ public class MainTest {
 			
 			System.out.println(entry.getValue().getDatabaseName());
 			System.out.println(entry.getValue().Tables.size());
-		}
+		}*/
+		idb.QueryManagement("CREATE DATABASE second");
+		idb.executeStructureQuery("CREATE TABLE incomplete_table_name1");
+		//idb.executeStructureQuery("CREATE TABLE table_name9(column_name1 varchar, column_name2 int, column_name3 varchar)");
+        //int count = idb.executeUpdateQuery("UPDATE table_name9 SET column_name1='value1', column_name2=15, column_name3='value2'");
 		
 		//idb.QueryManagement("CREATE DATABASE second");
 		//idb.QueryManagement("DROP DATABASE second");
