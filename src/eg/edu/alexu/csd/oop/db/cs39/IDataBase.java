@@ -61,7 +61,9 @@ public class IDataBase implements Database {
 	@Override
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 
-		if (m.containsKey(databaseName) == false) {
+		if (m.containsKey(databaseName.toUpperCase()) == false) {
+			
+			System.out.println("test msh mwgood 5ales");
 
 			DBcommandCreate = new CreateDB(databaseName);
 			try {
@@ -70,7 +72,10 @@ public class IDataBase implements Database {
 				e.printStackTrace();
 			}
 			return DBcommandCreate.getpathofDB();
-		} else if (m.containsKey(databaseName) == true && dropIfExists) {
+		} else if (m.containsKey(databaseName.toUpperCase()) == true && dropIfExists) {
+			
+			System.out.println("Test mwgood w drop if exisits");
+			
 			DBcommandDrop = new DropDB(databaseName, m);
 			try {
 				executeStructureQuery("dropdatabase");
@@ -86,7 +91,8 @@ public class IDataBase implements Database {
 			return DBcommandCreate.getpathofDB();
 		} else // It exists and it is not required to drop it
 		{
-			return m.get(databaseName).getAbsolutePath();
+			System.out.println("test mwgood bs seebo");
+			return m.get(databaseName.toUpperCase()).getAbsolutePath();
 		}
 
 	}
@@ -117,15 +123,28 @@ public class IDataBase implements Database {
 			
 			return true;
 		} else if (querySmall.contains("create") && querySmall.contains("table")) {
-			// i will call class partitions with string query ..to get table name,names ,
-			// types ,parent DB..
-			p.CreateTable(query);
-			// System.out.println("n!!!!" + p.getTablename());
-			CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),
-					lastDB);
-			CreateTable.execute();
 
-			return true;
+			Boolean tableExist = false ;
+			p.CreateTable(query);
+			for(int i = 0 ; i < lastDB.Tables.size() ; i++)
+			{
+				if( p.getTablename().compareTo(lastDB.Tables.get(i).getTable_Name()) == 0 )
+				{
+					tableExist = true;
+				}
+			}
+			if(tableExist)
+			{
+				return false;
+			}
+			else
+			{
+				CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),lastDB);		
+				CreateTable.execute();
+				return true;
+			}
+
+			
 		} else if (querySmall.contains("drop") && querySmall.contains("table")) {
 			// i will call class partitions with string query ..to get table name.
 			p.DropTable(query);
@@ -266,13 +285,18 @@ public class IDataBase implements Database {
 	}	
 	public void load() throws IOException
 	{
-		BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
-		String databaseaname;
-		while ( (databaseaname = br.readLine()) !=null)
-		{
-			DB loaded = new DB().LoadDataBase(databaseaname);
-			m.put(databaseaname, loaded);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
+			String databaseaname;
+			while ( (databaseaname = br.readLine()) !=null)
+			{
+				DB loaded = new DB().LoadDataBase(databaseaname);
+				m.put(databaseaname, loaded);
+			}
+			br.close();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		br.close();
+
 	}
 }

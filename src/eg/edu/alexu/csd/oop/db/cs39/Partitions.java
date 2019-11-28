@@ -62,24 +62,29 @@ public void Update(String s) {
     //Value2=(s.substring(index+1)).trim();
  }
 public Vector<String> CreateTable(String s) {
-	
-	String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
-	Vector<String> types=new Vector();
-	Vector<String> columns=new Vector();
-	Vector<String> columnsGui=new Vector();
-	for(String t : temp) {
-		t=t.trim();
-		columns.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
-		columnsGui.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
-		types.add((t.substring(t.lastIndexOf(' ')+1)).toUpperCase());
-	}
-	s = s.replaceAll("\\s+","");
-	String table_name=(s.substring(11, s.indexOf('('))).trim();
-	tablename=table_name;
-	columnsGui.add(table_name);
-	Columns=columns;Types=types;
-	return columnsGui ;
-	
+    if(!s.contains("(")) {
+        Columns=new Vector();
+        Values=new Vector();
+        Types=new Vector();
+        return Columns;
+    }
+    String temp[]=((s.substring(s.indexOf('(')+1, s.indexOf(')')).trim())).split(",");
+    Vector<String> types=new Vector();
+    Vector<String> columns=new Vector();
+    Vector<String> columnsGui=new Vector();
+    for(String t : temp) {
+        t=t.trim();
+        columns.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
+        columnsGui.add(t.substring(t.indexOf(t.charAt(0)),t.indexOf(' ')));
+        types.add((t.substring(t.lastIndexOf(' ')+1)).toUpperCase());
+    }
+    s = s.replaceAll("\\s+","");
+    String table_name=(s.substring(11, s.indexOf('('))).trim();
+    tablename=table_name;
+    columnsGui.add(table_name);
+    Columns=columns;Types=types;
+    return columnsGui ;
+   
 }
 public String CreateDatabase(String s) {
 	s = s.replaceAll("\\s+","");

@@ -39,6 +39,17 @@ public class SmokeTest {
         {
             File dbDir = createDatabase_static(db, "SaMpLe", true);
             String files[] = dbDir.list();
+            
+//            File filesF[] = dbDir.listFiles();
+//            System.out.println(filesF.length);
+//            
+//            for (int i = 0; i < files.length; i++) {
+//				System.out.println(files[i].toString());
+////				System.out.println(filesF[i].delete());
+//			}
+//            System.out.println( files == null  );
+//            System.out.println(files.length == 0 );
+            
             Assert.assertTrue("Database directory is not empty!", files == null || files.length == 0);
             dummy = new File(dbDir, "dummy");
             try {
@@ -51,6 +62,8 @@ public class SmokeTest {
         {
             File dbDir = createDatabase_static(db, "sAmPlE", false);
             String files[] = dbDir.list();
+            System.out.println(files.length);
+            System.out.println(dummy.exists());
             Assert.assertTrue("Database directory is empty after opening! Database name is case insensitive!", files.length > 0);
             Assert.assertTrue("Failed t create find a previously created file into DB", dummy.exists());
         }
@@ -75,6 +88,7 @@ public class SmokeTest {
         }
         try {
             boolean created = db.executeStructureQuery("CREATE TABLE table_name1(column_name1 varchar, column_name2 int, column_name3 varchar)");
+            System.out.println(created + " lllllllllllllllll");
             Assert.assertFalse("Create table succeed when table already exists", created);
         } catch (Throwable e){
             TestRunner.fail("Failed to create existing table", e);

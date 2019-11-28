@@ -20,7 +20,7 @@ public class DropDB implements Command {
 
 	@Override
 	public String getnameofDB() {
-		return m.get(databaseName).getDatabaseName();
+		return m.get(databaseName.toUpperCase()).getDatabaseName();
 	}
 	
 	@Override
@@ -33,10 +33,12 @@ public class DropDB implements Command {
 
 		try {
 			System.out.println(databaseName + "gowa el execute bta3 el dropdb");
-			m.get(databaseName).DropDatabase();
+			m.get(databaseName.toUpperCase()).DropDatabase();
+			//m.remove(databaseName.toUpperCase());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("error");
 			e.printStackTrace();
 		}
 	}

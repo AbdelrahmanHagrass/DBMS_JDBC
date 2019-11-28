@@ -17,6 +17,9 @@ import java.awt.Toolkit;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -59,6 +62,11 @@ public class Gui {
 					e.printStackTrace();
 				}
 			}
+
+			private void addWindowListener(WindowAdapter windowAdapter) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 
@@ -73,6 +81,13 @@ public class Gui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			db.load();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		frame = new JFrame();
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setBounds(0, 0, screen.width, screen.height - 35);
@@ -389,6 +404,7 @@ public class Gui {
 		gbc_process.gridx = 10;
 		gbc_process.gridy = 0;
 		frame.getContentPane().add(process, gbc_process);
+		
 
 		
 	}

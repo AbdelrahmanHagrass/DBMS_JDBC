@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.2" class="java.beans.XMLDecoder">
+ <object class="eg.edu.alexu.csd.oop.db.cs39.Table" id="Table0">
+  <void property="col_type">
+   <void method="put">
+    <string>column_name1</string>
+    <string>VARCHAR</string>
+   </void>
+   <void method="put">
+    <string>column_name2</string>
+    <string>INT</string>
+   </void>
+   <void method="put">
+    <string>column_name3</string>
+    <string>VARCHAR</string>
+   </void>
+  </void>
+  <void property="names">
+   <void method="add">
+    <string>column_name1</string>
+   </void>
+   <void method="add">
+    <string>column_name2</string>
+   </void>
+   <void method="add">
+    <string>column_name3</string>
+   </void>
+  </void>
+  <void property="parentDB">
+   <string>sample\54439\TestDB_Insert</string>
+  </void>
+  <void property="table_Name">
+   <string>table_name3</string>
+  </void>
+  <void property="types">
+   <void method="add">
+    <string>VARCHAR</string>
+   </void>
+   <void method="add">
+    <string>INT</string>
+   </void>
+   <void method="add">
+    <string>VARCHAR</string>
+   </void>
+  </void>
+ </object>
+</java>

@@ -29,7 +29,7 @@ public class DB {
 		File File =new File(DatabaseName);
 		 if(!File.exists())
 		 {
-			 File.mkdir();
+			 File.mkdirs();
 		 }
 		 this.file=File;
 
@@ -48,6 +48,12 @@ public class DB {
 		FileOutputStream file2=new FileOutputStream(DatabaseName+"\\"+tablename+".xml");
 		file2.close();
 		this.Tables.add(New);
+		try {
+			SaveDataBase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return New;
 	}
 	public void DropDatabase() throws Exception
@@ -57,8 +63,12 @@ public class DB {
 			this.Tables.get(i).DropTable();
 		}
 		System.out.println(this.file.getAbsoluteFile());
-		this.file.delete();
-		
+		final File[] files = this.file.listFiles();
+		for(int i = 0 ; i < files.length ; i++)
+		{
+			files[i].delete();
+		}
+		System.out.println(files.length);	
 	}
 	public String getAbsolutePath()
 	{
