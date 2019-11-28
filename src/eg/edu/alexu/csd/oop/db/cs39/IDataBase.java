@@ -104,7 +104,7 @@ public class IDataBase implements Database {
 
 	@Override
 	public boolean executeStructureQuery(String query) throws SQLException {
-
+		
 		querySmall = query.toLowerCase();
            if(query.matches("CREATE DATABASE\\s+\\w+")) {
    			p.CreateDatabase(query);
