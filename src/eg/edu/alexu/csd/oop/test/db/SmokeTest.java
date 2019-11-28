@@ -216,7 +216,6 @@ public class SmokeTest {
             db.executeUpdateQuery("UPDATE wrong_table_name9 SET column_name1='value1', column_name2=15, column_name3='value2'");
             Assert.fail("Updated empty table retruned non-zero count!");
         } catch (SQLException e){
-        	System.out.println("kkkkkkkkk");
         } catch (Throwable e) {
         	System.out.println(e.toString());
         	System.out.println("a7oa");

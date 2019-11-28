@@ -1,13 +1,11 @@
 package eg.edu.alexu.csd.oop.db.cs39;
-import java.sql.SQLException;
 import java.util.*;
 public class Update {
 	
 	Table toBeUpdated;
 	
-	String TableName;
+	String TableName,column,value;
 	DB ParentDB;
-	
 	int type;
 	String Condition;
 	String field;
@@ -15,9 +13,9 @@ public class Update {
 	String NewValue;
 	Vector<String> col;
 	Vector<Object> values;
-	boolean f=false;
+	int f=0;
 	public Update(String TableName , DB ParentDB , int type , String Condition , String ID , String field , String NewValue) {
-		f=true;
+		f=1;
 		this.type=type;
 		this.Condition=Condition;
 		this.ID=ID;
@@ -36,29 +34,47 @@ public class Update {
 		}	
 	}
 	public Update(String TableName,DB ParentDB,Vector<String> col,Vector<Object> values) {
+		f=2;
 		this.ParentDB = ParentDB;
 		this.col=col;
 		this.values=values;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 		{
 			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0)
-			{   System.out.println("d5l el update");
+			{
 				toBeUpdated =  ParentDB.Tables.get(i) ;
 			}
 		}
 		
 	}
-	
-	public int execute () throws SQLException
-	{ 
-	if(toBeUpdated==null) {
-		 return 0 ;
+	public Update(String TableName,DB ParentDB,Vector<String> col,Vector<Object> values,String column,String value) {
+		f=3;
+		this.ParentDB = ParentDB;
+		this.col=col;
+		this.values=values;
+		this.column=column;
+		this.value=value;
+		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
+		{
+			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0)
+			{
+				toBeUpdated =  ParentDB.Tables.get(i) ;
+			}
+		}
 	}
 	
-		if(f) { f=false;
+	public int execute () throws Exception
+	{    
+		 if(toBeUpdated==null) {f=0;
+			 return 0;}
+		
+		if(f==1) { f=0;
 			return toBeUpdated.UpdateWithCondition(type, Condition, ID, field, NewValue) ;}
-		else{   
-			 return toBeUpdated.Updatecolumns(col, values);}
+		else if (f==2){   f=0;
+			return toBeUpdated.Updatecolumns(col, values);}
+	
+	else {  f=0;
+        	return 	toBeUpdated.Updatecolumnscondition(col, values, column, value);
 	}
-
+	}
 }

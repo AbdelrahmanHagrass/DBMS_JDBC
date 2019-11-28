@@ -41,6 +41,7 @@ public class DB {
 	{
 		
 	}
+
 	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws IOException
 	{
 		Table New=new Table(tablename,names,types,DatabaseName);
@@ -55,6 +56,7 @@ public class DB {
 		}
 		return New;
 	}
+
 	public void DropDatabase() throws Exception
 	{
 		for(int i=0;i<Tables.size();i++)
@@ -69,6 +71,7 @@ public class DB {
 		}
 		System.out.println(files.length);	
 	}
+	
 	public String getAbsolutePath()
 	{ 
 		return this.file.getAbsolutePath();
