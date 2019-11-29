@@ -83,7 +83,7 @@ public class IDataBase implements Database {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println(DBcommandCreate.getpathofDB());
+            //System.out.println(DBcommandCreate.getpathofDB());
             return DBcommandCreate.getpathofDB();
         } else // It exists and it is not required to drop it
         {
@@ -119,16 +119,21 @@ public class IDataBase implements Database {
             return true;
         } else if (querySmall.contains("drop") && querySmall.contains("database")) {
             p.DropDatabase(query);
-            System.out.println(p.getDropDataBaseName()+"   zx");
+            //System.out.println(p.getDropDataBaseName()+"   zx");
             DBcommandDrop = new DropDB(p.getDropDataBaseName().toUpperCase(), m);
             DBcommandDrop.execute();
+            if(lastDB.getDatabaseName().compareTo(p.getDropDataBaseName())==0)
+            {
+            	lastDB = null;
+            }
             m.remove(p.getDropDataBaseName().toUpperCase());
+           
  
  
            
             return true;
         } else if (querySmall.contains("create") && querySmall.contains("table")) {
-            System.out.println("d5l hna");
+            //System.out.println("d5l hna");
              Boolean tableExist = false ;
                 p.CreateTable(query);
                 if(parser.checkInput(query)==0) {
@@ -146,7 +151,7 @@ public class IDataBase implements Database {
                     return false;
                 }
                 else
-                {System.out.println("a7a");
+                {
                     CreateTable = new CreateTable(p.getTablename(), p.getcolumns(), p.gettypes(), lastDB.getDatabaseName(),lastDB);    
                     CreateTable.execute();
                     return true;
@@ -244,8 +249,8 @@ public class IDataBase implements Database {
             p.Update(query);
             updateTable = new Update(p.getTablename(), lastDB, p.getOperator(), p.getUpdatevalue2(),
                     p.getUpdatecolumn2(), p.getUpdatecolumn1(), p.getUpdatevalue1());
-            System.out.println(p.getOperator());
-            System.out.println(""+p.getUpdatevalue2()+"a7a"+p.getUpdatecolumn2()+"a7a"+ p.getUpdatecolumn1()+ "a7a"+p.getUpdatevalue1());
+            //System.out.println(p.getOperator());
+           
             try {
                 return updateTable.execute();
             } catch (Exception e) {
@@ -253,14 +258,14 @@ public class IDataBase implements Database {
             }
         } else if(querySmall.contains("update")) {
             p.Updatecolumns(query);
-            System.out.println("d5al hna fel update");
+            //System.out.println("d5al hna fel update");
             updateTable = new Update(p.getTablename(),lastDB,p.getcolumns(),p.getvalues());
             try {
                 return updateTable.execute();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
             	
-                System.out.println("asdasdasd");
+                //System.out.println("asdasdasd");
                 e.printStackTrace();
                 return 0;
             }
@@ -269,7 +274,7 @@ public class IDataBase implements Database {
         else if (querySmall.contains("delete")) {
             if(parser.checkInput(query)==5) {
                 p.Delete(query);
-            System.out.println(p.getDeletevalue()+p.getDeletecolumn());
+           // System.out.println(p.getDeletevalue()+p.getDeletecolumn());
             deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletevalue(),  p.getDeletecolumn());
             try {
                 return deleteTable.execute();
@@ -281,7 +286,7 @@ public class IDataBase implements Database {
             p.DeleteAll(query);
 //          System.out.println(p.getDeletevalue()+p.getDeletecolumn());
             deleteTable = new Delete(p.getTablename(), lastDB,null,null);
-            System.out.println(p.getTablename()+"deleteall");
+            //System.out.println(p.getTablename()+"deleteall");
             try {
                 return deleteTable.execute();
             } catch (Exception e) {
@@ -310,6 +315,7 @@ public class IDataBase implements Database {
     {
         BufferedWriter bw = new BufferedWriter(new FileWriter(".\\DatabaseNames.txt"));
         bw.write(lastDB.getDatabaseName());
+        bw.newLine();
         for (Map.Entry<String, DB> entry : m.entrySet()) {
             bw.write(entry.getValue().getDatabaseName());
             bw.newLine();
@@ -318,15 +324,30 @@ public class IDataBase implements Database {
     }  
     public void load() throws IOException
     {
-        BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
-        String databaseaname;
-        lastDB.LoadDataBase(br.readLine());
-        while ( (databaseaname = br.readLine()) !=null)
-        {
-            DB loaded = new DB().LoadDataBase(databaseaname);
-            m.put(databaseaname, loaded);
-        }
-        br.close();
+    	try {
+            BufferedReader br = new BufferedReader(new FileReader(".\\DatabaseNames.txt"));
+            String databaseaname;
+            //this.lastDB.LoadDataBase(br.readLine());
+            try {
+                this.lastDB = new DB().LoadDataBase(br.readLine());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
+            //System.out.println(lastDB.getDatabaseName());
+           // System.out.println(lastDB.Tables.size());
+            while ( (databaseaname = br.readLine()) !=null)
+            {
+                DB loaded = new DB().LoadDataBase(databaseaname);
+                m.put(databaseaname, loaded);
+            }
+            br.close();
+		} catch (Exception e) {
+            //System.out.println(lastDB.getDatabaseName());
+           // System.out.println(lastDB.Tables.size());
+			// TODO: handle exception
+		}
+
     }
 
 }

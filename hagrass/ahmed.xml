@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.2" class="java.beans.XMLDecoder">
+ <object class="eg.edu.alexu.csd.oop.db.cs39.Table" id="Table0">
+  <void property="col_type">
+   <void method="put">
+    <string>ahmed</string>
+    <string>VARCHAR</string>
+   </void>
+   <void method="put">
+    <string>ID</string>
+    <string>INT</string>
+   </void>
+   <void method="put">
+    <string>aly</string>
+    <string>VARCHAR</string>
+   </void>
+  </void>
+  <void property="col_type2">
+   <void method="put">
+    <string>AHMED</string>
+    <string>VARCHAR</string>
+   </void>
+   <void method="put">
+    <string>ID</string>
+    <string>INT</string>
+   </void>
+   <void method="put">
+    <string>ALY</string>
+    <string>VARCHAR</string>
+   </void>
+  </void>
+  <void property="items">
+   <void method="add">
+    <object class="java.util.Vector">
+     <void method="add">
+      <string>Mexico</string>
+     </void>
+     <void method="add">
+      <string>das</string>
+     </void>
+     <void method="add">
+      <int>12312</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="java.util.Vector">
+     <void method="add">
+      <string>Mexico</string>
+     </void>
+     <void method="add">
+      <string>das</string>
+     </void>
+     <void method="add">
+      <int>12312</int>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="names">
+   <void method="add">
+    <string>ahmed</string>
+   </void>
+   <void method="add">
+    <string>aly</string>
+   </void>
+   <void method="add">
+    <string>ID</string>
+   </void>
+  </void>
+  <void property="names2">
+   <void method="add">
+    <string>AHMED</string>
+   </void>
+   <void method="add">
+    <string>ALY</string>
+   </void>
+   <void method="add">
+    <string>ID</string>
+   </void>
+  </void>
+  <void property="parentDB">
+   <string>hagrass</string>
+  </void>
+  <void property="table_Name">
+   <string>ahmed</string>
+  </void>
+  <void property="types">
+   <void method="add">
+    <string>VARCHAR</string>
+   </void>
+   <void method="add">
+    <string>VARCHAR</string>
+   </void>
+   <void method="add">
+    <string>INT</string>
+   </void>
+  </void>
+ </object>
+</java>

@@ -32,13 +32,13 @@ public class DropDB implements Command {
 	public void execute() throws SQLException {
 
 		try {
-			System.out.println(databaseName + "gowa el execute bta3 el dropdb");
+			//System.out.println(databaseName + "gowa el execute bta3 el dropdb");
 			m.get(databaseName.toUpperCase()).DropDatabase();
 			//m.remove(databaseName.toUpperCase());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("error");
+			//System.out.println("error");
 			e.printStackTrace();
 		}
 	}

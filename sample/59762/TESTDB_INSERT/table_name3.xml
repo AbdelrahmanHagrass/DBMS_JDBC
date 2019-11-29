@@ -15,6 +15,20 @@
     <string>VARCHAR</string>
    </void>
   </void>
+  <void property="col_type2">
+   <void method="put">
+    <string>COLUMN_NAME2</string>
+    <string>INT</string>
+   </void>
+   <void method="put">
+    <string>COLUMN_NAME3</string>
+    <string>VARCHAR</string>
+   </void>
+   <void method="put">
+    <string>COLUMN_NAME1</string>
+    <string>VARCHAR</string>
+   </void>
+  </void>
   <void property="names">
    <void method="add">
     <string>column_name1</string>
@@ -26,11 +40,22 @@
     <string>column_name3</string>
    </void>
   </void>
+  <void property="names2">
+   <void method="add">
+    <string>COLUMN_NAME1</string>
+   </void>
+   <void method="add">
+    <string>COLUMN_NAME2</string>
+   </void>
+   <void method="add">
+    <string>COLUMN_NAME3</string>
+   </void>
+  </void>
   <void property="parentDB">
-   <string>TESTDB</string>
+   <string>SAMPLE\59762\TESTDB_INSERT</string>
   </void>
   <void property="table_Name">
-   <string>table_name1</string>
+   <string>table_name3</string>
   </void>
   <void property="types">
    <void method="add">

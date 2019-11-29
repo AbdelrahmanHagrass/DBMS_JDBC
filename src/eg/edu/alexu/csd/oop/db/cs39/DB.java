@@ -63,13 +63,13 @@ public class DB {
 		{
 			this.Tables.get(i).DropTable();
 		}
-		System.out.println(this.file.getAbsoluteFile());
+		//System.out.println(this.file.getAbsoluteFile());
 		final File[] files = this.file.listFiles();
 		for(int i = 0 ; i < files.length ; i++)
 		{
 			files[i].delete();
 		}
-		System.out.println(files.length);	
+		//System.out.println(files.length);	
 	}
 	
 	public String getAbsolutePath()
@@ -94,7 +94,7 @@ public class DB {
 	public DB LoadDataBase(String Databasename) throws 
 IOException ,  FileNotFoundException
 	{
-		System.out.println("a7aa");
+
 		DB temp=new DB(Databasename);
 		File file=new File(Databasename);
 		if(!file.exists())
@@ -104,7 +104,7 @@ IOException ,  FileNotFoundException
 		File []tables=file.listFiles();
 		for(File contents:tables)
 		{
-			System.out.println("leeh msh byd5ol");
+
 			String path=contents.getAbsolutePath();
 			String extension=path.substring(path.length()-4);
 			if(extension.compareTo(".xml")!=0)
@@ -113,7 +113,7 @@ IOException ,  FileNotFoundException
 			}
 			Table a=new Table(Databasename);
 			a=a.LoadTable(path);
-			System.out.println("table is loaded");
+			//System.out.println("table is loaded");
 			temp.Tables.add(a);
 		}
 		return temp;

@@ -98,11 +98,11 @@ public class Gui {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				System.out.println("2flna");
+				//System.out.println("2flna");
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println("bn2fel");
+				//System.out.println("bn2fel");
 				try {
 					db.save();
 				} catch (Exception e1) {
@@ -114,7 +114,7 @@ public class Gui {
 		frame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("22fel");
+				//System.out.println("22fel");
 			}
 		});
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -142,11 +142,11 @@ public class Gui {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (Map.Entry<String, DB> entry : db.m.entrySet()) {
-			
-			System.out.println(entry.getValue().getDatabaseName());
-			System.out.println(entry.getValue().Tables.size());
-		}
+//		for (Map.Entry<String, DB> entry : db.m.entrySet()) {
+//			
+//			System.out.println(entry.getValue().getDatabaseName());
+//			System.out.println(entry.getValue().Tables.size());
+//		}
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

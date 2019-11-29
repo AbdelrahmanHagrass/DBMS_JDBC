@@ -38,7 +38,17 @@ public class Table {
         }
        
     }
- 
+     public Map<String, String> getCol_type2() {
+		return col_type2;
+	}
+
+	public void setCol_type2(Map<String, String> col_type2) {
+		this.col_type2 = col_type2;
+	}
+
+	public void setNames2(Vector<String> names2) {
+		this.names2 = names2;
+	}
     public Table(String Table_Name, Vector<String> names, Vector<String> types) {
         this.Table_Name = Table_Name;
         this.types = (Vector<String>) types.clone();
@@ -50,53 +60,54 @@ public class Table {
         }
     }
  
-    public String getParentDB() {
-        return ParentDB;
-    }
- 
-    public void setParentDB(String parentDB) {
-        ParentDB = parentDB;
-    }
- 
-    public Vector<String> getTypes() {
-        return types;
-    }
- 
-    public void setTypes(Vector<String> types) {
-        this.types = types;
-    }
- 
-    public Vector<String> getNames() {
-        return names;
-    }
-    public Vector<String> getNames2() {
-        return names2;
-    }
- 
-    public void setNames(Vector<String> names) {
-        this.names = names;
-    }
- 
-    public Map<String, String> getCol_type() {
-        return col_type;
-    }
- 
-    public void setCol_type(Map<String, String> col_type) {
-        this.col_type = col_type;
-    }
- 
-    public String getTable_Name() {
-        return Table_Name;
-    }
- 
-    public void setTable_Name(String table_Name) {
-        Table_Name = table_Name;
-    }
- 
-    public void setItems(ArrayList<Vector<Object>> items) {
-        this.items = items;
-    }
- 
+  	public String getParentDB() {
+		return ParentDB;
+	}
+
+	public void setParentDB(String parentDB) {
+		ParentDB = parentDB;
+	}
+
+	public Vector<String> getTypes() {
+		return types;
+	}
+
+	public void setTypes(Vector<String> types) {
+		this.types = types;
+	}
+
+	public Vector<String> getNames() {
+		return names;
+	}
+
+	public Vector<String> getNames2() {
+		return names2;
+	}
+
+	public void setNames(Vector<String> names) {
+		this.names = names;
+	}
+
+	public Map<String, String> getCol_type() {
+		return col_type;
+	}
+
+	public void setCol_type(Map<String, String> col_type) {
+		this.col_type = col_type;
+	}
+
+	public String getTable_Name() {
+		return Table_Name;
+	}
+
+	public void setTable_Name(String table_Name) {
+		Table_Name = table_Name;
+	}
+
+	public void setItems(ArrayList<Vector<Object>> items) {
+		this.items = items;
+	}
+
     public Table(String ParentDB) {
         this.ParentDB = ParentDB;
     }
@@ -115,18 +126,18 @@ public class Table {
             String a = input.get(i).getClass().getSimpleName();
             if (types.get(i).compareTo("VARCHAR")==0) {
                 if (a.compareTo("String") != 0) {
-                    System.out.println("Invalid Input");
+                    //System.out.println("Invalid Input");
                     return 0;
                 }
             } else {
                 if (a.compareTo("Integer") != 0) {
-                    System.out.println("Invalid Input");
+                    //System.out.println("Invalid Input");
                     return 0;
                 }
             }
         }
         items.add((Vector<Object>) input.clone());
-        System.out.println("Insert is done");
+        //System.out.println("Insert is done");
         return 1;
     }
  
@@ -311,9 +322,9 @@ public class Table {
         {
             return null;
         }
-        System.out.println(field);
-        System.out.println(Condition);
-        System.out.println(ID);
+        //System.out.println(field);
+       // System.out.println(Condition);
+       // System.out.println(ID);
         int X=0;
         int Y=0;
         X=names2.indexOf(Condition);
@@ -406,7 +417,7 @@ public class Table {
    
     public int Updatecolumns (Vector<String> col,Vector<Object> values) {
         int count=0;
-        System.out.println("el size"+items.size());
+       // System.out.println("el size"+items.size());
         for(int i=0;i<items.size();i++) {
             count++;
             for(int j=0;j<items.get(0).size();j++) {
@@ -436,7 +447,7 @@ public class Table {
 	    	 items.get(row).setElementAt(O,names2.indexOf(col.get(i++)));
 	    	 
 	     }
-	     System.out.println("count="+count);
+	     //System.out.println("count="+count);
 	     return count;
    }
    
@@ -465,6 +476,7 @@ public class Table {
         FileInputStream file = new FileInputStream(path);
         XMLDecoder a = new XMLDecoder(file);
         Table s = (Table) a.readObject();
+        s.file=new File(path);
         a.close();
         file.close();
         return s;

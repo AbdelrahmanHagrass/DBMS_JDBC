@@ -1,10 +1,9 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
 import java.util.ArrayList;
-import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.*;
+
 public class ArrayListXML {
 	
 	final String names="names";
@@ -12,7 +11,7 @@ public class ArrayListXML {
 	final String items="items";
 	public void Xml(ArrayList<Table>t) throws IOException
 	{
-		Table a=t.get(0);
+		//Table a=t.get(0);
 		FileWriter File =new FileWriter("shakira\\gamda.xml");
 		StringBuilder sb=new StringBuilder();
 		sb.append("<Tables>");

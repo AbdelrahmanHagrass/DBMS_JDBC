@@ -24,13 +24,18 @@ public class Select {
 		this.type = type;
 		this.field = field;
 		this.Condition = Condition;
-		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
-		{
-			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
+		try {
+			for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
 			{
-				toBeSelected =  ParentDB.Tables.get(i) ;
+				if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
+				{
+					toBeSelected =  ParentDB.Tables.get(i) ;
+				}
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+
 	}
 //	String field,String Condition,String ID
 	
@@ -44,9 +49,9 @@ public Select(String TableName , DB ParentDB,int type , String field2 , String f
 		this.field=field;
 		this.Condition = Condition;
 		for(int i = 0 ; i < ParentDB.Tables.size() ; i++)
-		{  System.out.println(ParentDB.Tables.get(i).getTable_Name()+" compare " + TableName);
+		{  //System.out.println(ParentDB.Tables.get(i).getTable_Name()+" compare " + TableName);
 			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
-			{  System.out.println("conditional d5alllll");
+			{  //System.out.println("conditional d5alllll");
 				toBeSelected2 =  ParentDB.Tables.get(i) ;
 			}
 		}

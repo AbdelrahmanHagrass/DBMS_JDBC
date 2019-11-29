@@ -1,31 +1,68 @@
 package eg.edu.alexu.csd.oop.db.cs39;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Vector;
 
 
 public class MainTest {
 	
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws Exception {
 		
 		IDataBase idb = new IDataBase();
 		
-		//Test load
-		/*try {
-			idb.load();
+		Vector<String> names = new Vector<>();
+    	Vector<String> types = new Vector<>();
+    	Vector<Object> input = new Vector<>();
+    	DB first = new DB("data1");
+    	names.add("ahmed");
+		types.add("VARCHAR");
+		names.add("aly");
+		types.add("VARCHAR");
+		names.add("ID");
+		types.add("INT");
+		input.add("Mexico");
+		input.add("das");
+		input.add(12312);
+    	Table H = null;
+		try {
+			H = first.createTable("a0", names, types);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (Map.Entry<String, DB> entry : idb.m.entrySet()) {
-			
-			System.out.println(entry.getValue().getDatabaseName());
-			System.out.println(entry.getValue().Tables.size());
-		}*/
-		idb.QueryManagement("CREATE DATABASE second");
-		idb.executeStructureQuery("CREATE TABLE incomplete_table_name1");
+ 	   first.SaveDataBase();
+ 	  H=H.LoadTable("E:\\JavaProjectsEclipse\\DBMS\\DATA1\\a0.xml");
+ 	  H.InsertIntoTable(input);
+ 	  H.InsertIntoTable(input);
+ 	  Object aj[][] = H.SelectTable();
+ 	   for(int i=0;i<aj.length;i++)
+ 	   {
+ 		   for(int j=0;j<aj[0].length;j++)
+ 		   {
+ 			   System.out.println(aj[i][j]);
+ 		   }
+ 	   }
+ 	  System.out.println(H.getTypes());
+		
+		//Test load
+//		try {
+//			idb.load();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		idb.QueryManagement("SELECT * FROM table1");
+//		for (Map.Entry<String, DB> entry : idb.m.entrySet()) {
+//			
+//			System.out.println(entry.getValue().getDatabaseName());
+//			System.out.println(entry.getValue().Tables.size());
+//		}
+		//idb.QueryManagement("CREATE DATABASE second");
+		//idb.executeStructureQuery("CREATE TABLE incomplete_table_name1");
 		//idb.executeStructureQuery("CREATE TABLE table_name9(column_name1 varchar, column_name2 int, column_name3 varchar)");
         //int count = idb.executeUpdateQuery("UPDATE table_name9 SET column_name1='value1', column_name2=15, column_name3='value2'");
 		
@@ -87,7 +124,7 @@ public class MainTest {
 //		idb.QueryManagement("DELETE FROM table1 WHERE id = 19");
 //		idb.QueryManagement("INSERT INTO table1 (id,name) VALUES (99,'hagrosy el 3agrosy')"); //error
 //		try { 
-//			//idb.lastDB.SaveDataBase();
+//			idb.save();
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
