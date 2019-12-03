@@ -8,267 +8,222 @@ import java.sql.SQLWarning;
 public class StatementImp implements java.sql.Statement {
 
 	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
+	public Connection getConnection() throws SQLException {
+
 		return null;
 	}
-
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public ResultSet executeQuery(String sql) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int executeUpdate(String sql) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void close() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getMaxFieldSize() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMaxFieldSize(int max) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getMaxRows() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMaxRows(int max) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setEscapeProcessing(boolean enable) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getQueryTimeout() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setQueryTimeout(int seconds) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cancel() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SQLWarning getWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void clearWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setCursorName(String name) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public boolean execute(String sql) throws SQLException {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
-
 	@Override
-	public ResultSet getResultSet() throws SQLException {
-		// TODO Auto-generated method stub
+	public ResultSet executeQuery(String sql) throws SQLException {
+
 		return null;
 	}
-
 	@Override
-	public int getUpdateCount() throws SQLException {
-		// TODO Auto-generated method stub
+	public int executeUpdate(String sql) throws SQLException {
+
 		return 0;
 	}
-
 	@Override
-	public boolean getMoreResults() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setFetchDirection(int direction) throws SQLException {
-		// TODO Auto-generated method stub
+	public void close() throws SQLException {
 		
 	}
-
 	@Override
-	public int getFetchDirection() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public void setQueryTimeout(int seconds) throws SQLException {
 
-	@Override
-	public void setFetchSize(int rows) throws SQLException {
-		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public int getFetchSize() throws SQLException {
-		// TODO Auto-generated method stub
+	public int getQueryTimeout() throws SQLException {
+
 		return 0;
 	}
-
-	@Override
-	public int getResultSetConcurrency() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getResultSetType() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	@Override
 	public void addBatch(String sql) throws SQLException {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void clearBatch() throws SQLException {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public int[] executeBatch() throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
+	}
+	//*******************************Unsupported Methods**************************************************
+	@Override
+	public <T> T unwrap(Class<T> iface) throws SQLException {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Connection getConnection() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isWrapperFor(Class<?> iface) throws SQLException {
+		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public int getMaxFieldSize() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setMaxFieldSize(int max) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getMaxRows() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setMaxRows(int max) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setEscapeProcessing(boolean enable) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public void cancel() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SQLWarning getWarnings() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void clearWarnings() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setCursorName(String name) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public ResultSet getResultSet() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getUpdateCount() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean getMoreResults() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setFetchDirection(int direction) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getFetchDirection() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setFetchSize(int rows) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getFetchSize() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getResultSetConcurrency() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getResultSetType() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
 	@Override
 	public boolean getMoreResults(int current) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ResultSet getGeneratedKeys() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int executeUpdate(String sql, int autoGeneratedKeys) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int executeUpdate(String sql, int[] columnIndexes) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int executeUpdate(String sql, String[] columnNames) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean execute(String sql, int autoGeneratedKeys) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean execute(String sql, int[] columnIndexes) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean execute(String sql, String[] columnNames) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int getResultSetHoldability() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void setPoolable(boolean poolable) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isPoolable() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void closeOnCompletion() throws SQLException {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isCloseOnCompletion() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 }

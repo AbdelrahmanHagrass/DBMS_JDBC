@@ -22,397 +22,300 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class ResultSetImp implements java.sql.ResultSet {
-
-	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean next() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void close() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean wasNull() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String getString(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean getBoolean(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public byte getByte(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public short getShort(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getInt(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long getLong(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public float getFloat(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getDouble(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] getBytes(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Date getDate(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Time getTime(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Timestamp getTimestamp(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getAsciiStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getBinaryStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean getBoolean(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public byte getByte(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public short getShort(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getInt(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long getLong(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public float getFloat(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getDouble(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] getBytes(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Date getDate(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Time getTime(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Timestamp getTimestamp(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getAsciiStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getBinaryStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public SQLWarning getWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void clearWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getCursorName() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public ResultSetMetaData getMetaData() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
-	public Object getObject(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public boolean next() throws SQLException {
 
-	@Override
-	public Object getObject(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int findColumn(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Reader getCharacterStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Reader getCharacterStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public BigDecimal getBigDecimal(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isBeforeFirst() throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
-	public boolean isAfterLast() throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean previous() throws SQLException {
+
 		return false;
 	}
-
+	
 	@Override
 	public boolean isFirst() throws SQLException {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean isLast() throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public String getString(int columnIndex) throws SQLException {
 
+		return null;
+	}
+	@Override
+	public String getString(String columnLabel) throws SQLException {
+
+		return null;
+	}
+	@Override
+	public int getInt(String columnLabel) throws SQLException {
+
+		return 0;
+	}
+	@Override
+	public int getInt(int columnIndex) throws SQLException {
+		return 0;
+	}
+	@Override
+	public Object getObject(int columnIndex) throws SQLException {
+
+		return null;
+	}
+	@Override
+	public void close() throws SQLException {
+
+		
+	}
+	@Override
+	public boolean isClosed() throws SQLException {
+
+		return false;
+	}
+	@Override
+	public boolean absolute(int row) throws SQLException {
+
+		return false;
+	}
+	@Override
+	public Statement getStatement() throws SQLException {
+
+		return null;
+	}
 	@Override
 	public void beforeFirst() throws SQLException {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void afterLast() throws SQLException {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public boolean first() throws SQLException {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean last() throws SQLException {
-		// TODO Auto-generated method stub
+
+		return false;
+	}
+	@Override
+	public boolean isBeforeFirst() throws SQLException {
+
 		return false;
 	}
 
+	@Override
+	public boolean isAfterLast() throws SQLException {
+
+		return false;
+	}
+	@Override
+	public int findColumn(String columnLabel) throws SQLException {
+
+		return 0;
+	}
+	//**************************Unsupported Method*****************************************************************
+	@Override
+	public <T> T unwrap(Class<T> iface) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public boolean isWrapperFor(Class<?> iface) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public boolean wasNull() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public boolean getBoolean(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public byte getByte(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public short getShort(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public long getLong(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public float getFloat(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public double getDouble(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public byte[] getBytes(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Date getDate(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Time getTime(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Timestamp getTimestamp(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getAsciiStream(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getBinaryStream(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public boolean getBoolean(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public byte getByte(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public short getShort(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public long getLong(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public float getFloat(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public double getDouble(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public byte[] getBytes(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Date getDate(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Time getTime(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Timestamp getTimestamp(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getAsciiStream(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public InputStream getBinaryStream(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public SQLWarning getWarnings() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public void clearWarnings() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public String getCursorName() throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Object getObject(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Reader getCharacterStream(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Reader getCharacterStream(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public BigDecimal getBigDecimal(String columnLabel) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
 	@Override
 	public int getRow() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
-
-	@Override
-	public boolean absolute(int row) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public boolean relative(int rows) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
-
-	@Override
-	public boolean previous() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public void setFetchDirection(int direction) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public int getFetchDirection() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public void setFetchSize(int rows) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public int getFetchSize() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public int getType() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public int getConcurrency() throws SQLException {
 		// TODO Auto-generated method stub
@@ -707,11 +610,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		
 	}
 
-	@Override
-	public Statement getStatement() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
@@ -899,11 +798,6 @@ public class ResultSetImp implements java.sql.ResultSet {
 		return 0;
 	}
 
-	@Override
-	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void updateNString(int columnIndex, String nString) throws SQLException {
@@ -1168,5 +1062,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.jdbc.cs39;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
@@ -11,44 +12,40 @@ public class DriverImp implements java.sql.Driver {
 
 	@Override
 	public Connection connect(String url, Properties info) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		File dir = (File) info.get("path");
+		String path = dir.getAbsolutePath();
+		return new ConnectionImp(path); // pool
+		}
 	@Override
 	public boolean acceptsURL(String url) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+
+		return true;
 	}
 
 	@Override
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
-
+	//*************************************Unsupported Methods*********************************************************
 	@Override
 	public int getMajorVersion() {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int getMinorVersion() {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean jdbcCompliant() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 }
