@@ -4,18 +4,60 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.util.ArrayList;
+
+import eg.edu.alexu.csd.oop.db.cs39.IDataBase;
 
 public class StatementImp implements java.sql.Statement {
+	
+	private Connection connection;
+	private boolean closed = false;
+	private IDataBase DbManager = IDataBase.getUniqueInstance();
+	private ArrayList<String> commands = new ArrayList<>();
+	private int queryTimeout = Integer.MAX_VALUE;
 
 	@Override
 	public Connection getConnection() throws SQLException {
 
-		return null;
+		if(closed)
+		{
+			throw new SQLException("The statement has been closed.");
+		}
+		return connection;
 	}
+	//Note:When a Statement object is closed, its current ResultSet object, if one exists, is also closed.
+	@Override
+	public void close() throws SQLException {
+		if (closed) {
+			throw new SQLException();
+		}
+		closed = true;	
+	}
+	//true if the first result is a ResultSet object; false if it is an update count or there are no results
 	@Override
 	public boolean execute(String sql) throws SQLException {
-
-		return false;
+		if(!closed)
+		{
+			if(sql.trim().split("\\s+")[0].equalsIgnoreCase("select"))
+			{
+				//Return true if it is a resultset
+				return true;
+			}
+			else if (   sql.trim().split("\\s+")[0].equalsIgnoreCase("insert")
+					 || sql.trim().split("\\s+")[0].equalsIgnoreCase("delete")
+					 || sql.trim().split("\\s+")[0].equalsIgnoreCase("update")    )
+			{
+//				final int result = executeUpdate(sql);
+//				return result > 0 ;
+				return false;
+			}
+			else if (	sql.trim().split("\\s+")[0].equalsIgnoreCase("create")
+					  ||sql.trim().split("\\s+")[0].equalsIgnoreCase("drop")	  )
+			{
+				return false;
+			}
+		}
+		throw new SQLException();
 	}
 	@Override
 	public ResultSet executeQuery(String sql) throws SQLException {
@@ -24,39 +66,66 @@ public class StatementImp implements java.sql.Statement {
 	}
 	@Override
 	public int executeUpdate(String sql) throws SQLException {
+		if (!closed) {
+			return  DbManager.executeUpdateQuery(sql);
+		}
+		throw new SQLException();
+	}
 
-		return 0;
-	}
-	@Override
-	public void close() throws SQLException {
-		
-	}
 	@Override
 	public void setQueryTimeout(int seconds) throws SQLException {
-
-		
+		if (closed) {
+			throw new SQLException("The statement has been closed.");
+		}
+		if (seconds < 0) {
+			throw new SQLException("Invalid Value.");
+		}
+		queryTimeout = seconds;
 	}
 	@Override
 	public int getQueryTimeout() throws SQLException {
-
-		return 0;
+		if (closed) {
+			throw new SQLException("The statement has been closed.");
+		}
+		return queryTimeout;
 	}
 	@Override
 	public void addBatch(String sql) throws SQLException {
-
-		
+		if (closed) {
+			throw new SQLException("The statement has been closed.");
+		}
+		if (sql == null) {
+			throw new SQLException();
+		}
+		if (!sql.trim().startsWith("insert") && !sql.trim().startsWith("update") && !sql.trim().startsWith("delete")
+				&& !sql.trim().startsWith("create") && !sql.trim().startsWith("drop")) {
+			throw new SQLException("INSERT, UPDATE or DELETE queries only");
+		}
+		commands.add(sql);
 	}
-
-	@Override
-	public void clearBatch() throws SQLException {
-
-		
-	}
-
 	@Override
 	public int[] executeBatch() throws SQLException {
-
-		return null;
+		if (closed) {
+			throw new SQLException("The statement has been closed.");
+		}
+		int[] results = new int[commands.size()];
+		int i = 0;
+		for (String command : commands) {
+			if (!command.trim().startsWith("create") && !command.trim().startsWith("drop")) {
+				results[i] = executeUpdate(command);
+			} else {
+				results[i] = 0;
+			}
+			i++;
+		}
+		return results;
+	}
+	@Override
+	public void clearBatch() throws SQLException {
+		if (closed) {
+			throw new SQLException("The statement has been closed.");
+		}
+		commands = new ArrayList<>();		
 	}
 	//*******************************Unsupported Methods**************************************************
 	@Override

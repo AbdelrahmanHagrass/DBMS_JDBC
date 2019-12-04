@@ -44,7 +44,8 @@ public class Gui {
 	private JScrollPane scrollPane;
 	private JTable table;
 	Partitions partitions = new Partitions();
-	IDataBase db = new IDataBase();
+//	IDataBase db = new IDataBase();
+	IDataBase db = IDataBase.getUniqueInstance();
 //	Vector<Vector<Vector>> tables ;
 	JTable[] arr ;
 	private JComboBox comboBox;

@@ -9,8 +9,19 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+
+
+
+
  
 public class IDataBase implements Database {
+	
+	private static IDataBase uniqueInstance = new IDataBase();
+	private IDataBase() {
+	}
+    public static IDataBase getUniqueInstance() {
+    	return uniqueInstance;
+    }
 
  
     Parser parser = new Parser();

@@ -12,7 +12,8 @@ public class MainTest {
 	
 	public static void main(String[] args) throws Exception {
 		
-		IDataBase idb = new IDataBase();
+		//IDataBase idb = new IDataBase();
+		IDataBase idb = IDataBase.getUniqueInstance();
 		
 		Vector<String> names = new Vector<>();
     	Vector<String> types = new Vector<>();
