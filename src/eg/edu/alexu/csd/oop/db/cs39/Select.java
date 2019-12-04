@@ -72,5 +72,16 @@ public Select(String TableName , DB ParentDB,int type , String field2 , String f
 	{
 		return toBeSelected2.SelectCell(type,field2, field, Condition);
 	}
+	//The Methods added here are added to access Vectors of : names,types,table name in the statment class 
+	//to put it in the constructor of the resultset
+	public Vector<String> getTypes () throws Exception
+	{
+		return toBeSelected.getTypes();
+	}
+	public String getTableName()
+	{
+		return toBeSelected.getTable_Name();
+	}
+	
 
 }

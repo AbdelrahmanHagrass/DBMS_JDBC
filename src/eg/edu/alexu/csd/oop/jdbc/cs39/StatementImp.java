@@ -5,8 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import eg.edu.alexu.csd.oop.db.cs39.IDataBase;
+import eg.edu.alexu.csd.oop.db.cs39.Partitions;
+
 
 public class StatementImp implements java.sql.Statement {
 	
@@ -15,10 +18,19 @@ public class StatementImp implements java.sql.Statement {
 	private IDataBase DbManager = IDataBase.getUniqueInstance();
 	private ArrayList<String> commands = new ArrayList<>();
 	private int queryTimeout = Integer.MAX_VALUE;
-
+	
+	public StatementImp(ConnectionImp connection) {
+		this.connection = connection;
+	}
+	public StatementImp(String path , ConnectionImp connection ) {
+		
+		this.connection = connection;
+		//dbManager <------ (path);
+		
+	}
+	
 	@Override
 	public Connection getConnection() throws SQLException {
-
 		if(closed)
 		{
 			throw new SQLException("The statement has been closed.");
@@ -61,8 +73,26 @@ public class StatementImp implements java.sql.Statement {
 	}
 	@Override
 	public ResultSet executeQuery(String sql) throws SQLException {
-
-		return null;
+		if (!closed) {
+			final Object[][] table = DbManager.executeQuery(sql);
+			final String tableName = DbManager.getSelectCommand().getTableName();
+			Vector<String> Names = null;
+			Vector<String> Types = null;
+			try {
+				Names = DbManager.getSelectCommand().getNames();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				Types = DbManager.getSelectCommand().getTypes();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			ResultSetImp currentResultSet = new ResultSetImp(tableName, table,Names , this, Types);
+			//ResultSetImp(TableName, result, Names, Statement, Types)
+			return currentResultSet;
+		}
+		throw new SQLException();
 	}
 	@Override
 	public int executeUpdate(String sql) throws SQLException {

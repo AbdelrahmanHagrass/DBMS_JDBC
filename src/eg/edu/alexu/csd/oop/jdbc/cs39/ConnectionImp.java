@@ -19,6 +19,8 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 
+
+
 public class ConnectionImp implements java.sql.Connection {
 	
 	private String path;
@@ -36,7 +38,10 @@ public class ConnectionImp implements java.sql.Connection {
 		if (closed) {
 			throw new SQLException();
 		}
-		return new StatementImp();
+		if (path == null || path.equalsIgnoreCase("")) {
+			return new StatementImp(this);
+		}
+		return new StatementImp(path, this);
 	}
 	@Override
 	public void close() throws SQLException {

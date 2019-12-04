@@ -22,8 +22,6 @@ public class IDataBase implements Database {
     public static IDataBase getUniqueInstance() {
     	return uniqueInstance;
     }
-
- 
     Parser parser = new Parser();
     Partitions p = new Partitions();
     // Map of all created databases
@@ -38,7 +36,13 @@ public class IDataBase implements Database {
     Update updateTable;
     String querySmall;
     Delete deleteTable;
-    String LastDBpath;
+    String LastDBpath; 
+	//The Methods added here are added to access Vectors of : names,types,table name in the statment class 
+	//to put it in the constructor of the resultset
+    public Select getSelectCommand()
+    {
+    	return selecTable;
+    }
  
     public void QueryManagement(String query) throws SQLException {
         // create db
@@ -144,7 +148,7 @@ public class IDataBase implements Database {
            
             return true;
         } else if (querySmall.contains("create") && querySmall.contains("table")) {
-            //System.out.println("d5l hna");
+
              Boolean tableExist = false ;
                 p.CreateTable(query);
                 if(parser.checkInput(query)==0) {
