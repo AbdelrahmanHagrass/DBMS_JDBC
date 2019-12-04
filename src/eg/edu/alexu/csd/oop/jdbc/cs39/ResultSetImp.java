@@ -25,13 +25,16 @@ public class ResultSetImp implements java.sql.ResultSet {
 	boolean isClosed;
 	Vector<String> Names;
 	StatementImp Statement;
-	public ResultSetImp(Object[][] result, Vector<String> Names, StatementImp Statement) {
-
+	Vector<String>Types;
+	String TableName;
+	public ResultSetImp(String TableName,Object[][] result, Vector<String> Names, StatementImp Statement,Vector<String>Types) {
+		this.Types=Types;
 		this.Names = Names;
 		this.items = result;
 		this.currentRow = 0;
 		this.isClosed = isClosed;
 		this.Statement = Statement;
+		this.TableName=TableName;
 	}
 
 	@Override
@@ -325,6 +328,11 @@ public class ResultSetImp implements java.sql.ResultSet {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	 public ResultSetMetaDataImp getMetaData()
+	 {
+		 ResultSetMetaDataImp a=new ResultSetMetaDataImp(TableName, items, Names, Types);
+		 return a;
+	 }
 ///////////////////////////////////////
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
@@ -530,11 +538,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		return null;
 	}
 
-	@Override
-	public java.sql.ResultSetMetaData getMetaData() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Object getObject(String columnLabel) throws SQLException {
