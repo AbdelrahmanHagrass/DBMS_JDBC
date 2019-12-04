@@ -102,7 +102,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
 			throw new SQLException();	
 		}
-		if (currentRow < 0 && currentRow >= items.length) {
+		if (currentRow < 0 || currentRow >= items.length) {
 			throw new SQLException();	
 		}
 		String s = items[currentRow][columnIndex - 1].getClass().getSimpleName();
@@ -132,7 +132,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (!Names.contains(columnLabel)) {
 			throw new SQLException();	
 		}
-		if (currentRow < 0 && currentRow >= items.length) {
+		if (currentRow < 0 || currentRow >= items.length) {
 			throw new SQLException();	
 		}
 		int X = this.Names.indexOf(columnLabel);
@@ -191,7 +191,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
 			throw new SQLException();
 		}
-		if (currentRow < 0 && currentRow >= items.length) {
+		if (currentRow < 0 || currentRow >= items.length) {
 			throw new SQLException();
 		}
 		String s = items[currentRow][columnIndex - 1].getClass().getSimpleName();
@@ -219,7 +219,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (!Names.contains(columnLabel)) {
 			throw new SQLException();
 		}
-		if (currentRow < 0 && currentRow >= items.length) {
+		if (currentRow < 0|| currentRow >= items.length) {
 			throw new SQLException();
 		}
 		int X = this.Names.indexOf(columnLabel);
