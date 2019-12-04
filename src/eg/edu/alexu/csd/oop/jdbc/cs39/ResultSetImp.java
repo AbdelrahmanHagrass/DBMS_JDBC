@@ -99,7 +99,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		{
 				throw new SQLException();	
 		}
-		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
+		if (items.length == 0 || columnIndex < 1 || columnIndex > items[0].length) {
 			throw new SQLException();	
 		}
 		if (currentRow < 0 || currentRow >= items.length) {
@@ -188,7 +188,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		{
 			throw new SQLException();
 		}
-		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
+		if (items.length == 0 || columnIndex < 1 || columnIndex > items[0].length) {
 			throw new SQLException();
 		}
 		if (currentRow < 0 || currentRow >= items.length) {
