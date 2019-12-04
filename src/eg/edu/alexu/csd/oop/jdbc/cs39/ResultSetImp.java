@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.jdbc.cs39;
+package eg.edu.alexu.csd.oop.jdbc.cs35;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -10,312 +10,604 @@ import java.sql.Clob;
 import java.sql.Date;
 import java.sql.NClob;
 import java.sql.Ref;
-import java.sql.ResultSetMetaData;
 import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
-import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
-
+import java.util.Vector;
 public class ResultSetImp implements java.sql.ResultSet {
-	
-	@Override
-	public ResultSetMetaData getMetaData() throws SQLException {
-		throw new UnsupportedOperationException();
-	}
-	@Override
-	public boolean next() throws SQLException {
+	Object[][] items;
+	int currentRow;
+	boolean isClosed;
+	Vector<String> Names;
+	StatementImp Statement;
+	public ResultSetImp(Object[][] result, Vector<String> Names, StatementImp Statement) {
 
-		return false;
-	}
-	@Override
-	public boolean previous() throws SQLException {
-
-		return false;
-	}
-	
-	@Override
-	public boolean isFirst() throws SQLException {
-
-		return false;
+		this.Names = Names;
+		this.items = result;
+		this.currentRow = 0;
+		this.isClosed = isClosed;
+		this.Statement = Statement;
 	}
 
-	@Override
-	public boolean isLast() throws SQLException {
-		return false;
-	}
-	@Override
-	public String getString(int columnIndex) throws SQLException {
-
-		return null;
-	}
-	@Override
-	public String getString(String columnLabel) throws SQLException {
-
-		return null;
-	}
-	@Override
-	public int getInt(String columnLabel) throws SQLException {
-
-		return 0;
-	}
-	@Override
-	public int getInt(int columnIndex) throws SQLException {
-		return 0;
-	}
-	@Override
-	public Object getObject(int columnIndex) throws SQLException {
-
-		return null;
-	}
-	@Override
-	public void close() throws SQLException {
-
-		
-	}
-	@Override
-	public boolean isClosed() throws SQLException {
-
-		return false;
-	}
 	@Override
 	public boolean absolute(int row) throws SQLException {
-
-		return false;
-	}
-	@Override
-	public Statement getStatement() throws SQLException {
-
-		return null;
-	}
-	@Override
-	public void beforeFirst() throws SQLException {
-
-		
+		if (isClosed == true) {
+			throw new SQLException();
+		}
+		if (items.length == 0 || row > items.length) {
+			return false;
+		}
+		if (row >= 0)
+			currentRow = row - 1;
+		else
+			currentRow = items.length - row;
+		return true;
 	}
 
 	@Override
 	public void afterLast() throws SQLException {
+		if (isClosed == true) {
+			throw new SQLException();
+		}
+		currentRow = items.length;
+	}
 
-		
+	@Override
+	public void beforeFirst() throws SQLException {
+		if (isClosed == true) {
+			throw new SQLException();
+		}
+		currentRow = -1;
+
+	}
+
+	@Override
+	public void close() {
+		isClosed = true;
+	}
+
+	@Override
+
+	public int findColumn(String columnLabel) throws SQLException {
+		if (!Names.contains(columnLabel) || isClosed == true) {
+			throw new SQLException();
+		}
+		int x = this.Names.indexOf(columnLabel);
+		return x;
 	}
 
 	@Override
 	public boolean first() throws SQLException {
-
-		return false;
+		if(isClosed==true)
+		{
+			throw new SQLException();	
+		}
+		if (items.length == 0)
+			return false;
+		currentRow = 0;
+		return true;
 	}
 
 	@Override
-	public boolean last() throws SQLException {
+	public int getInt(int columnIndex) throws SQLException {
+		if(isClosed==true)
+		{
+				throw new SQLException();	
+		}
+		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
+			throw new SQLException();	
+		}
+		if (currentRow < 0 && currentRow >= items.length) {
+			throw new SQLException();	
+		}
+		String s = items[currentRow][columnIndex - 1].getClass().getName();
+		
+			if (s.compareTo("Integer") == 0) {
+				int x = 0;
+				if (items[currentRow][columnIndex - 1] == null) {
+					return 0;
+				}
+				x = (int) items[currentRow][columnIndex - 1];
+				return x;
+			} else {
+				throw new SQLException();
+			}
+		
 
-		return false;
-	}
+		}
+		
+	
+
 	@Override
-	public boolean isBeforeFirst() throws SQLException {
+	public int getInt(String columnLabel) throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();	
+		}
+		if (!Names.contains(columnLabel)) {
+			throw new SQLException();	
+		}
+		if (currentRow < 0 && currentRow >= items.length) {
+			throw new SQLException();	
+		}
+		int X = this.Names.indexOf(columnLabel);
+		String s = items[currentRow][X].getClass().getName();
+	
+			if (s.compareTo("Integer") == 0) {
+				int x = 0;
+				if (items[currentRow][X] == null) {
+					return 0;
+				}
+				x = (int) items[currentRow][X];
+				return x;
+			} else {
+				throw new SQLException();
+			}
+		
 
-		return false;
+	}
+
+	
+
+	@Override
+	public Object getObject(int columnIndex) throws SQLException {
+		// TODO Auto-generated method stub
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		if (columnIndex < 0 || columnIndex >= items.length)
+		{
+			throw new SQLException();
+		}
+		if (currentRow < 0 || currentRow >= items.length)
+		{
+			throw new SQLException();
+		}
+		return items[currentRow][columnIndex - 1];
+	}
+
+	@Override
+	public StatementImp getStatement() throws SQLException {
+		// TODO Auto-generated method stub
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		return this.Statement;
+	}
+
+	@Override
+	public String getString(int columnIndex) throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		if (items.length == 0 || columnIndex < 0 || columnIndex >= items[0].length) {
+			throw new SQLException();
+		}
+		if (currentRow < 0 && currentRow >= items.length) {
+			throw new SQLException();
+		}
+		String s = items[currentRow][columnIndex - 1].getClass().getName();
+		
+			if (s.compareTo("String") == 0) {
+				
+				if (items[currentRow][columnIndex - 1] == null) {
+					return null;
+				}
+				String x  =  (String) items[currentRow][columnIndex - 1];
+				return x;
+			} else {
+				throw new SQLException();
+			}
+		
+		
+	}
+
+	@Override
+	public String getString(String columnLabel) throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		if (!Names.contains(columnLabel)) {
+			throw new SQLException();
+		}
+		if (currentRow < 0 && currentRow >= items.length) {
+			throw new SQLException();
+		}
+		int X = this.Names.indexOf(columnLabel);
+		String s = items[currentRow][X].getClass().getName();
+		
+			if (s.compareTo("String") == 0) {
+			
+				if (items[currentRow][X] == null) {
+					return null;
+				}
+				String x = (String) items[currentRow][X];
+				return x;
+			} else {
+				throw new SQLException();
+			}
+		
 	}
 
 	@Override
 	public boolean isAfterLast() throws SQLException {
+		// TODO Auto-generated method stub
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		return (currentRow == items.length);
+	}
 
+	@Override
+	public boolean isBeforeFirst() throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		// TODO Auto-generated method stub
+		return (currentRow == -1);
+	}
+
+	@Override
+	public boolean isClosed() {
+		// TODO Auto-generated method stub
+		return isClosed;
+	}
+
+	@Override
+	public boolean isFirst() throws SQLException {
+		// TODO Auto-generated method stub
+		if(isClosed==true)
+		{
+			throw new SQLException();
+			
+		}
+		return currentRow == 0;
+	}
+
+	@Override
+	public boolean isLast() throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		// TODO Auto-generated method stub
+		return currentRow == items.length - 1;
+	}
+
+	@Override
+	public boolean last() throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		if (items.length == 0)
+			return false;
+		currentRow = items.length - 1;
+		return true;
+	}
+
+	@Override
+	public boolean next() throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+			
+		}
+		if (currentRow + 1 <= items.length) {
+			currentRow++;
+			return true;
+		}
+		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
-	public int findColumn(String columnLabel) throws SQLException {
 
-		return 0;
+	@Override
+	public boolean previous() throws SQLException {
+		if(isClosed==true)
+		{
+			throw new SQLException();
+		}
+		if (currentRow - 1 >= -1) {
+			currentRow--;
+			return true;
+		}
+		// TODO Auto-generated method stub
+		return false;
 	}
-	//**************************Unsupported Method*****************************************************************
+///////////////////////////////////////
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public boolean wasNull() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public boolean getBoolean(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public byte getByte(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public short getShort(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public long getLong(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public float getFloat(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public double getDouble(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public byte[] getBytes(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Date getDate(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Time getTime(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public boolean getBoolean(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public byte getByte(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public short getShort(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public long getLong(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public float getFloat(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public double getDouble(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public byte[] getBytes(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Date getDate(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Time getTime(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Timestamp getTimestamp(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getAsciiStream(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public InputStream getBinaryStream(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public SQLWarning getWarnings() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public void clearWarnings() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		
 	}
+
 	@Override
 	public String getCursorName() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public java.sql.ResultSetMetaData getMetaData() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public Object getObject(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Reader getCharacterStream(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public Reader getCharacterStream(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public BigDecimal getBigDecimal(String columnLabel) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public int getRow() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public boolean relative(int rows) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public void setFetchDirection(int direction) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		
 	}
+
 	@Override
 	public int getFetchDirection() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public void setFetchSize(int rows) throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		
 	}
+
 	@Override
 	public int getFetchSize() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public int getType() throws SQLException {
-		throw new UnsupportedOperationException();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public int getConcurrency() throws SQLException {
 		// TODO Auto-generated method stub
@@ -610,7 +902,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		
 	}
 
-
+	
 
 	@Override
 	public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
@@ -797,7 +1089,6 @@ public class ResultSetImp implements java.sql.ResultSet {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 	@Override
 	public void updateNString(int columnIndex, String nString) throws SQLException {
@@ -1062,7 +1353,5 @@ public class ResultSetImp implements java.sql.ResultSet {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }
