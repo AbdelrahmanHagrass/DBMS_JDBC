@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.jdbc.cs39;
+package eg.edu.alexu.csd.oop.jdbc.cs35;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -105,7 +105,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (currentRow < 0 && currentRow >= items.length) {
 			throw new SQLException();	
 		}
-		String s = items[currentRow][columnIndex - 1].getClass().getName();
+		String s = items[currentRow][columnIndex - 1].getClass().getSimpleName();
 		
 			if (s.compareTo("Integer") == 0) {
 				int x = 0;
@@ -136,7 +136,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 			throw new SQLException();	
 		}
 		int X = this.Names.indexOf(columnLabel);
-		String s = items[currentRow][X].getClass().getName();
+		String s = items[currentRow][X].getClass().getSimpleName();
 	
 			if (s.compareTo("Integer") == 0) {
 				int x = 0;
@@ -194,7 +194,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		if (currentRow < 0 && currentRow >= items.length) {
 			throw new SQLException();
 		}
-		String s = items[currentRow][columnIndex - 1].getClass().getName();
+		String s = items[currentRow][columnIndex - 1].getClass().getSimpleName();
 		
 			if (s.compareTo("String") == 0) {
 				
@@ -223,7 +223,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 			throw new SQLException();
 		}
 		int X = this.Names.indexOf(columnLabel);
-		String s = items[currentRow][X].getClass().getName();
+		String s = items[currentRow][X].getClass().getSimpleName();
 		
 			if (s.compareTo("String") == 0) {
 			
