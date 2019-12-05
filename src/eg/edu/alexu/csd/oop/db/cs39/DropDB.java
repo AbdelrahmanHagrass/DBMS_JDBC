@@ -33,7 +33,11 @@ public class DropDB implements Command {
 
 		try {
 			//System.out.println(databaseName + "gowa el execute bta3 el dropdb");
-			m.get(databaseName.toUpperCase()).DropDatabase();
+			if(m.get(databaseName.toUpperCase()) != null)
+			{
+				m.get(databaseName.toUpperCase()).DropDatabase();
+			}
+			
 			//m.remove(databaseName.toUpperCase());
 			
 		} catch (Exception e) {

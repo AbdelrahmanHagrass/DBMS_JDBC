@@ -143,15 +143,11 @@ public class IDataBase implements Database {
             //System.out.println(p.getDropDataBaseName()+"   zx");
             DBcommandDrop = new DropDB(p.getDropDataBaseName().toUpperCase(), m);
             DBcommandDrop.execute();
-            if(lastDB.getDatabaseName().compareTo(p.getDropDataBaseName())==0)
+            if(lastDB!=null && lastDB.getDatabaseName().compareTo(p.getDropDataBaseName())==0 )
             {
             	lastDB = null;
             }
             m.remove(p.getDropDataBaseName().toUpperCase());
-           
- 
- 
-           
             return true;
         } else if (querySmall.contains("create") && querySmall.contains("table")) {
 
@@ -160,6 +156,7 @@ public class IDataBase implements Database {
                 if(parser.checkInput(query)==0) {
                  throw new SQLException("sdfsdf");
                 }
+                System.out.println(lastDB==null);
                 for(int i = 0 ; i < lastDB.Tables.size() ; i++)
                 {
                     if( p.getTablename().compareTo(lastDB.Tables.get(i).getTable_Name()) == 0 )

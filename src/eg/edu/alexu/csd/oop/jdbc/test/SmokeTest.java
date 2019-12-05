@@ -40,6 +40,7 @@ public class SmokeTest {
         Properties info = new Properties();
         File dbDir = new File("sample" + System.getProperty("file.separator") + (Math.random() * 100000));
         info.put("path", dbDir.getAbsoluteFile());
+        System.out.println(dbDir.getAbsolutePath());
         Connection connection = driver.connect("jdbc:xmldb://localhost", info);
         {
             Statement statement = connection.createStatement();
