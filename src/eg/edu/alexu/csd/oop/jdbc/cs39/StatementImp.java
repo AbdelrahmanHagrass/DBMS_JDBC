@@ -25,7 +25,7 @@ public class StatementImp implements java.sql.Statement {
 	public StatementImp(String path , ConnectionImp connection ) {
 		
 		this.connection = connection;
-		//dbManager <------ (path);
+		DbManager.SetPath(path);
 		
 	}
 	
@@ -53,19 +53,21 @@ public class StatementImp implements java.sql.Statement {
 			if(sql.trim().split("\\s+")[0].equalsIgnoreCase("select"))
 			{
 				//Return true if it is a resultset
+				DbManager.executeQuery(sql);
 				return true;
 			}
 			else if (   sql.trim().split("\\s+")[0].equalsIgnoreCase("insert")
 					 || sql.trim().split("\\s+")[0].equalsIgnoreCase("delete")
 					 || sql.trim().split("\\s+")[0].equalsIgnoreCase("update")    )
 			{
-//				final int result = executeUpdate(sql);
-//				return result > 0 ;
-				return false;
+				final int result = executeUpdate(sql);
+				return result > 0 ;
+//				return false;
 			}
 			else if (	sql.trim().split("\\s+")[0].equalsIgnoreCase("create")
 					  ||sql.trim().split("\\s+")[0].equalsIgnoreCase("drop")	  )
 			{
+				DbManager.executeStructureQuery(sql);
 				return false;
 			}
 		}

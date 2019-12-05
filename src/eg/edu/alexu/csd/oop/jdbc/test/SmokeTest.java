@@ -23,6 +23,7 @@ public class SmokeTest {
         Driver driver = (Driver)TestRunner.getImplementationInstanceForInterface(Driver.class);
         Properties info = new Properties();
         File dbDir = new File("sample" + System.getProperty("file.separator") + ((int)(Math.random() * 100000)));
+        System.out.println(dbDir.getAbsolutePath());
         info.put("path", dbDir.getAbsoluteFile());
         Connection connection = driver.connect("jdbc:xmldb://localhost", info);
         Statement statement = connection.createStatement();
@@ -319,11 +320,13 @@ public class SmokeTest {
             int count1 = statement.executeUpdate("INSERT INTO table_name13(column_NAME1, COLUMN_name3, column_name2) VALUES ('value1', 'value3', 4)");
             Assert.assertNotEquals("Insert returned zero rows", 0, count1);
             boolean result1 = statement.execute("INSERT INTO table_name13(column_NAME1, column_name2, COLUMN_name3) VALUES ('value1', 8, 'value3')");
+            System.out.println(result1);
             Assert.assertTrue("Wrong return for insert record", result1);
             int count3 = statement.executeUpdate("INSERT INTO table_name13(column_name1, COLUMN_NAME3, column_NAME2) VALUES ('value2', 'value4', 5)");
             Assert.assertNotEquals("Insert returned zero rows", 0, count3);
             int count4 = statement.executeUpdate("INSERT INTO table_name13(column_name1, COLUMN_NAME3, column_NAME2) VALUES ('value5', 'value6', 6)");
             Assert.assertNotEquals("Insert returned zero rows", 0, count4);
+            System.out.println("hello");
             boolean result2 = statement.execute("SELECT column_name1 FROM table_name13 WHERE coluMN_NAME2 = 8");
             Assert.assertTrue("Wrong return for select existing records", result2);
             boolean result3 = statement.execute("SELECT column_name1 FROM table_name13 WHERE coluMN_NAME2 > 100");

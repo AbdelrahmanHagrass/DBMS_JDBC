@@ -16,11 +16,17 @@ public class MainTest {
 //		File dbDir = new File("/*your database folder location*/");
 //		info.put("path", dbDir.getAbsoluteFile());
 //		Connection connection = (Connection) driver.connect("jdbc:xmldb://localhost", info);
-		String s = "create database data1";
-		System.out.println(s.trim().split("\\s")[0]);
-		System.out.println(s.trim().split("\\s")[1] + " 1");
-		System.out.println(s.trim().split("\\s")[2]);
-		System.out.println(s.trim());
+		
+//		String s = "create database data1";
+//		System.out.println(s.trim().split("\\s")[0]);
+//		System.out.println(s.trim().split("\\s")[1] + " 1");
+//		System.out.println(s.trim().split("\\s")[2]);
+//		System.out.println(s.trim());
+		
+		String s = "/home/databasename//nono";
+		System.out.println(s.trim().split("(/)")[1]);
+		String[] pathnames = s.trim().split("(/)");
+		System.out.println(pathnames[pathnames.length-1]);
 	}
 	
 

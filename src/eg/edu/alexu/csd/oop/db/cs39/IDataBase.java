@@ -43,6 +43,12 @@ public class IDataBase implements Database {
     {
     	return selecTable;
     }
+    public void SetPath(String path)
+    {
+    	String[] pathnames = path.trim().split("(/)");
+    	String DesiredDB = pathnames[pathnames.length-1];
+    	this.lastDB=m.get(DesiredDB);
+    }
  
     public void QueryManagement(String query) throws SQLException {
         // create db
@@ -326,6 +332,7 @@ public class IDataBase implements Database {
             entry.getValue().SaveDataBase();
         }
     }
+
     public void savedatabasenames() throws Exception
     {
         BufferedWriter bw = new BufferedWriter(new FileWriter(".\\DatabaseNames.txt"));
