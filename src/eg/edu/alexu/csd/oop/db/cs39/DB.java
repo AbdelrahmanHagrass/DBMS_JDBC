@@ -8,6 +8,8 @@ import java.util.*;
 
 public class DB {
 	
+	String MainDirectoryPath;
+	
 	public String getDatabaseName() {
 		return DatabaseName;
 	}
@@ -23,10 +25,18 @@ public class DB {
 	String DatabaseName;
 	ArrayList<Table>Tables=new ArrayList<Table>();
 	File file;
-	public DB(String DatabaseName) throws FileNotFoundException
+	public DB(String DatabaseName,String MainDirectoryPath) throws FileNotFoundException
 	{
-		
-		File File =new File(DatabaseName);
+		this.MainDirectoryPath = MainDirectoryPath;
+		File File;
+		if(MainDirectoryPath!=null)
+		{
+			File =new File(MainDirectoryPath+System.getProperty("file.separator")+DatabaseName);
+		}
+		else
+		{
+			File = new File(DatabaseName);
+		}
 		 if(!File.exists())
 		 {
 			 File.mkdirs();
@@ -95,7 +105,7 @@ public class DB {
 IOException ,  FileNotFoundException
 	{
 
-		DB temp=new DB(Databasename);
+		DB temp=new DB(Databasename,MainDirectoryPath);
 		File file=new File(Databasename);
 		if(!file.exists())
 		{

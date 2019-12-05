@@ -70,7 +70,9 @@ public Select(String TableName , DB ParentDB,int type , String field2 , String f
 	}
 	public Object[][] executeColumn () throws Exception
 	{
-		return toBeSelected2.SelectCell(type,field2, field, Condition);
+		System.out.println("ana gada3");
+		System.out.println(toBeSelected==null);
+		return toBeSelected.SelectCell(type,field2, field, Condition);
 	}
 	//The Methods added here are added to access Vectors of : names,types,table name in the statment class 
 	//to put it in the constructor of the resultset
@@ -80,6 +82,8 @@ public Select(String TableName , DB ParentDB,int type , String field2 , String f
 	}
 	public String getTableName()
 	{
+		System.out.println("eltable");
+		System.out.println(toBeSelected2==null);
 		return toBeSelected.getTable_Name();
 	}
 	

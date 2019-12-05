@@ -9,10 +9,12 @@ public class CreateDB implements Command{
 
 	DB newDB ;
 	String databasename;
+	String MainDirectoryPath;
 	
-	public CreateDB(String databasename) {
+	public CreateDB(String databasename,String MainDirectoryPath) {
 		
 		this.databasename = databasename;
+		this.MainDirectoryPath= MainDirectoryPath;
 	}
 	
 	public DB getDB() {
@@ -33,7 +35,7 @@ public class CreateDB implements Command{
 	public void execute() throws SQLException {
 		
 		try {
-			newDB = new DB(this.databasename);
+			newDB = new DB(this.databasename,MainDirectoryPath);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

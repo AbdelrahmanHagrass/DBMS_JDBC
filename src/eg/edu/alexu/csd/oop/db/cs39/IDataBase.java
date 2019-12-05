@@ -37,6 +37,7 @@ public class IDataBase implements Database {
     String querySmall;
     Delete deleteTable;
     String LastDBpath; 
+    String MainDirectoryPath = null;
 	//The Methods added here are added to access Vectors of : names,types,table name in the statment class 
 	//to put it in the constructor of the resultset
     public Select getSelectCommand()
@@ -45,9 +46,10 @@ public class IDataBase implements Database {
     }
     public void SetPath(String path)
     {
-    	String[] pathnames = path.trim().split("(/)");
-    	String DesiredDB = pathnames[pathnames.length-1];
-    	this.lastDB=m.get(DesiredDB);
+    	//String[] pathnames = path.trim().split("(/)");
+    	//String DesiredDB = pathnames[pathnames.length-1];
+    	//this.lastDB=m.get(DesiredDB);
+    	this.MainDirectoryPath = path;
     }
  
     public void QueryManagement(String query) throws SQLException {
@@ -84,7 +86,7 @@ public class IDataBase implements Database {
  
         if (m.containsKey(databaseName.toUpperCase()) == false) {
  
-            DBcommandCreate = new CreateDB(databaseName.toUpperCase());
+            DBcommandCreate = new CreateDB(databaseName.toUpperCase(),MainDirectoryPath);
             try {
                 executeStructureQuery("createdatabase");
             } catch (SQLException e) {
@@ -98,7 +100,7 @@ public class IDataBase implements Database {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            DBcommandCreate = new CreateDB(databaseName.toUpperCase());
+            DBcommandCreate = new CreateDB(databaseName.toUpperCase(),MainDirectoryPath);
             try {
                 executeStructureQuery("createdatabase");
             } catch (SQLException e) {
@@ -120,10 +122,11 @@ public class IDataBase implements Database {
             p.CreateDatabase(query);
            
             LastDBpath = this.createDatabase(p.getDatabasename().toUpperCase(), false);
-               DBcommandCreate = new CreateDB(p.getDatabasename().toUpperCase());
+               DBcommandCreate = new CreateDB(p.getDatabasename().toUpperCase(),MainDirectoryPath);
                DBcommandCreate.execute();
             m.put(DBcommandCreate.getnameofDB().toUpperCase(), DBcommandCreate.getDB());
-            lastDB = DBcommandCreate.getDB();
+            this.lastDB = DBcommandCreate.getDB();
+            System.out.println("here "+ this.lastDB.getDatabaseName());
             return true;
            }
     	
@@ -145,6 +148,7 @@ public class IDataBase implements Database {
             DBcommandDrop.execute();
             if(lastDB!=null && lastDB.getDatabaseName().compareTo(p.getDropDataBaseName())==0 )
             {
+            	System.out.println("ms7 el 3rs");
             	lastDB = null;
             }
             m.remove(p.getDropDataBaseName().toUpperCase());
@@ -157,7 +161,7 @@ public class IDataBase implements Database {
                  throw new SQLException("sdfsdf");
                 }
                 System.out.println(lastDB==null);
-                for(int i = 0 ; i < lastDB.Tables.size() ; i++)
+                for(int i = 0 ; i < this.lastDB.Tables.size() ; i++)
                 {
                     if( p.getTablename().compareTo(lastDB.Tables.get(i).getTable_Name()) == 0 )
                     {
@@ -204,6 +208,7 @@ public class IDataBase implements Database {
         if (parser.checkInput(query) == 1) {
             p.SelectTable(query);
             selecTable = new Select(p.getTablename(), lastDB, 0, null, query);
+            System.out.println("tmam hna");
             try {
                 return selecTable.execute();
             } catch (Exception e) {
