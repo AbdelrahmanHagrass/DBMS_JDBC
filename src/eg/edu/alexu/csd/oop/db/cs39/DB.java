@@ -55,7 +55,12 @@ public class DB {
 	public Table createTable(String tablename,Vector<String>names,Vector<String>types) throws IOException
 	{
 		Table New=new Table(tablename,names,types,DatabaseName);
-		FileOutputStream file2=new FileOutputStream(DatabaseName+"\\"+tablename+".xml");
+		FileOutputStream file2 ;
+		if(MainDirectoryPath!=null) {
+	    file2=new FileOutputStream(MainDirectoryPath+"\\"+DatabaseName+"\\"+tablename+".xml");
+		}else {
+		file2=new FileOutputStream(DatabaseName+"\\"+tablename+".xml");
+		}
 		file2.close();
 		this.Tables.add(New);
 		try {
@@ -96,7 +101,7 @@ public class DB {
 	{
 		for(int i=0;i<Tables.size();i++)
 		{
-			this.Tables.get(i).SaveTable();
+			this.Tables.get(i).SaveTable(MainDirectoryPath);
 		
 		}
 	}

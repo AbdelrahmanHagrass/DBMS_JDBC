@@ -458,9 +458,16 @@ public class Table {
         return items;
     }
  
-    public void SaveTable() throws Exception// assumed that you have created a database that will contian the table
+    public void SaveTable(String mainDirectoryPath) throws Exception// assumed that you have created a database that will contian the table
     {
-        FileOutputStream file = new FileOutputStream(ParentDB + "\\" + Table_Name + ".xml");
+    	 FileOutputStream file ;
+    	if(mainDirectoryPath==null) {
+
+            file = new FileOutputStream(ParentDB + "\\" + Table_Name + ".xml");	
+    	}else {
+
+             file = new FileOutputStream(mainDirectoryPath+"\\"+ParentDB + "\\" + Table_Name + ".xml");	
+    	}
         XMLEncoder a = new XMLEncoder(file);
         Table s = new Table(this.Table_Name, this.names, this.types, this.ParentDB);
         s.items=(ArrayList<Vector<Object>>) SelectFromTable(this.names).getItems().clone();

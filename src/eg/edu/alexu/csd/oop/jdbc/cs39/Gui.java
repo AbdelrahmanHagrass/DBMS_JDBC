@@ -264,7 +264,9 @@ public class Gui {
  			public void windowClosing(WindowEvent e) {
  				//System.out.println("bn2fel");
  				try {
-// 					stmt.save();
+
+ 					DbManager.save();
+
  				} catch (Exception e1) {
  					// TODO Auto-generated catch block
  					e1.printStackTrace();
@@ -297,35 +299,47 @@ public class Gui {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-//                if(rs.items.length>0) {
-//               
-//                      Vector<String>     names1=  rs.Names;
-//                        table = new JTable();
-//                        scrollPane.setViewportView(table);
-//                        DefaultTableModel tableModel = new DefaultTableModel() {
-// 
-//                            @Override
-//                            public boolean isCellEditable(int row, int column) {
-//                               //all cells false
-//                               return false;
-//                            }
-//                        };
-//                        table.setModel(tableModel);
-//                         model = (DefaultTableModel) table.getModel();
-//           
-//                        for(int j=0;j<names1.size();j++) {
-//                            model.addColumn(names1.get(j));
-//                           
-//                        }
-//                        for(int i=0;i<rs.items.length;i++) {
-//                           
-//                                model.addRow(rs.items[i]);
-//                           
-//                        }
-//                   
-//                       input.setText("success :)");
-//                   
-//                }
+
+
+                if(input.getText().trim().split("\\s+")[0].equalsIgnoreCase("select")) {
+               try {
+				rs=	(ResultSetImp) stmt.executeQuery(input.getText());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+                }
+                
+                if(rs!=null&&rs.items.length>0) {
+               
+                      Vector<String>     names1=  rs.Names;
+                        table = new JTable();
+                        scrollPane.setViewportView(table);
+                        DefaultTableModel tableModel = new DefaultTableModel() {
+ 
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                               //all cells false
+                               return false;
+                            }
+                        };
+                        table.setModel(tableModel);
+                         model = (DefaultTableModel) table.getModel();
+           
+                        for(int j=0;j<names1.size();j++) {
+                            model.addColumn(names1.get(j));
+                           
+                        }
+                        for(int i=0;i<rs.items.length;i++) {
+                           
+                                model.addRow(rs.items[i]);
+                           
+                        }
+                   
+                       input.setText("success :)");
+                   
+                }
+
 //              if (parser.checkInput(input.getText()) == 8) {
 //                  Vector<String> columns= partitions.CreateTable(input.getText());
 //                  table = new JTable();
