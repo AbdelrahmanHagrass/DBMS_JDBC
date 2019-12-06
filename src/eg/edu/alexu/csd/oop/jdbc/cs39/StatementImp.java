@@ -67,8 +67,8 @@ public class StatementImp implements java.sql.Statement {
 			else if (	sql.trim().split("\\s+")[0].equalsIgnoreCase("create")
 					  ||sql.trim().split("\\s+")[0].equalsIgnoreCase("drop")	  )
 			{
-				 DbManager.QueryManagement(sql);
-				 return true;
+				 //DbManager.QueryManagement(sql);
+				 return DbManager.executeStructureQuery(sql);
 				//return false;
 			}
 		}

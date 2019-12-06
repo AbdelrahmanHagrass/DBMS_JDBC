@@ -1,0 +1,6 @@
+Dec 06, 2019 4:39:25 PM eg.edu.alexu.csd.oop.jdbc.cs39.Gui pathInit
+INFO: connection to database C:\Users\Abdelrahman Nour\Desktop succeeded
+Dec 06, 2019 4:39:33 PM eg.edu.alexu.csd.oop.jdbc.cs39.Gui$5 mouseClicked
+INFO: CREATE DATABASE datafff
+Dec 06, 2019 4:41:00 PM eg.edu.alexu.csd.oop.jdbc.cs39.Gui$5 mouseClicked
+INFO: CREATE TABLE table_name9(column_name1 varchar, column_name2 int, column_name3 varchar)
