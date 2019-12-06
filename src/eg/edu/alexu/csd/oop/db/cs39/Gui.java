@@ -298,8 +298,11 @@ public class Gui {
 				else if (parser.checkInput(input.getText())==12||parser.checkInput(input.getText())==7||parser.checkInput(input.getText())==5||parser.checkInput(input.getText())==6||parser.checkInput(input.getText())==11) {
                        try {
                     	   System.out.println("sh215o");
-                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
-						Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
+                    	   
+                    	   Vector<String>	 names1=  db.getNames(db.p.getTablename()); 
+   						Object[][] table1 =  db.executeQuery("SELECT * FROM "+db.p.getTablename());
+//                    Vector<String>	 names1=  db.getNames((String) comboBox.getSelectedItem());
+//						Object[][] table1 =  db.executeQuery("SELECT * FROM "+comboBox.getSelectedItem());
 						table = new JTable();
 						scrollPane.setViewportView(table);
 						DefaultTableModel tableModel = new DefaultTableModel() {

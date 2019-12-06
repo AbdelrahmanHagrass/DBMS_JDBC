@@ -52,10 +52,10 @@
    </void>
   </void>
   <void property="parentDB">
-   <string>TESTDB</string>
+   <string>SAMPLE\72518\TESTDB_UPDATE</string>
   </void>
   <void property="table_Name">
-   <string>table_name2</string>
+   <string>table_name8</string>
   </void>
   <void property="types">
    <void method="add">

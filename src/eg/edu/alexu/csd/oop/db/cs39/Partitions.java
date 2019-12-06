@@ -162,6 +162,27 @@ public void selecttwocolumnscondition(String s) {
 	//Value=s.substring(index+1).trim();
 	Value=temp.substring(temp.indexOf(s.charAt(index))+1);
 }
+//public void Updatecolumnsconditions(String s) {
+//	String main=s;
+//	s=s.toUpperCase();
+//	tablename=(s.substring(s.indexOf("UPDATE")+7, s.indexOf("SET"))).trim();
+//	String temp []=(main.substring(s.indexOf("SET")+4, s.indexOf("WHERE"))).split(",");
+//	Vector<String> columns=new Vector();
+//	Vector<Object> values=new Vector();
+//	for(String t : temp) {
+//		t=t.trim();
+//		columns.add((t.substring(0, t.indexOf('='))).trim().toUpperCase());
+//		String g=t.substring(t.indexOf('=')+1).trim();
+//		if(g.chars().allMatch(Character::isDigit)) {
+//		values.add(Integer.parseInt(g));}
+//		else {values.add(g);}
+//	}
+//	int index=0;
+//	Column1=s.substring(s.indexOf("WHERE")+6, s.lastIndexOf('=')).trim();
+//	Value1=main.substring(main.lastIndexOf('=')+1).trim();
+//	
+//	Columns=columns;Values=values;
+//}
 public void Updatecolumnsconditions(String s) {
 	String main=s;
 	s=s.toUpperCase();
@@ -178,9 +199,11 @@ public void Updatecolumnsconditions(String s) {
 		else {values.add(g);}
 	}
 	int index=0;
-	Column1=s.substring(s.indexOf("WHERE")+6, s.lastIndexOf('=')).trim();
-	Value1=main.substring(main.lastIndexOf('=')+1).trim();
-	
+	if(s.contains(">")) {index=s.indexOf('>');Operator=1;}
+	else if(s.contains("<")) {index=s.indexOf('<');Operator=-1;}
+	else {index=s.lastIndexOf('=');Operator=0;}
+	Column1=s.substring(s.indexOf("WHERE")+6, index).trim();
+	Value1=main.substring(index+1).trim();
 	Columns=columns;Values=values;
 }
 

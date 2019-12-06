@@ -447,27 +447,67 @@ public class Table {
         return count;
     }
    
-   public int Updatecolumnscondition(Vector<String> col,Vector<Object> values,String column,String value) {
-	     int X=names2.indexOf(column),row=-1;
+//   public int Updatecolumnscondition(Vector<String> col,Vector<Object> values,String column,String value) {
+//	     int X=names2.indexOf(column),row=-1;
+//	     int count=0;
+//	    
+//	     for(int i=0;i<items.size();i++) {
+//	    	 if(value.compareToIgnoreCase(items.get(i).get(X).toString())==0) {
+//	    		
+//	    		 row=i;
+//	    		 count++;
+//	    	 }
+//	    	 
+//	     }
+//	     if(row==-1) {return 0;}
+//	    int i=0;
+//	     for(Object O : values) {
+//	    	 items.get(row).setElementAt(O,names2.indexOf(col.get(i++)));
+//	    	 
+//	     }
+//	     //System.out.println("count="+count);
+//	     return count;
+//   }
+    public int Updatecolumnscondition(Vector<String> col,Vector<Object> values,String column,String value,int Operator) {
+	     int X=names2.indexOf(column);
 	     int count=0;
-	    
+	    if(Operator==0) {
 	     for(int i=0;i<items.size();i++) {
 	    	 if(value.compareToIgnoreCase(items.get(i).get(X).toString())==0) {
-	    		
-	    		 row=i;
 	    		 count++;
-	    	 }
-	    	 
-	     }
-	     if(row==-1) {return 0;}
-	    int i=0;
+	    int j=0;
 	     for(Object O : values) {
-	    	 items.get(row).setElementAt(O,names2.indexOf(col.get(i++)));
-	    	 
+	    	 items.get(i).setElementAt(O,names2.indexOf(col.get(j++)));
+	    	 }
+          }    	 
 	     }
-	     //System.out.println("count="+count);
+	    }
+	    else if(Operator==1) {
+	    	  for(int i=0;i<items.size();i++) {
+	 	    	 if(value.compareToIgnoreCase(items.get(i).get(X).toString())<0) {
+	 	    		 count++;
+	 	    int j=0;
+	 	     for(Object O : values) {
+	 	    	 items.get(i).setElementAt(O,names2.indexOf(col.get(j++)));
+	 	    	 }
+	            }    	 
+	 	     }
+	    }
+	    else {
+	    	  for(int i=0;i<items.size();i++) {
+	 	    	 if(value.compareToIgnoreCase(items.get(i).get(X).toString())>0) {
+	 	    		 count++;
+	 	    int j=0;
+	 	     for(Object O : values) {
+	 	    	 items.get(i).setElementAt(O,names2.indexOf(col.get(j++)));
+	 	    	 }
+	            }    	 
+	 	     }
+	    }
+	    
+	    
 	     return count;
-   }
+  }
    
    
    

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.2" class="java.beans.XMLDecoder">
+ <object class="eg.edu.alexu.csd.oop.db.cs39.Table" id="Table0">
+  <void property="col_type">
+   <void method="put">
+    <string>name</string>
+    <string>VARCHAR</string>
+   </void>
+   <void method="put">
+    <string>id</string>
+    <string>INT</string>
+   </void>
+  </void>
+  <void property="col_type2">
+   <void method="put">
+    <string>ID</string>
+    <string>INT</string>
+   </void>
+   <void method="put">
+    <string>NAME</string>
+    <string>VARCHAR</string>
+   </void>
+  </void>
+  <void property="items">
+   <void method="add">
+    <object class="java.util.Vector">
+     <void method="add">
+      <int>39</int>
+     </void>
+     <void method="add">
+      <string>&apos;body&apos;</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="java.util.Vector">
+     <void method="add">
+      <int>19</int>
+     </void>
+     <void method="add">
+      <string>&apos;ayman&apos;</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="names">
+   <void method="add">
+    <string>id</string>
+   </void>
+   <void method="add">
+    <string>name</string>
+   </void>
+  </void>
+  <void property="names2">
+   <void method="add">
+    <string>ID</string>
+   </void>
+   <void method="add">
+    <string>NAME</string>
+   </void>
+  </void>
+  <void property="parentDB">
+   <string>DATAG</string>
+  </void>
+  <void property="table_Name">
+   <string>table1</string>
+  </void>
+  <void property="types">
+   <void method="add">
+    <string>INT</string>
+   </void>
+   <void method="add">
+    <string>VARCHAR</string>
+   </void>
+  </void>
+ </object>
+</java>

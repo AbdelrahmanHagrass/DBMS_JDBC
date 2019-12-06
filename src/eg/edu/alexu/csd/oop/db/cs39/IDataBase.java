@@ -240,9 +240,96 @@ public class IDataBase implements Database {
         }
     }
  
-    @Override
+//    @Override
+//    public int executeUpdateQuery(String query) throws java.sql.SQLException {
+//       
+//        // insert //update //delete
+//        querySmall = query.toLowerCase();
+//        if (querySmall.contains("insert")) {
+//             p.parent=lastDB;
+//             p.Insert(query);
+//            insertTable = new Insert(p.getTablename() , lastDB, p.getvalues());
+//            try {
+// 
+//                return insertTable.execute();
+// 
+//            } catch (Exception e) {
+//                e.printStackTrace();
+// 
+//                return 0;
+//            }
+// 
+//        }else if(querySmall.contains("update")&&querySmall.contains("where")&&querySmall.contains(",")) {
+//        	p.Updatecolumnsconditions(query);
+//        	//updateTable = new Update(p.getTablename(),lastDB,)
+//        	updateTable = new Update(p.getTablename(), lastDB,p.getcolumns(),p.getvalues(),p.getUpdatecolumn1(),p.getUpdatevalue1());
+//            try {
+//                return updateTable.execute();
+//            } catch (Exception e) {
+//                return 0;
+//            }
+//        }
+//        else if (querySmall.contains("update")&&querySmall.contains("where")) {
+//            p.Update(query);
+//            updateTable = new Update(p.getTablename(), lastDB, p.getOperator(), p.getUpdatevalue2(),
+//                    p.getUpdatecolumn2(), p.getUpdatecolumn1(), p.getUpdatevalue1());
+//            //System.out.println(p.getOperator());
+//           
+//            try {
+//                return updateTable.execute();
+//            } catch (Exception e) {
+//                return 0;
+//            }
+//        } else if(querySmall.contains("update")) {
+//            p.Updatecolumns(query);
+//            //System.out.println("d5al hna fel update");
+//            updateTable = new Update(p.getTablename(),lastDB,p.getcolumns(),p.getvalues());
+//            try {
+//                return updateTable.execute();
+//            } catch (Exception e) {
+//                // TODO Auto-generated catch block
+//            	
+//                //System.out.println("asdasdasd");
+//                e.printStackTrace();
+//                return 0;
+//            }
+//        }
+// 
+//        else if (querySmall.contains("delete")) {
+//            if(parser.checkInput(query)==5) {
+//                p.Delete(query);
+//           // System.out.println(p.getDeletevalue()+p.getDeletecolumn());
+//            deleteTable = new Delete(p.getTablename(), lastDB, p.getDeletevalue(),  p.getDeletecolumn());
+//            try {
+//                return deleteTable.execute();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return 0;
+//            }
+//        }else if (parser.checkInput(query)==11) {
+//            p.DeleteAll(query);
+////          System.out.println(p.getDeletevalue()+p.getDeletecolumn());
+//            deleteTable = new Delete(p.getTablename(), lastDB,null,null);
+//            //System.out.println(p.getTablename()+"deleteall");
+//            try {
+//                return deleteTable.execute();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return 0;
+//            }
+//        }
+//           
+//       
+//       
+//       
+//       
+//        } else {
+//            return 0;
+//        }
+//        return 0;
+//    }
     public int executeUpdateQuery(String query) throws java.sql.SQLException {
-       
+        
         // insert //update //delete
         querySmall = query.toLowerCase();
         if (querySmall.contains("insert")) {
@@ -259,28 +346,17 @@ public class IDataBase implements Database {
                 return 0;
             }
  
-        }else if(querySmall.contains("update")&&querySmall.contains("where")&&querySmall.contains(",")) {
+        }else if(querySmall.contains("update")&&querySmall.contains("where")) {
         	p.Updatecolumnsconditions(query);
         	//updateTable = new Update(p.getTablename(),lastDB,)
-        	updateTable = new Update(p.getTablename(), lastDB,p.getcolumns(),p.getvalues(),p.getUpdatecolumn1(),p.getUpdatevalue1());
+        	updateTable = new Update(p.getTablename(), lastDB,p.getcolumns(),p.getvalues(),p.getUpdatecolumn1(),p.getUpdatevalue1(),p.getOperator());
             try {
                 return updateTable.execute();
             } catch (Exception e) {
                 return 0;
             }
         }
-        else if (querySmall.contains("update")&&querySmall.contains("where")) {
-            p.Update(query);
-            updateTable = new Update(p.getTablename(), lastDB, p.getOperator(), p.getUpdatevalue2(),
-                    p.getUpdatecolumn2(), p.getUpdatecolumn1(), p.getUpdatevalue1());
-            //System.out.println(p.getOperator());
-           
-            try {
-                return updateTable.execute();
-            } catch (Exception e) {
-                return 0;
-            }
-        } else if(querySmall.contains("update")) {
+        else if(querySmall.contains("update")) {
             p.Updatecolumns(query);
             //System.out.println("d5al hna fel update");
             updateTable = new Update(p.getTablename(),lastDB,p.getcolumns(),p.getvalues());
@@ -318,22 +394,26 @@ public class IDataBase implements Database {
                 return 0;
             }
         }
-           
-       
-       
-       
-       
+    
         } else {
             return 0;
         }
         return 0;
     }
+//    public void save() throws Exception
+//    {
+//        savedatabasenames();
+//        for (Map.Entry<String, DB> entry : m.entrySet()) {
+//            entry.getValue().SaveDataBase();
+//        }
+//    }
     public void save() throws Exception
-    {
+    {    m.remove(lastDB.getDatabaseName());
         savedatabasenames();
         for (Map.Entry<String, DB> entry : m.entrySet()) {
             entry.getValue().SaveDataBase();
         }
+        lastDB.SaveDataBase();
     }
 
     public void savedatabasenames() throws Exception
