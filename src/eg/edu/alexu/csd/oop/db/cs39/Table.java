@@ -334,10 +334,27 @@ public class Table {
         for(int i=0;i<items.size();i++)
         {
             String j=items.get(i).get(X).toString();
+            if (this.col_type.get(names.get(X)).compareTo("INT") == 0) {
+                int x = Integer.parseInt(j);
+                int y = Integer.parseInt(ID);
+                if (type == 0 && x == y) {
+                	out[k][0]=items.get(i).get(Y);
+                    k++;
+                } else if (type == 1 && x > y) {
+                	out[k][0]=items.get(i).get(Y);
+                    k++;
+                } else if (type == -1 && x < y) {
+                	out[k][0]=items.get(i).get(Y);
+                    k++;
+                }
+            }
+            else {
+            
             if (type == 0 && j.compareTo(ID)==0) {
                 out[k][0]=items.get(i).get(Y);
                 k++;
             } else if (type == 1 && j.compareTo(ID)>0) {
+            	System.out.println(ID+" and "+j);
                 out[k][0]=items.get(i).get(Y);
                 k++;
             } else if (type == -1 && j.compareTo(ID)<0) {
@@ -345,6 +362,7 @@ public class Table {
                 k++;
             }
         }
+    }
         Object [][]out1=new Object[k][1];
         for(int i=0;i<k;i++) {
             out1[i][0]=out[i][0];

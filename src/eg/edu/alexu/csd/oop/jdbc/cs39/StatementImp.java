@@ -53,7 +53,14 @@ public class StatementImp implements java.sql.Statement {
 			if(sql.trim().split("\\s+")[0].equalsIgnoreCase("select"))
 			{
 				//Return true if it is a resultset
-				DbManager.executeQuery(sql);
+			Object[][]arr=	DbManager.executeQuery(sql);
+			if(arr!=null&&arr.length==0) {
+				return false ;
+			}
+			System.out.println(arr[0].length);
+		  for(int i=0;i<arr.length;i++) {
+			  System.out.println(arr[i][0]);
+		  }
 				return true;
 			}
 			else if (   sql.trim().split("\\s+")[0].equalsIgnoreCase("insert")
@@ -67,8 +74,8 @@ public class StatementImp implements java.sql.Statement {
 			else if (	sql.trim().split("\\s+")[0].equalsIgnoreCase("create")
 					  ||sql.trim().split("\\s+")[0].equalsIgnoreCase("drop")	  )
 			{
-				 DbManager.QueryManagement(sql);
-				 return true;
+				  DbManager.QueryManagement(sql);
+				 return DbManager.executeStructureQuery(sql);
 				//return false;
 			}
 		}

@@ -220,6 +220,7 @@ public class IDataBase implements Database {
         else if (parser.checkInput(query) == 10) {
             p.selecttwocolumnscondition(query);
             selecTable = new Select(p.getTablename(),lastDB,p.getOperator(),p.getselectconditioncloumn1(),p.getselectconditioncloumn2(),p.getselectconditionvalue());
+            System.out.println(p.getOperator());
             try {
                 return selecTable.executeColumn();
             } catch (Exception e) {

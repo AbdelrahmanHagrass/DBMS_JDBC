@@ -322,7 +322,7 @@ public class Gui {
                         table.setModel(tableModel);
                          model = (DefaultTableModel) table.getModel();
            
-                        for(int j=0;j<names1.size();j++) {
+                        for(int j=0;j<rs.items[0].length;j++) {
                             model.addColumn(names1.get(j));
                            
                         }
