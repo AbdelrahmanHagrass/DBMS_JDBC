@@ -52,7 +52,7 @@ public Select(String TableName , DB ParentDB,int type , String field2 , String f
 		{  //System.out.println(ParentDB.Tables.get(i).getTable_Name()+" compare " + TableName);
 			if(ParentDB.Tables.get(i).getTable_Name().compareToIgnoreCase(TableName)==0 )
 			{  //System.out.println("conditional d5alllll");
-				toBeSelected2 =  ParentDB.Tables.get(i) ;
+				toBeSelected =  ParentDB.Tables.get(i) ;
 			}
 		}
 	}

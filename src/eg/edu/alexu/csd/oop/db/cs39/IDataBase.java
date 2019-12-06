@@ -76,7 +76,7 @@ public class IDataBase implements Database {
         else if (parser.checkInput(query) == 9||parser.checkInput(query) == 1||parser.checkInput(query)==10) {
             this.executeQuery(query);
         } else {
- 
+           throw new SQLException();
         }
  
     }
