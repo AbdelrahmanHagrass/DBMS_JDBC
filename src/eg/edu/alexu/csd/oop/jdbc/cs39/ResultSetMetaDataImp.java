@@ -20,7 +20,7 @@ public class ResultSetMetaDataImp implements java.sql.ResultSetMetaData {
 	}
 	public  int getColumnCount()
 	{
-		return Names.size();
+		return items[0].length;
 	}
 	public  String getColumnLabel(int column)
 	{

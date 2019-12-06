@@ -160,15 +160,18 @@ public class ResultSetImp implements java.sql.ResultSet {
 	@Override
 	public Object getObject(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
+		//row 0 column1
+		System.out.println(currentRow +" " +columnIndex);
 		if(isClosed==true)
 		{
 			throw new SQLException();
 		}
-		if (columnIndex < 0 || columnIndex >= items.length)
-		{
+		if (columnIndex < 0 || columnIndex >= items[0].length)
+		{ System.out.println("leh ya 3m" +items.length);
+		System.out.println("hwa da"+items[currentRow-1][columnIndex - 1]);
 			throw new SQLException();
 		}
-		if (currentRow < 0 || currentRow >= items.length)
+		if (currentRow < 0 || currentRow > items.length)
 		{
 			throw new SQLException();
 		}
@@ -309,6 +312,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		}
 		if (currentRow + 1 <= items.length) {
 			currentRow++;
+			System.out.println("3mlna next" +currentRow);
 			return true;
 		}
 		// TODO Auto-generated method stub
@@ -323,6 +327,7 @@ public class ResultSetImp implements java.sql.ResultSet {
 		}
 		if (currentRow - 1 >= -1) {
 			currentRow--;
+			System.out.println("3mlna prev" + currentRow);
 			return true;
 		}
 		// TODO Auto-generated method stub
